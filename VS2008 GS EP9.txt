@@ -1,0 +1,30 @@
+
+Include Files
+/////////////////////////////////////////////////////////////
+C:\RAN-GS_EP9\Source\=Include
+C:\RAN-GS_EP9\Source\=DX_Include
+C:\RAN-GS_EP9\Source\=boost\tr1
+C:\RAN-GS_EP9\Source\=cURL
+C:\RAN-GS_EP9\Source\=MsgPack\include
+C:\RAN-GS_EP9\Source\zlib\include
+C:\RAN-GS_EP9\Source\=Html5UI_Interface
+C:\RAN-GS_EP9\RanThirdParty\OpenSSL\include\openssl
+C:\RAN-GS_EP9\RanThirdParty\OpenSSL\include
+/////////////////////////////////////////////////////////////
+
+
+Library Files
+/////////////////////////////////////////////////////////////
+C:\RAN-GS_EP9\Source\=Library
+C:\RAN-GS_EP9\Source\=Library_C
+C:\RAN-GS_EP9\Source\=DX_Lib\x86
+C:\RAN-GS_EP9\Source\=cURL\lib
+C:\RAN-GS_EP9\RanThirdParty\Boost_1_56\lib
+C:\RAN-GS_EP9\RanThirdParty\Boost_1_43\lib
+C:\RAN-GS_EP9\RanThirdParty\OpenSSL\Lib
+C:\RAN-GS_EP9\RanThirdParty\OpenSSL\include\openssl
+C:\RAN-GS_EP9\RanThirdParty\LibXl\lib
+C:\RAN-GS_EP9\RanThirdParty\DirectX\Lib\x86
+C:\RAN-GS_EP9\RanThirdParty\PhysX_3_2\Lib
+C:\RAN-GS_EP9\RanThirdParty\XtremeToolKit\Lib
+/////////////////////////////////////////////////////////////

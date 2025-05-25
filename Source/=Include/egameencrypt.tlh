@@ -1,0 +1,87 @@
+﻿// Created by Microsoft (R) C/C++ Compiler Version 15.00.30729.01 (6271aff3).
+//
+// j:\_work\ran\_obj\release\agentserver\egameencrypt.tlh
+//
+// C++ source equivalent of Win32 type library ../../=DLL/EGameEncrypt.dll
+// compiler-generated file created 12/20/20 at 21:25:19 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("7bcaaa0d-ed89-4f0e-a990-80c2df2058dd"))
+/* LIBID */ __EGAMEENCRYPTLib;
+struct /* coclass */ EGameEncrypt;
+struct __declspec(uuid("4f3642d1-5aff-499a-92da-8d3aef5ee32b"))
+/* dual interface */ IEGameEncrypt;
+struct /* coclass */ Rpiemd160;
+struct __declspec(uuid("c5edbbec-e507-4741-8fe3-3f5f78d86497"))
+/* dual interface */ IRpiemd160;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IEGameEncrypt, __uuidof(IEGameEncrypt));
+_COM_SMARTPTR_TYPEDEF(IRpiemd160, __uuidof(IRpiemd160));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("c47f5bd3-0e04-41c5-a417-fa453f5ee3be"))
+EGameEncrypt;
+    // [ default ] interface IEGameEncrypt
+
+struct __declspec(uuid("4f3642d1-5aff-499a-92da-8d3aef5ee32b"))
+IEGameEncrypt : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall Encode (
+        BSTR org,
+        BSTR * dest ) = 0;
+      virtual HRESULT __stdcall Decode (
+        BSTR org,
+        BSTR * dest ) = 0;
+};
+
+struct __declspec(uuid("cec0dc44-42bb-41d2-ba5d-34cfd1e15ccb"))
+Rpiemd160;
+    // [ default ] interface IRpiemd160
+
+struct __declspec(uuid("c5edbbec-e507-4741-8fe3-3f5f78d86497"))
+IRpiemd160 : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall Hash (
+        /*[in]*/ BSTR org,
+        /*[out,retval]*/ BSTR * dest ) = 0;
+};
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_EGAMEENCRYPTLib =
+    {0x7bcaaa0d,0xed89,0x4f0e,{0xa9,0x90,0x80,0xc2,0xdf,0x20,0x58,0xdd}};
+extern "C" const GUID __declspec(selectany) CLSID_EGameEncrypt =
+    {0xc47f5bd3,0x0e04,0x41c5,{0xa4,0x17,0xfa,0x45,0x3f,0x5e,0xe3,0xbe}};
+extern "C" const GUID __declspec(selectany) IID_IEGameEncrypt =
+    {0x4f3642d1,0x5aff,0x499a,{0x92,0xda,0x8d,0x3a,0xef,0x5e,0xe3,0x2b}};
+extern "C" const GUID __declspec(selectany) CLSID_Rpiemd160 =
+    {0xcec0dc44,0x42bb,0x41d2,{0xba,0x5d,0x34,0xcf,0xd1,0xe1,0x5c,0xcb}};
+extern "C" const GUID __declspec(selectany) IID_IRpiemd160 =
+    {0xc5edbbec,0xe507,0x4741,{0x8f,0xe3,0x3f,0x5f,0x78,0xd8,0x64,0x97}};
+
+#pragma pack(pop)
