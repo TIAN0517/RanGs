@@ -227,6 +227,7 @@
 #include "OldUI/WorldBattleSystem/WorldBattleButton.h"
 #include "OldUI/SelectiveformBox/SelectiveformBoxWindow.h"
 #include "OldUI/PK Streak/AnimatedPKStreak.h"
+#include "KillCard/KillCardManager.h"
 
 
 #include "../RanLogicClient/Command/dxincommand.h"
@@ -313,15 +314,15 @@ void CInnerInterface::SetVisibleReferCharacterAdditionalWindow( bool bVisible )
 	return m_pReferCharWindow->SetVisibleReferCharacterAdditionalWindow( bVisible );
 }
 
-//! ´Ý±â ¼º°ø½Ã true¸¦ ¸®ÅÏ
+//! ï¿½Ý±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 const bool CInnerInterface::CloseFocusWindow()
 {
 	bool bALLHIDE = true;
 
 	//	NOTE
-	//		µ¿½Ã¿¡ µÎ °÷¿¡¼­ FocusList¿¡
-	//		Á¢±ÙÇÒ °¡´É¼ºÀÌ ¾ø´Ù´Â °¡Á¤ÀÌ ÀÖ¾î¾ß ÇÑ´Ù.
-	//		À§ÇèÇÏ±º ¤Ñ.¤Ñ
+	//		ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ FocusListï¿½ï¿½
+	//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
+	//		ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½.ï¿½ï¿½
 	CUIFocusContainer::UICONTROL_FOCUSLIST list = uiman::GetInnerUIMan().GetFocusList()->GetFocusList ();
 	CUIFocusContainer::UICONTROL_FOCUSLIST_RITER riter = list.rbegin ();
 	CUIFocusContainer::UICONTROL_FOCUSLIST_RITER riter_end = list.rend ();
@@ -352,7 +353,7 @@ const bool CInnerInterface::CloseFocusWindow()
 			cID != COMPETITION_TOURNAMENTENT_INDICATOR
             )
 		{
-			// Non Close UI´Â ´ÝÁö ¾Ê´Â´Ù;
+			// Non Close UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½;
 			bool bNonCloseUI = false;
 			for( unsigned int i=0; i<m_vNonCloseUI.size(); ++i )
 			{
@@ -399,7 +400,7 @@ const bool CInnerInterface::CloseFocusWindow()
 			else if ( cID == MINIPARTY_WINDOW )
 			{
                 //UiShowGroupBottom ( MINIPARTY_OPEN );
-				// #ifdef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+				// #ifdef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				//					UpdatePotionTrayPosition();
 				// #endif
 				//bAnotherProcess = true;	
@@ -420,11 +421,11 @@ const bool CInnerInterface::CloseFocusWindow()
 			{
 				SetItemRebuildWindowClose();
 			}
-			else if( cID == ITEM_GARBAGE_WINDOW )	// ÈÞÁöÅë
+			else if( cID == ITEM_GARBAGE_WINDOW )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				CloseItemGarbageWindow();
 			}
-			else if( cID == ITEM_MIX_WINDOW || cID == ITEM_MIX_INVEN_WINDOW )	// ¾ÆÀÌÅÛ Á¶ÇÕ
+			else if( cID == ITEM_MIX_WINDOW || cID == ITEM_MIX_INVEN_WINDOW )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				SetItemMixWindowClose();
 			}
@@ -457,7 +458,7 @@ const bool CInnerInterface::CloseFocusWindow()
 				|| cID == MINIMAP_TARGET || cID == BALLOON_SPACE_BAR
 				|| cID == TUTORIAL_VIEW_STEP
                  )
-			{	// ESC·Î ´ÝÈ÷Áö ¸»¾Æ¾ß ÇÒ Æ©Åä¸®¾ó UI Ã¼Å©.
+			{	// ESCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ Æ©ï¿½ä¸®ï¿½ï¿½ UI Ã¼Å©.
 				bAnotherProcess = true;
 
 				if ( UiIsVisibleGroup ( ESC_MENU ) )
@@ -498,23 +499,23 @@ const bool CInnerInterface::CloseFocusWindow()
                 cID == COMPETITION_PVEENTRANCECONFIRM ||
                 cID == COMPETITION_PVERETRY )
             {
-                // PVE ÃÊ´ë, PVE ÀçµµÀü Ã¢ÀÇ °æ¿ì ESCÅ° ¿¹¿Ü Ã³¸®
+                // PVE ï¿½Ê´ï¿½, PVE ï¿½çµµï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ ESCÅ° ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
                 bAnotherProcess = true;
-                // PVE ´ÙÀÌ¾ó·Î±×
+                // PVE ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½
             }
 			else if ( cID == PARTY_TENDER_NOTIFY_BUTTON )
 			{
-				// ÆÄÆ¼¾ÆÀÌÅÛºÐ¹è ¾Ë¸²¹öÆ° ESCÅ° ¿¹¿Ü Ã³¸®
+				// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ÛºÐ¹ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½Æ° ESCÅ° ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 				bAnotherProcess = true;
 			}
             else if ( cID == RNCOMPETITION_RESULT_WINDOW )
             {
-                // ÀüÀå °ø¿ë °á°ú UIÀÇ °æ¿ì ESCÅ° ¿¹¿Ü Ã³¸®;
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½ ESCÅ° ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½;
                 bAnotherProcess = true;
             }
             else if ( cID == FORCE_REBIRTH )
             {
-                // °­Á¦ºÎÈ° Å¸ÀÌ¸Ó UIÀÇ °æ¿ì ESCÅ° ¸ÔÈ÷Áö ¾Êµµ·Ï Ã³¸®;
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È° Å¸ï¿½Ì¸ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½ ESCÅ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ Ã³ï¿½ï¿½;
                 bAnotherProcess = true;
             }
 			else if( cID == COSTUME_STATS_WINDOW )
@@ -569,7 +570,7 @@ void CInnerInterface::CloseAllWindow()
 //		else if ( cID == MINIPARTY_WINDOW )
 //		{
 //            UiShowGroupBottom ( MINIPARTY_OPEN );
-////			#ifdef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+////			#ifdef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 ////				UpdatePotionTrayPosition();
 ////			#endif
 //		}
@@ -581,11 +582,11 @@ void CInnerInterface::CloseAllWindow()
 		{
 			SetItemRebuildWindowClose();
 		}
-		else if( cID == ITEM_GARBAGE_WINDOW )	// ÈÞÁöÅë
+		else if( cID == ITEM_GARBAGE_WINDOW )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			CloseItemGarbageWindow();
 		}
-		else if( cID == ITEM_MIX_WINDOW || cID == ITEM_MIX_INVEN_WINDOW )	// ¾ÆÀÌÅÛ Á¶ÇÕ
+		else if( cID == ITEM_MIX_WINDOW || cID == ITEM_MIX_INVEN_WINDOW )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			SetItemMixWindowClose();
 		}
@@ -600,7 +601,7 @@ void CInnerInterface::CloseAllWindow()
 
 		EMSERVICE_PROVIDER sp = GLogicData::GetInstance().GetServiceProvider();
 
-		// »ç¶óÁö¸é ¾ÈµÇ´Â ÄÁÆ®·ÑÀ» Á¦¿ÜÇÑ ÄÁÆ®·ÑÀ» ¼û±ä´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 		if(
 			cID != BASIC_CHAT_BOX &&
 			cID != BASIC_INFO_VIEW &&
@@ -609,7 +610,7 @@ void CInnerInterface::CloseAllWindow()
 			cID != MIN_GROUP_CHAT_WINDOW &&
 			cID != MINIPARTY_WINDOW )
 		{
-			// Non Close UI´Â ´ÝÁö ¾Ê´Â´Ù;
+			// Non Close UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½;
 			bool bNonCloseUI = false;
 			for( unsigned int i=0; i<m_vNonCloseUI.size(); ++i )
 			{
@@ -749,13 +750,13 @@ void CInnerInterface::OpenTutorialViewStep()
 
 void CInnerInterface::SetDamage ( D3DXVECTOR3 vPos, int nDamage, DWORD dwDamageFlag, BOOL bAttack )
 {
-	//	Ä«¸Þ¶ó ÇÁ¸®Áò °ø°£¾È¿¡ µ¥¹ÌÁö À§Ä¡°¡ ÀÖ´ÂÁö °Ë»ç.
+	//	Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½.
 	//
 	const CLIPVOLUME &CV = DxViewPort::GetInstance().GetClipVolume();
 	BOOL bOK = COLLISION::IsCollisionVolume(CV,vPos,vPos);
 	if ( !bOK )				return;
 	
-	//	ÁöÇü¿¡ °¡·ÁÁö´Â ºÎºÐ¿¡¼­ µ¥¹ÌÁö°¡ À§Ä¡ÇÏ´ÂÁö °Ë»ç.
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÎºÐ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½.
 	//
 	GLLandManClient* pLandClient = m_pGaeaClient->GetActiveMap();
 	GASSERT(pLandClient&&"m_pGaeaClient->GetActiveMap()");
@@ -765,7 +766,7 @@ void CInnerInterface::SetDamage ( D3DXVECTOR3 vPos, int nDamage, DWORD dwDamageF
 	GASSERT(pLandMan&&"pLandClient->GetLandMan()");
 	if ( !pLandMan )		return;
 
-    //Ä«¸Þ¶óÀÇ ½Ã¾ß·Î ÀÎÇÑ ÄÃ¸µ
+    //Ä«ï¿½Þ¶ï¿½ï¿½ï¿½ ï¿½Ã¾ß·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½
 	D3DXVECTOR3 vPoint1 = DxViewPort::GetInstance().GetFromPt();
 	D3DXVECTOR3 vPoint2 = vPos;
 	D3DXVECTOR3 vCollision;
@@ -774,10 +775,10 @@ void CInnerInterface::SetDamage ( D3DXVECTOR3 vPos, int nDamage, DWORD dwDamageF
 	pLandMan->IsCollision( vPoint1, vPoint2, vCollision, bCollision, pDxFrame, EMCC_CULL_CCW );
 	if ( bCollision )		return;
 
-    //¿ÀºêÁ§Æ® ÄÃ¸µ ¿É¼ÇÀÌ ÄÑÁ®ÀÖ´Â ¸ÊÀÏ °æ¿ì
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ã¸ï¿½ ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     if ( pLandClient->IsCullByObjectMap() == true )
     {
-        //Ä³¸¯ÅÍÀÇ ½Ã¾ß·Î ÀÎÇÑ ÄÃ¸µ
+        //Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¾ß·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½
         bCollision = FALSE;
         vPoint1 = m_pGaeaClient->GetCharacter()->GetPosition();
         pLandMan->IsCollision( vPoint1, vPoint2, vCollision, bCollision, pDxFrame, EMCC_CULL_CCW );
@@ -787,8 +788,8 @@ void CInnerInterface::SetDamage ( D3DXVECTOR3 vPos, int nDamage, DWORD dwDamageF
 	D3DXVECTOR3 vScreen = DxViewPort::GetInstance().ComputeVec3Project ( &vPos, NULL );
 	const UIRECT& rcOriginPos = m_pDamageDisplayMan->GetGlobalPos ();
 
-	//	Note : µ¥¹ÌÁö ÁÂ¿ì·Î Èð¾îÁ®¼­ ³ª¿Àµµ·Ï.
-	//	20 ÀÌÇÏÀÇ °ª¿¡¼­ ¼³Á¤
+	//	Note : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+	//	20 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     int nPosX = (int)( vScreen.x - ( rcOriginPos.sizeX * 0.5f ));
 	int nPosY = (int)( vScreen.y - rcOriginPos.sizeY );
 
@@ -925,7 +926,7 @@ void CInnerInterface::SetTargetInfo( STARGETID sTargetID, const UI::EMTARGETINFO
 			switch ( pCrow->m_pCrowData->m_emNPCType )
 			{
             case NPC_TYPE_AUTHENTICATOR:
-                // ÀÎÁõ±âÀÇ °æ¿ì HP Ç¥½Ã¸¦ ´Ù¸£°Ô ÇÑ´Ù.;
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ HP Ç¥ï¿½Ã¸ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.;
 				{
 					float fPercentSM = float(pCrow->m_arrHP4School[SCHOOL_SM]) / float(sHP.dwMax);
 					float fPercentHA = float(pCrow->m_arrHP4School[SCHOOL_HA]) / float(sHP.dwMax);
@@ -1005,7 +1006,7 @@ void CInnerInterface::SetTargetInfo( STARGETID sTargetID, const UI::EMTARGETINFO
             
             if ( bOldVersion )
             {
-                // ±¸¹öÀü HPÇ¥½Ã ¹æ½Ä : ´ë·Ã,Æ¯Á¤ PVP ÄÁÅÙÃ÷ÀÌ¿ë½Ã ¿¹¿ÜÃ³¸®·Î HP Ç¥½Ã±â´ÉÀ» Á¦ÇÑ½ÃÅ´;
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ HPÇ¥ï¿½ï¿½ ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½,Æ¯ï¿½ï¿½ PVP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ HP Ç¥ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ½ï¿½Å´;
                 bool bPKServer		= m_pGaeaClient->IsPKServer();
                 bool bBRIGHTEVENT   = m_pGaeaClient->IsBRIGHTEVENT();
                 bool bSCHOOL_FREEPK = m_pGaeaClient->IsSchoolFreePk();
@@ -1014,7 +1015,7 @@ void CInnerInterface::SetTargetInfo( STARGETID sTargetID, const UI::EMTARGETINFO
                 bool bGuidBattleMap = ( pLand->m_bClubBattle || pLand->m_bClubDeathMatch );
 
                 bHpVisible = true;
-                //	´ë·Ã ¶Ç´Â PK°¡ ¾Æ´Ï¸é, ÇÇ¸¦ Ç¥½ÃÇÏÁö ¾Ê´Â´Ù.
+                //	ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ PKï¿½ï¿½ ï¿½Æ´Ï¸ï¿½, ï¿½Ç¸ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
                 if ( !m_pGaeaClient->GetCharacter()->ISCONFRONT_TAR ( sTargetID ) &&
                     !m_pGaeaClient->GetCharacter()->IS_PLAYHOSTILE ( pCOPY->GetCharID() ) )
                 {
@@ -1027,11 +1028,11 @@ void CInnerInterface::SetTargetInfo( STARGETID sTargetID, const UI::EMTARGETINFO
 
             if ( bHpVisible == false )
             {
-                //	ÇÇÇ¥½Ã¸¸ ¸·À½ ( ¸Æ½Ã¸Ø )
+                //	ï¿½ï¿½Ç¥ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½Æ½Ã¸ï¿½ )
                 sHP.TO_FULL ();
             }
 
-			//	ÀÌ¸§ »ö (PK_COLOR)
+			//	ï¿½Ì¸ï¿½ ï¿½ï¿½ (PK_COLOR)
 			//dwColor = pCHAR->GET_PK_OR_GM_COLOR();
 			if( pCHAR->m_dwUserLvl < USER_USER_GM )
 				dwColor = pCHAR->GET_PK_COLOR();
@@ -1087,11 +1088,11 @@ void CInnerInterface::SetTargetInfo( STARGETID sTargetID, const UI::EMTARGETINFO
 
 
 	//	NOTE
-	//		Æ÷Áö¼Ç ¼³Á¤
+	//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
         UiHideGroup( TARGETINFO_DISPLAY );
 
-		// Note : ÀÌ¸§Ç¥½Ã ³ôÀÌÁ¶Àý
+		// Note : ï¿½Ì¸ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		D3DXVECTOR3 vPos = pCOPY->GetPosBodyHeight();
 		D3DXVECTOR3 vScreen = DxViewPort::GetInstance().ComputeVec3Project( &vPos, NULL );
 
@@ -1127,7 +1128,7 @@ void CInnerInterface::SetTargetInfo( STARGETID sTargetID, const UI::EMTARGETINFO
 		    UiShowGroupBottom( TARGETINFO_DISPLAY );
         }
 
-		//	Áßº¹ ÀÌ¸§ Áö¿ì±â
+		//	ï¿½ßºï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 		if ( m_pNameDisplayMan )	
 			m_pNameDisplayMan->VisibleTargetInfoCtrl ( sTargetID.emCrow, sTargetID.GaeaId, FALSE );
 	}
@@ -1184,7 +1185,7 @@ void CInnerInterface::SetStorageWindowNpcOpen ( const SNATIVEID sNPCID, const DW
     {
         CloseAllWindowFromNPC();
         
-        //2013-03-29 ±âÈ¹ÀÇµµ¿¡ µû¶ó PostWindow¸¦ °°ÀÌ ¿­ ¼ö ¾ø´Ù.
+        //2013-03-29 ï¿½ï¿½È¹ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ PostWindowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
         SetPostWindowClose();
 
 		if( GLUseFeatures::GetInstance().IsUsingRenewInvenWindow() )
@@ -1288,7 +1289,7 @@ void CInnerInterface::SetBusWindowClose()
     UiHideGroup ( BUS_WINDOW );
 }
 
-// TODO : NPC ´ëÈ­ °Å·¡ Ã¢ °³¼±.
+// TODO : NPC ï¿½ï¿½È­ ï¿½Å·ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½.
 void CInnerInterface::SetDialogueWindowOpen( const SNATIVEID sNPCID, const DWORD dwNPCGlobalID, GLCHARLOGIC* pCHAR )
 {
     if ( m_pDialogueWindowRenewal )
@@ -1296,16 +1297,16 @@ void CInnerInterface::SetDialogueWindowOpen( const SNATIVEID sNPCID, const DWORD
         CloseAllWindowFromNPC();
 
         //	TO DO :
-        //		¹ö½º°¡ Ãß°¡ µÇ´õ¶óµµ, ÀÌ ÇÔ¼ö¸¦ °ÅÄ¡°Ô µÈ´Ù.
-        //		µû¶ó¼­, ¹ö½º ³ë¼±À» Ç¥½ÃÇØ¾ßÇÏ´Â °ÍÀÎÁö,		
-        //		´ëÈ­¸¦ Ç¥½ÃÇØ¾ßÇÏ´Â °ÍÀÎÁö¸¦ ¿©±â¿¡¼­ ±¸ºÐÇØ¾ßÇÑ´Ù.
+        //		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½È´ï¿½.
+        //		ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ë¼±ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,		
+        //		ï¿½ï¿½È­ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 
         //	NOTE :
-        //		sCrowID·Î '¹ö½º'ÀÎÁö, 'ÀÏ¹Ý NPC'ÀÎÁö È®ÀÎÇÒ ¼ö ÀÖ´Ù.
+        //		sCrowIDï¿½ï¿½ 'ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½ï¿½ï¿½, 'ï¿½Ï¹ï¿½ NPC'ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 
         if ( !m_pDialogueWindowRenewal->SetDialogueData( sNPCID, dwNPCGlobalID, pCHAR ) )
         {
-            //GASSERT( 0 && "NPC ´ëÈ­ Ã¢¿¡¼­ ´ëÈ­ ÆÄÀÏ ÀÐ±â ½ÇÆÐ." );
+            //GASSERT( 0 && "NPC ï¿½ï¿½È­ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½." );
             return;
         }
 
@@ -1313,7 +1314,7 @@ void CInnerInterface::SetDialogueWindowOpen( const SNATIVEID sNPCID, const DWORD
     }
 }
 
-// TODO : NPC ´ëÈ­ °Å·¡ Ã¢ °³¼±.
+// TODO : NPC ï¿½ï¿½È­ ï¿½Å·ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½.
 //void CInnerInterface::SetDialogueWindowOpen ( const SNATIVEID sNPCID, const DWORD dwNPCGlobalID, GLCHARLOGIC* pCHAR )
 //{
 //    if ( m_pDialogueWindow )
@@ -1321,16 +1322,16 @@ void CInnerInterface::SetDialogueWindowOpen( const SNATIVEID sNPCID, const DWORD
 //        CloseAllWindowFromNPC();
 //
 //		//	TO DO :
-//		//		¹ö½º°¡ Ãß°¡ µÇ´õ¶óµµ, ÀÌ ÇÔ¼ö¸¦ °ÅÄ¡°Ô µÈ´Ù.
-//		//		µû¶ó¼­, ¹ö½º ³ë¼±À» Ç¥½ÃÇØ¾ßÇÏ´Â °ÍÀÎÁö,		
-//		//		´ëÈ­¸¦ Ç¥½ÃÇØ¾ßÇÏ´Â °ÍÀÎÁö¸¦ ¿©±â¿¡¼­ ±¸ºÐÇØ¾ßÇÑ´Ù.
+//		//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½È´ï¿½.
+//		//		ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ë¼±ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,		
+//		//		ï¿½ï¿½È­ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 //
 //		//	NOTE :
-//		//		sCrowID·Î '¹ö½º'ÀÎÁö, 'ÀÏ¹Ý NPC'ÀÎÁö È®ÀÎÇÒ ¼ö ÀÖ´Ù.
+//		//		sCrowIDï¿½ï¿½ 'ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½ï¿½ï¿½, 'ï¿½Ï¹ï¿½ NPC'ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 //
 //		if ( !m_pDialogueWindow->SetDialogueData ( sNPCID, dwNPCGlobalID, pCHAR ) )
 //		{
-////			GASSERT ( 0 && "¿À·ù! npcÆÄÀÏ ÀÐ±â ½ÇÆÐ!" );
+////			GASSERT ( 0 && "ï¿½ï¿½ï¿½ï¿½! npcï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½!" );
 //			return;
 //		}
 //
@@ -1340,7 +1341,7 @@ void CInnerInterface::SetDialogueWindowOpen( const SNATIVEID sNPCID, const DWORD
 
 void CInnerInterface::SetDialogueWindowClose()
 {
-    // TODO : NPC ´ëÈ­ °Å·¡ Ã¢ °³¼±.
+    // TODO : NPC ï¿½ï¿½È­ ï¿½Å·ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½.
     UiHideGroup( DIALOGUE_WINDOW_RENEWAL );
     ItemRepairWindowOpen( false );
 
@@ -1483,16 +1484,16 @@ void CInnerInterface::CheckItemRebuildWindowClose(const bool bUseStamp, const IT
     const unsigned int nNumRemodelItem(m_pGaeaClient->GetCharacter()->GetCountItemInInven( ITEM_REMODEL ));
 	// unsigned int nNumStampItem = m_pGaeaClient->GetCharacter()->GetCountItemInInven(ITEM_STAMP_CARD);
 	//  [3/11/2015 gbgim];
-	// - ÀÎÀåÄ«µå Å¸ÀÔÀº ÇÏ³ªÀÌ³ª, °íÁ¤ ¿É¼Ç °³¼ö¿¡ µû¶ó ¾ÆÀÌÅÛÀ» ´Ù¸£°Ô »ç¿ëÇÑ´Ù;
-	// - µÎ°³ °íÁ¤ÇÏ´Â ÀÎÀåÄ«µå »ç¿ëÈÄ µÎ°³»ç¿ëÇÏ´Â ÀÎÀåÄ«µå°¡ ¾øÀ¸¸é °³Á¶Ã¢ÀÌ ²¨Á®¾ßÇÏ³ª;
-	//   À§¿Í °°Àº ¹æ½ÄÀ¸·Î °³¼ö Ä«¿îÆÃÇÏ¸é °íÁ¤¿É¼Ç1~n°³¸¦ ´Ù Ã£±â¶§¹®¿¡ ²¨ÁöÁö¾Ê´Â´Ù;
+	// - ï¿½ï¿½ï¿½ï¿½Ä«ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½Ì³ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½;
+	// - ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î°ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Ä«ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½;
+	//   ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É¼ï¿½1~nï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã£ï¿½â¶§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê´Â´ï¿½;
 	const unsigned int nNumStampItem(m_pGaeaClient->GetCharacter()->GetCountItemInInven(ITEM_STAMP_CARD, ITEM_VAlUE_SUIT_REMODELNUM, fixOption.getNSize()));
 
     if ( (nNumRemodelItem == 0) || (bUseStamp == true && nNumStampItem == 0) )
         SetItemRebuildWindowClose();
     else
     {
-        // TODO : ´Ù½Ã °³Á¶ ÇÒ ¼ö ÀÖ´Â »óÅÂ·Î ¼³Á¤.
+        // TODO : ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½.
         WORD wRemodelPosX = USHRT_MAX;
         WORD wRemodelPosY = USHRT_MAX;
 
@@ -1752,7 +1753,7 @@ void CInnerInterface::SetTradeWindowClose ()
 
 void	CInnerInterface::SetTradeWindowCloseReq ()
 {
-	//	Ãë¼Ò ¹öÆ° ´©¸§
+	//	ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
 	//
 	GLMSG::SNET_TRADE_CANCEL NetMsg;
 	m_pGaeaClient->NETSENDTOAGENT(&NetMsg);
@@ -1769,6 +1770,14 @@ void CInnerInterface::SET_PKCOMBO ( int nIndex )
 	if ( m_pAnimatedPKStreak )
 	{
 		m_pAnimatedPKStreak->SetAnimation ( nIndex );
+	}
+}
+
+void CInnerInterface::TriggerKillCard ( int killType, DWORD targetID )
+{
+	if ( m_pKillCardManager )
+	{
+		m_pKillCardManager->TriggerKillCard ( (EKILL_TYPE)killType, targetID );
 	}
 }
 
@@ -1806,7 +1815,7 @@ void CInnerInterface::SkilSlotTraySelectSlot( int nIndex )
 
 void CInnerInterface::SkilSlotTrayToggle ()
 {
-	if ( m_pGaeaClient->GetTutorial()->IsTutorial() ) // Æ©Åä¸®¾ó Áß¿¡´Â »ç¿ë±ÝÁö.
+	if ( m_pGaeaClient->GetTutorial()->IsTutorial() ) // Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	{
 		m_pGaeaClient->PrintMsgText ( NS_UITEXTCOLOR::DISABLE, ID2GAMEINTEXT("TUTORIAL_CANNOT_USE") );
 	}
@@ -1963,7 +1972,7 @@ void CInnerInterface::SHOW_ITEM_INFO(
 	if ( uiman::GetInnerUIMan().IsMouseInControl() )
 		return;
 
-	// ´Ù¸¥ Ã¢¿¡¼­ ¸ÕÀú µ¥ÀÌÅ¸¸¦ ¾²°í ÀÖ´Ù´Â ÀÌ¾ß±âÀÌ´Ù.
+	// ï¿½Ù¸ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½Ì¾ß±ï¿½ï¿½Ì´ï¿½.
 	if ( UiIsVisibleGroup ( INFO_DISPLAY ) )
 		return;
 	
@@ -2024,7 +2033,7 @@ void CInnerInterface::SHOW_ITEM_INFO(
 
 	m_bUSING_INFO_DISPLAY = true;
 
-	//	ºñ±³ Á¤º¸ ( ÀÚ±â°¡ ÇöÀç Âø¿ëÇÏ°í ÀÖ´Â ¾ÆÀÌÅÛ°ú ¸¶¿ì½º ¿À¹öµÈ ¾ÆÀÌÅÛÀÇ Á¤º¸Ãâ·Â )
+	//	ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½Ú±â°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )
 	BOOL bTRADE = UiIsVisibleGroup ( TRADE_WINDOW );
 	if ( bTRADE || bInMarket || bInPrivateMarket || bCompare )
 	{
@@ -2058,7 +2067,7 @@ void CInnerInterface::SHOW_ITEM_INFO(
                 else
                 {
 				    {
-					    //	ITEM Á¤º¸ »Ì±â, ¸¶Áö¸· -1Àº ÀÇ¹Ì¾ø´Â °ªÀÓ
+					    //	ITEM ï¿½ï¿½ï¿½ï¿½ ï¿½Ì±ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -1ï¿½ï¿½ ï¿½Ç¹Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					    //
 					    INFO_DISPLAY_ITEM_LOAD ( sItemCustom, FALSE, FALSE, FALSE, FALSE, TRUE, wPosX, wPosY, sNpcNativeID );
 				    }
@@ -2085,7 +2094,7 @@ void CInnerInterface::SHOW_ITEM_INFO_DURABILITY(
 	if ( uiman::GetInnerUIMan().IsMouseInControl() )
 		return;
 
-	// ´Ù¸¥ Ã¢¿¡¼­ ¸ÕÀú µ¥ÀÌÅ¸¸¦ ¾²°í ÀÖ´Ù´Â ÀÌ¾ß±âÀÌ´Ù.
+	// ï¿½Ù¸ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½Ì¾ß±ï¿½ï¿½Ì´ï¿½.
 	if ( UiIsVisibleGroup ( INFO_DISPLAY ) )
 		return;
 
@@ -2159,7 +2168,7 @@ void CInnerInterface::SHOW_ITEM_INFO_DURABILITY(
 
 	m_bUSING_INFO_DISPLAY = true;
 
-	//	ºñ±³ Á¤º¸ ( ÀÚ±â°¡ ÇöÀç Âø¿ëÇÏ°í ÀÖ´Â ¾ÆÀÌÅÛ°ú ¸¶¿ì½º ¿À¹öµÈ ¾ÆÀÌÅÛÀÇ Á¤º¸Ãâ·Â )
+	//	ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½Ú±â°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )
 	BOOL bTRADE = UiIsVisibleGroup ( TRADE_WINDOW );
 	if ( bTRADE || bInMarket || bInPrivateMarket || bCompare )
 	{
@@ -2190,7 +2199,7 @@ void CInnerInterface::SHOW_ITEM_INFO_DURABILITY(
 				else
 				{
 					{
-						//	ITEM Á¤º¸ »Ì±â, ¸¶Áö¸· -1Àº ÀÇ¹Ì¾ø´Â °ªÀÓ
+						//	ITEM ï¿½ï¿½ï¿½ï¿½ ï¿½Ì±ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -1ï¿½ï¿½ ï¿½Ç¹Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						//
 						INFO_DISPLAY_ITEM_LOAD ( sItemCustom, FALSE, FALSE, FALSE, FALSE, TRUE, wPosX, wPosY, sNpcNativeID );
 					}
@@ -2226,7 +2235,7 @@ void CInnerInterface::SHOW_ITEM_INFO( WishList::ItemSPtr pWishItem )
 
 	m_bUSING_INFO_DISPLAY = true;
 
-	//	ºñ±³ Á¤º¸ ( ÀÚ±â°¡ ÇöÀç Âø¿ëÇÏ°í ÀÖ´Â ¾ÆÀÌÅÛ°ú ¸¶¿ì½º ¿À¹öµÈ ¾ÆÀÌÅÛÀÇ Á¤º¸Ãâ·Â )
+	//	ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½Ú±â°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )
 	for( int nSLOT = SLOT_HEADGEAR; nSLOT < SLOT_NSIZE_S_2; ++nSLOT )
 	{			
 		if ( EMSLOTCHECK_OK == m_pGaeaClient->GetCharacter()->CHECKSLOT_ITEM( pWishItem->m_sItem.GetNativeID(), (EMSLOT) nSLOT ) )
@@ -2506,7 +2515,7 @@ void CInnerInterface::AUTO_LOAD_QUEST( DWORD dwID )
 
 void CInnerInterface::REFRESH_QUEST_WINDOW()
 {
-	// [shhan][2014.11.13] WorldEdit ¿¡¼­ Á¾·áÇö»óÀÌ ³ªÅ¸³ª¼­ °Ë»çÇÔ.
+	// [shhan][2014.11.13] WorldEdit ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½.
 	if ( !m_pQuestWindowRenewal )
 		return;
 
@@ -2570,8 +2579,8 @@ void CInnerInterface::SHOW_ITEM_INFO_SIMPLE(const SITEMCUSTOM& sItemCustom)
 	if ( uiman::GetInnerUIMan().IsMouseInControl () ) return ;
 
 	//	NOTE
-	//		ÀÌ¹Ì »Ñ¸®°í ÀÖ´Ù´Â °ÍÀº
-	//		´Ù¸¥ Ã¢¿¡¼­ ¸ÕÀú µ¥ÀÌÅ¸¸¦ ¾²°í ÀÖ´Ù´Â ÀÌ¾ß±âÀÌ´Ù.
+	//		ï¿½Ì¹ï¿½ ï¿½Ñ¸ï¿½ï¿½ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//		ï¿½Ù¸ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½Ì¾ß±ï¿½ï¿½Ì´ï¿½.
 	if ( UiIsVisibleGroup ( INFO_DISPLAY ) ) return ;
 	if ( m_etInfoType != ET_ITEM_INFO )
 	{
@@ -2588,18 +2597,18 @@ void CInnerInterface::SHOW_ITEM_INFO_SIMPLE(const SITEMCUSTOM& sItemCustom)
 
 void	CInnerInterface::UpdateStateQuestAlarm ()
 {
-	if ( !UiIsVisibleGroup ( QUEST_WINDOW ) )	//	Äù½ºÆ®Ã¢ÀÌ ´Ý±ä »óÅÂ
+	if ( !UiIsVisibleGroup ( QUEST_WINDOW ) )	//	ï¿½ï¿½ï¿½ï¿½Æ®Ã¢ï¿½ï¿½ ï¿½Ý±ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		GLQuestPlay& cQuestPlay = m_pGaeaClient->GetCharacter()->m_cQuestPlay;
-		if ( !cQuestPlay.GetQuestProc ().empty () )	//	ÁøÇàÁßÀÎ Äù½ºÆ®°¡ Á¸ÀçÇÑ´Ù.
+		if ( !cQuestPlay.GetQuestProc ().empty () )	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		{
 			if ( !UiIsVisibleGroup ( QUEST_ALARM ) )
 			{
-				UiShowGroupBottom ( QUEST_ALARM );	//	Äù½ºÆ® ¾ÆÀÌÄÜ Ç¥½Ã
+				UiShowGroupBottom ( QUEST_ALARM );	//	ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
 			}
 			
 			DWORD dwQuestID = NATIVEID_NULL().dwID;			
-			if ( cQuestPlay.GetReqREADING ( dwQuestID ) )	//	Äù½ºÆ® ÀÌº¥Æ® ¹ß»ý
+			if ( cQuestPlay.GetReqREADING ( dwQuestID ) )	//	ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½
 			{
 				GLQUESTPROG* pQuestProg = cQuestPlay.FindProc ( dwQuestID );
 				if ( !pQuestProg ) return ;				
@@ -2634,10 +2643,10 @@ void	CInnerInterface::UpdateStateQuestAlarm ()
 	else
 	{
 		GLQuestPlay& cQuestPlay = m_pGaeaClient->GetCharacter()->m_cQuestPlay;
-		if ( !cQuestPlay.GetQuestProc ().empty () )	//	ÁøÇàÁßÀÎ Äù½ºÆ®°¡ Á¸ÀçÇÑ´Ù.
+		if ( !cQuestPlay.GetQuestProc ().empty () )	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		{
 			DWORD dwQuestID = NATIVEID_NULL().dwID;
-			if ( cQuestPlay.GetReqREADING ( dwQuestID ) )	//	Äù½ºÆ® ÀÌº¥Æ® ¹ß»ý
+			if ( cQuestPlay.GetReqREADING ( dwQuestID ) )	//	ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½
 			{
 				GLQUESTPROG* pQuestProg = cQuestPlay.FindProc ( dwQuestID );
 				if ( !pQuestProg ) return ;				
@@ -2652,7 +2661,7 @@ void	CInnerInterface::UpdateStateQuestAlarm ()
 					RESET_QUEST_HELPER( dwQuestID );
 				}
 
-				//	ÀÌº¥Æ® ¹ß»ýÇÑ ID¿Í ÇöÀç º¸°í ÀÖ´Â Äù½ºÆ®ÀÇ ID°¡ ´Ù¸¦°æ¿ì
+				//	ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ IDï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½
 				if ( m_pQuestWindowRenewal && m_dwEventQuestID != m_pQuestWindowRenewal->GetQuestMainID() )
 				{
 					if ( m_pQuestAlarm )
@@ -2661,7 +2670,7 @@ void	CInnerInterface::UpdateStateQuestAlarm ()
 					
 					if ( !UiIsVisibleGroup ( QUEST_ALARM ) )
 					{
-						UiShowGroupBottom ( QUEST_ALARM );	//	Äù½ºÆ® ¾ÆÀÌÄÜ Ç¥½Ã
+						UiShowGroupBottom ( QUEST_ALARM );	//	ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
 					}
 
 					return ;
@@ -2686,7 +2695,7 @@ void	CInnerInterface::UpdateStateQuestAlarm ()
 		//UiHideGroup ( QUEST_ALARM );
 	}
 
-//#ifdef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+//#ifdef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	UpdatePotionTrayPosition();
 //#endif
 }
@@ -2707,7 +2716,7 @@ void CInnerInterface::REFRESH_FRIEND_LIST()
 {
 	if ( !UiIsVisibleGroup( FRIEND_WINDOW ) ) return ;
 
-	//	¸ñ·Ï º¯°æ ( Ãß°¡, »èÁ¦... ±×¿Ü )
+	//	ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½ß°ï¿½, ï¿½ï¿½ï¿½ï¿½... ï¿½×¿ï¿½ )
 	m_pFriendWindow->LoadFriendList();
 	m_pBasicChat->RefreshFriendList();
 }
@@ -2716,7 +2725,7 @@ void CInnerInterface::REFRESH_FRIEND_STATE()
 {
 	if ( !UiIsVisibleGroup ( FRIEND_WINDOW ) ) return ;
 
-	//	»óÅÂ º¯°æ ( ¿Â/¿ÀÇÁ¶óÀÎ )
+	//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )
 	m_pFriendWindow->LoadFriendList();
 }
 
@@ -2766,7 +2775,7 @@ void CInnerInterface::CLOSE_MODAL ( const UIGUID cID, bool bMakeMsg )
 	{
 		if ( !((CModalWindow*)pControl)->IsUseModaless() )
 		{
-			GASSERT ( 0 && "¿À·ù, ¸ð´Þ »èÁ¦°¡ Á¤»óÀûÀÌÁö ¾Ê½À´Ï´Ù." );
+			GASSERT ( 0 && "ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½." );
 		}
 	}
 	UiHideGroup( cID, bMakeMsg );
@@ -2794,7 +2803,7 @@ void	CInnerInterface::UpdateStateSimpleHP ()
 		D3DXVECTOR3 vPos = m_pGaeaClient->GetCharacter()->GetPosition ();	
 
 		//	NOTE
-		//		Æ÷Áö¼Ç ¼³Á¤
+		//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			vPos.y -= 2.0f;
 			D3DXVECTOR3 vScreen = DxViewPort::GetInstance().ComputeVec3Project ( &vPos, NULL );	
@@ -2849,7 +2858,7 @@ void	CInnerInterface::UpdateStateSimpleHP ()
 
 void	CInnerInterface::SetLottoOpen ( const DWORD& dwGaeaID )
 {
-	std::string strCombine = sc::string::format( ID2GAMEINTEXT("UI_LOTTO"), "2004³â 7¿ù 2ÁÖÂ÷" );	
+	std::string strCombine = sc::string::format( ID2GAMEINTEXT("UI_LOTTO"), "2004ï¿½ï¿½ 7ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½" );	
 	DoModal ( strCombine.c_str(), UI::MODAL_INPUT, MODAL_EDITBOX_LOTTERY, UI::MODAL_LOTTO );	
 }
 
@@ -2884,7 +2893,7 @@ void	CInnerInterface::SetItemBankWindowOpen ()
 	if( IsBankOpen() )
 		return;
 
-	if ( m_pGaeaClient->GetTutorial()->IsTutorial() ) // Æ©Åä¸®¾ó Áß¿¡´Â item bank ¿­Áö ¸»ÀÚ.
+	if ( m_pGaeaClient->GetTutorial()->IsTutorial() ) // Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½ item bank ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	{
 		m_pGaeaClient->PrintMsgText ( NS_UITEXTCOLOR::DISABLE, ID2GAMEINTEXT("TUTORIAL_CANNOT_USE") );
 		return;
@@ -2902,7 +2911,7 @@ void	CInnerInterface::SetItemBankWindowOpen ()
 
 	ClearItemBank ();
 
-	// ¿©±â¼­ ¼­¹ö¿¡ À¯·á¾ÆÀÌÅÛ Á¤º¸ ¿äÃ»
+	// ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 	GLCharacter* pCharacter = m_pGaeaClient->GetCharacter ();
 	if (pCharacter)
 		pCharacter->ReqItemBankInfo(false);
@@ -2923,7 +2932,7 @@ void	CInnerInterface::SetVNGainSysWindowOpen ()
 {
 	if ( m_bFirstVNGainSysCall )
 	{
-		// ¿©±â¼­ ¼­¹ö¿¡ À¯·á¾ÆÀÌÅÛ Á¤º¸ ¿äÃ»
+		// ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 		//GLCharacter* pCharacter = m_pGaeaClient->GetCharacter ();
 		/*if ( pCharacter )
 		{
@@ -2956,7 +2965,7 @@ void CInnerInterface::SetItemSearchResultWindowClose()
     UiHideGroup( ITEM_SEARCH_RESULT_WINDOW );
 }
 
-void CInnerInterface::OpenItemGarbageWindow()	// ÈÞÁöÅë
+void CInnerInterface::OpenItemGarbageWindow()	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
     if ( UiIsVisibleGroup( ITEM_GARBAGE_WINDOW ) )
         return;
@@ -3227,7 +3236,7 @@ void CInnerInterface::GetShotCutKey(){
 
 void CInnerInterface::GetChatMacro()
 {
-	// [shhan][2014.11.13] WorldEdit ¿¡¼­ Á¾·áÇö»óÀÌ »ý°Ü °Ë»ç¸¦ ÇÔ.
+	// [shhan][2014.11.13] WorldEdit ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ç¸¦ ï¿½ï¿½.
 	if ( m_pChatMacroWindow )
 		m_pChatMacroWindow->GetChatMacro();
 }
@@ -3255,7 +3264,7 @@ void CInnerInterface::DOMODAL_CLUB_JOIN_ASK ( const DWORD& dwMasterID, const CSt
 {
 	m_dwClubMasterID = dwMasterID;
 	
-	// Åä³Ê¸ÕÆ®Áß Å¬·´ ÇÒ¼ö°¡ ¾ø´Ù.
+	// ï¿½ï¿½Ê¸ï¿½Æ®ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	// TOURNAMENT_UNIQ_DISABLE
 	if( m_pGaeaClient->GetTournamentClient()->GetIsTournamentView() == true)
 		return;
@@ -3296,7 +3305,7 @@ void CInnerInterface::DOMODAL_CLUB_AUTHORITY_ASK( const CString& strClubName )
 
 void CInnerInterface::DOMODAL_CLUB_BATTLE_ARMISTICE_ASK(DWORD dwClubID, DWORD ReqChaDbNum, const CString& strClubName, bool bAlliance)
 {
-	// ÀÓ½Ã ÀúÀå
+	// ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_dwClubMasterID = dwClubID;
     m_ReqChaDbNum = ReqChaDbNum;
 	std::string strCombine;
@@ -3407,9 +3416,9 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 
 	TEXTURE_PRE_LOAD ( pd3dDevice );
 
-    // ¾Æ·¡¿¡¼­ À©µµ¿ì¸¦ »ý¼ºÇÒ ¶§ UiShowGroup ÇÏ´Âµ¥,
-    // ·Îµù È­¸é¿¡¼­ ÇÑ¹ø À¥ ÄÁÆ®·ÑÀÌ ¹ÝÂ¦ÀÌ´Â ¹®Á¦°¡ ¹ß»ýÇÑ´Ù
-    // ±×·¡¼­ ÀÌ ±¸°£¿¡¼­´Â À¥ ÄÁÆ®·ÑÀ» º¸ÀÌÁö ¾Ê°Ô ÇÑ´Ù
+    // ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ UiShowGroup ï¿½Ï´Âµï¿½,
+    // ï¿½Îµï¿½ È­ï¿½é¿¡ï¿½ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¦ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ñ´ï¿½
+    // ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ñ´ï¿½
     CWebWindowBase::s_bSkipVisibleWeb = TRUE;
 
 	EMSERVICE_PROVIDER sp = GLogicData::GetInstance().GetServiceProvider();
@@ -3506,12 +3515,12 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 
 		CSkillTimeDisplay* pSkillTimeDisplay = new CSkillTimeDisplay ( m_pGaeaClient, this, m_pEngineDevice );
 
-		// ±Ø°­ºÎ¿Í ÀÏ¹Ý Ä³¸¯ÅÍ¸¦ ±¸ºÐÇØ¼­ ¹öÇÁUI À§Ä¡ Á¶Á¤
+		// ï¿½Ø°ï¿½ï¿½Î¿ï¿½ ï¿½Ï¹ï¿½ Ä³ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½UI ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 		if( nClassType == GLCI_EXTREME_W || nClassType == GLCI_EXTREME_M )
 		{
 			pSkillTimeDisplay->Create ( SKILL_TIME_DISPLAY, "SKILL_TIME_DISPLAY_EXTREME" );
 		}
-		// ±Ø°­ºÎ¸¦ Á¦¿ÜÇÏ°í´Â ¿ø·¡ÀÇ À§Ä¡¿¡ Ãâ·ÂÇÑ´Ù;
+		// ï¿½Ø°ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½;
 		else
 		{
 			pSkillTimeDisplay->Create ( SKILL_TIME_DISPLAY, "SKILL_TIME_DISPLAY" );
@@ -3522,17 +3531,17 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		m_pSkillTimeDisplay = pSkillTimeDisplay;
 		UiShowGroupBottom ( SKILL_TIME_DISPLAY );
 
-		// µµ½Ã¶ô (À½½Ä¹öÇÁ UI)
+		// ï¿½ï¿½ï¿½Ã¶ï¿½ (ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ UI)
         AP_ILunchBoxTimeDisplay apLunchBoxTimeDisplay = cFactory.CreateLunchBoxTimeDisplay( m_pGaeaClient, this, m_pEngineDevice );
         m_pLunchBoxTimeDisplay = apLunchBoxTimeDisplay.release();
         m_pLunchBoxTimeDisplay->CreateUIWindowAndRegisterOwnership();
 
-        // ½Ã½ºÅÛ¹öÇÁ UI
+        // ï¿½Ã½ï¿½ï¿½Û¹ï¿½ï¿½ï¿½ UI
         AP_ISystemBuffTimeDisplay apSystemBuffTimeDisplay = cFactory.CreateSystemBuffTimeDisplay( m_pGaeaClient, this, m_pEngineDevice );
         m_pSystemBuffTimeDisplay = apSystemBuffTimeDisplay.release();
         m_pSystemBuffTimeDisplay->CreateUIWindowAndRegisterOwnership();
 
-		// ±Ø°­ºÎ ¹«±â Ç¥½Ã UI 
+		// ï¿½Ø°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ UI 
 		if( nClassType == GLCI_EXTREME_W || nClassType == GLCI_EXTREME_M )
 		{
 			CWeaponDisplay* pWeaponDisplay = new CWeaponDisplay ( m_pGaeaClient, this, m_pEngineDevice );
@@ -3613,7 +3622,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 
 		CBasicButton* pMiniPartyOpen = new CBasicButton(m_pEngineDevice);
 		pMiniPartyOpen->Create ( MINIPARTY_OPEN, "MINIPARTY_OPEN", UI_FLAG_RIGHT | UI_FLAG_BOTTOM );
-//#ifdef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+//#ifdef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //		pMiniPartyOpen->CreateMouseOver( "MINIPARTY_OPEN_F" );
 //#else
 		//  [12/28/2012 gbgim]
@@ -3724,7 +3733,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
         UiShowGroupBottom ( PET_HUNGRY );
 
 
-// #ifndef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+// #ifndef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		CBasicButton* pGameMenuOpen = new CBasicButton(m_pEngineDevice);
 		pGameMenuOpen->Create ( GAME_MENU_OPEN_BUTTON, "GAME_MENU_OPEN_BUTTON", UI_FLAG_RIGHT | UI_FLAG_BOTTOM );
 		pGameMenuOpen->CreateFlip ( "GAME_MENU_OPEN_BUTTON_F", CBasicButton::MOUSEIN_FLIP );
@@ -3740,7 +3749,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiRegisterControl ( m_pGameMenu );
 		UiShowGroupBottom ( GAME_MENU );
 		{
-			// ÃÖÃÊ Ä³¸¯ÅÍÀÇ ´Þ¸®±â ¸ðµå¸¦ ¼³Á¤ÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			BOOL bRun = m_pGaeaClient->GetCharacter()->IsActState(EM_ACT_RUN);
 			m_pGameMenu->SetFlipRunButton( bRun );
 		}
@@ -3753,7 +3762,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
         m_pBasicQuickSkillSlot->CreateUIWindowAndRegisterOwnership();
         */
         /*
-// #ifndef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+// #ifndef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		CBasicButton* pButton = new CBasicButton(m_pRenderDevice);
 		pButton->Create ( QUICK_SKILL_TRAY_OPEN_BUTTON, "QUICK_SKILL_TRAY_OPEN_BUTTON" );
 		pButton->CreateFlip ( "QUICK_SKILL_TRAY_OPEN_BUTTON_F", CBasicButton::MOUSEIN_FLIP );
@@ -3770,12 +3779,12 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
         m_pBasicChat = apBasicChat.release();
         m_pBasicChat->CreateUIWindowAndRegisterOwnership();
 		
-		//	Ã¤ÆÃÃ¢ ¿É¼ÇÃ¢
+		//	Ã¤ï¿½ï¿½Ã¢ ï¿½É¼ï¿½Ã¢
         AP_IChatOptionWindow apChatOptionWindow = cFactory.CreateChatOptionWindow( this, m_pEngineDevice );
         m_pChatOptionWindow = apChatOptionWindow.release();
         m_pChatOptionWindow->CreateUIWindowAndRegisterOwnership();
 
-        // Ã¤ÆÃ Å¸ÀÔ ¸®½ºÆ®
+        // Ã¤ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
         AP_IChatTypeList apChatTypeList = cFactory.CreateChatTypeList( this, m_pEngineDevice );
         m_pChatTypeList = apChatTypeList.release();
         m_pChatTypeList->CreateUIWindowAndRegisterOwnership();
@@ -3802,7 +3811,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		m_pCharacterWindow = pCharacterWindow; 
 	}
 
-	// Note : ½ºÅÝ ÃÊ±âÈ­
+	// Note : ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	{
 		m_pStatsResetWindow = new CStatsResetWindow ( m_pGaeaClient, this, m_pEngineDevice );
 		m_pStatsResetWindow->Create ( STATSRESET_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
@@ -3819,26 +3828,26 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		pOptionWindow->Create ( OPTION_HW_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 		pOptionWindow->CreateBaseWindowBlack ( "HWOPTION_WINDOW", (char*)ID2GAMEWORD("HWOPTION_WINDOW_NAME_STATIC") );
 		pOptionWindow->CreateSubControl ();
-		pOptionWindow->SetControlNameEx ( "¿É¼ÇÃ¢" );
+		pOptionWindow->SetControlNameEx ( "ï¿½É¼ï¿½Ã¢" );
 		pOptionWindow->SetAlignFlag ( UI_FLAG_CENTER_Y | UI_FLAG_RIGHT );
 		UiRegisterControl ( pOptionWindow, true );
 		UiShowGroupFocus ( OPTION_HW_WINDOW );
 	}
 
-	{   // ½ºÅ³ Ã¢
+	{   // ï¿½ï¿½Å³ Ã¢
         AP_ISkillWindow apSkillWindow = cFactory.CreateSkillWindow( m_pGaeaClient, this, m_pEngineDevice );
         m_pSkillWindow = apSkillWindow.release();
         m_pSkillWindow->CreateUIWindowAndRegisterOwnership();
 	}
 
-	// Note : ¿ìÆí ½Ã½ºÅÛ
+	// Note : ï¿½ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½
 	{
         AP_IPostBoxWindow apPostBoxWindow = cFactory.CreatePostBoxWindow( m_pGaeaClient, this, m_pEngineDevice );
         m_pPostBoxWindow = apPostBoxWindow.release();
         m_pPostBoxWindow->CreateUIWindowAndRegisterOwnership( pd3dDevice );
 	}
 
-    // Note : SNS °ü·Ã
+    // Note : SNS ï¿½ï¿½ï¿½ï¿½
     {
         m_pSNSWindow = new CSNSWindow(m_pGaeaClient, this, m_pEngineDevice);
         m_pSNSWindow->Create ( SNS_WINDOW, "SNS_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
@@ -3882,7 +3891,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiShowGroupFocus ( GRADE_DISPLAY );			
 	}
 
-	{ // ÆÄÆ¼ ¸®´º¾ó;
+	{ // ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
 		if( GLUseFeatures::GetInstance().IsUsingPartyWindowRenewal() )
 		{
 			AP_IPartyYesNoWindow apPartyYesNoWindow = cFactory.CreatePartyYesNoWindow( m_pGaeaClient, this, m_pEngineDevice );
@@ -3933,7 +3942,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 			m_pPartyWindow = apPartyWindow.release();
 			m_pPartyWindow->CreateUIWindowAndRegisterOwnership();
 			
-			// ¹Ì´Ï ÆÄÆ¼
+			// ï¿½Ì´ï¿½ ï¿½ï¿½Æ¼
 			/*CMiniPartyWindow* pMiniPartyWindow = new CMiniPartyWindow(m_pGaeaClient, this, m_pEngineDevice);
 			pMiniPartyWindow->Create ( MINIPARTY_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 			pMiniPartyWindow->CreateBaseWindowMiniParty ( "MINIPARTY_WINDOW", (char*)ID2GAMEWORD("MINIPARTY_NAME_STATIC") );
@@ -3944,7 +3953,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		}
 	}
 
-	// ¹Ì´Ï ÆÄÆ¼
+	// ï¿½Ì´ï¿½ ï¿½ï¿½Æ¼
 	CMiniPartyWindow* pMiniPartyWindow = new CMiniPartyWindow(m_pGaeaClient, this, m_pEngineDevice);
 	pMiniPartyWindow->Create ( MINIPARTY_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 	pMiniPartyWindow->CreateBaseWindowMiniParty ( "MINIPARTY_WINDOW", (char*)ID2GAMEWORD("MINIPARTY_NAME_STATIC") );
@@ -3973,12 +3982,12 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		}
 		else
 		{
-			// ÀÎº¥Åä¸®
+			// ï¿½Îºï¿½ï¿½ä¸®
 			AP_IInventoryWindow apInventoryWindow = cFactory.CreateInventoryWindow( m_pGaeaClient, this, m_pEngineDevice );
 			m_pInventoryWindow = apInventoryWindow.release();
 			m_pInventoryWindow->CreateUIWindowAndRegisterOwnership();
 
-			// À¯·á¾ÆÀÌÅÛ ¼ö·É
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			m_pItemBankWindow = new CItemBankWindow ( m_pGaeaClient, this, m_pEngineDevice );
 			m_pItemBankWindow->Create ( ITEMBANK_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 			m_pItemBankWindow->CreateBaseWindowLightGray ( "ITEMBANK_WINDOW", (char*)ID2GAMEWORD("ITEMBANK_NAME_STATIC") );
@@ -3989,7 +3998,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		}
 	}
 
-	{	//	°Å·¡
+	{	//	ï¿½Å·ï¿½
         AP_ITradeWindow apTradeWindow = cFactory.CreateTradeWindow( m_pGaeaClient, this, m_pEngineDevice );
         m_pTradeWindow = apTradeWindow.release();
         m_pTradeWindow->CreateUIWindowAndRegisterOwnership();
@@ -4004,7 +4013,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		{
 			if ( !GLUseFeatures::GetInstance().IsUsingWorldBattle() )
 			{
-				// RnÀüÀå UI
+				// Rnï¿½ï¿½ï¿½ï¿½ UI
 				AP_IRnCompetitionWindow apRnCompetitionWindow = cFactory.CreateRnCompetitionWindow( m_pGaeaClient, this, m_pEngineDevice );
 				m_pRnCompetitionWindow = apRnCompetitionWindow.release();
 				m_pRnCompetitionWindow->CreateUIWindowAndRegisterOwnership( pd3dDevice );
@@ -4021,7 +4030,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		}
 		else
 		{
-			//ÀüÀå UI
+			//ï¿½ï¿½ï¿½ï¿½ UI
 			AP_ICompetitionWindow apCompetitionWindow = cFactory.CreateCompetitionWindow( m_pGaeaClient, this, m_pEngineDevice );
 			m_pCompetitionWindow = apCompetitionWindow.release();
 			m_pCompetitionWindow->CreateUIWindowAndRegisterOwnership( pd3dDevice );
@@ -4036,7 +4045,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
         m_pRnCompetitionResultWindow->CreateUIWindowAndRegisterOwnership( pd3dDevice );
 	}
 
-	{	//	Ã¢°í
+	{	//	Ã¢ï¿½ï¿½
 		m_pStorageWindow = new CStorageWindow ( m_pGaeaClient, this, m_pEngineDevice );		
 		m_pStorageWindow->Create ( STORAGE_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 		m_pStorageWindow->CreateBaseWindowLightGray ( "STORAGE_WINDOW", (char*)ID2GAMEWORD("STORAGE_NAME_STATIC") );
@@ -4049,7 +4058,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 
 	m_pGaeaClient->GetCharacter()->ReqStorageCloseCard();
 
-	{	//	Ã¢°í
+	{	//	Ã¢ï¿½ï¿½
 		m_pClubStorageWindow = new CClubStorageWindow ( m_pGaeaClient, this, m_pEngineDevice );		
 		m_pClubStorageWindow->Create ( CLUB_STORAGE_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 		m_pClubStorageWindow->CreateBaseWindowLightGray ( "STORAGE_WINDOW", (char*)ID2GAMEWORD("CLUB_STORAGE_NAME_STATIC") );
@@ -4082,7 +4091,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiShowGroupFocus ( DIALOGUE_WINDOW );
 	}
 
-    // TODO : NPC ´ëÈ­ °Å·¡ Ã¢ °³¼±.
+    // TODO : NPC ï¿½ï¿½È­ ï¿½Å·ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½.
     {
         m_pDialogueWindowRenewal = new CDialogueWindowRenewal( m_pGaeaClient, this, m_pEngineDevice );
         m_pDialogueWindowRenewal->Create( DIALOGUE_WINDOW_RENEWAL, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
@@ -4100,7 +4109,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
         m_pItemMove->CreateUIWindowAndRegisterOwnership();
 	}
 
-    // TODO : ¾ÆÀÌÅÛ Á¤º¸,,,
+    // TODO : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½,,,
     {
         m_pItemInforTooltip = new CItemInfoTooltip( m_pGaeaClient, this, m_pEngineDevice );
         m_pItemInforTooltip->Create( ITEM_INFOR_TOOLTIP, "ITEM_INFOR_TOOLTIP_RN", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
@@ -4162,7 +4171,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		m_pSkillTooltipSubSkill->SetBGAlpha(180);
 		UiShowGroupTop( SKILL_INFOR_TOOLTIP_MULTI );
 
-        //¸ÖÆ¼ÅøÆÁÃâ·Â À§Ä¡ Á¶Á¤À» À§ÇØ ¼­·Î°£ÀÇ Æ÷ÀÎÅÍ¸¦ ÀúÀå
+        //ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         m_pSkillTooltip->SetOtherMultiSkillTooltip( m_pSkillTooltipSubSkill );
         m_pSkillTooltipSubSkill->SetOtherMultiSkillTooltip( m_pSkillTooltip );
 	}
@@ -4265,25 +4274,25 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiHideGroup ( SIMPLE_MESSAGE_MAN );
 	}
 
-	{	//	´ë·Ã ½ÅÃ» ¸ð´Þ
+	{	//	ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½
         AP_IConftModalWindow apConftModalWindow = cFactory.CreateConftModalWindow( this, m_pEngineDevice );
         m_pConftModalWindow = apConftModalWindow.release();
         m_pConftModalWindow->CreateUIWindowAndRegisterOwnership();
 	}
 
-	{	//	ÆÄÆ¼ ½ÅÃ» ¸ð´Þ
+	{	//	ï¿½ï¿½Æ¼ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½
         AP_IPartyModalWindow apPartyModalWindow = cFactory.CreatePartyModalWindow( m_pGaeaClient, this, m_pEngineDevice );
         m_pPartyModalWindow = apPartyModalWindow.release();
         m_pPartyModalWindow->CreateUIWindowAndRegisterOwnership();
 	}
 
-	{	//	±×·ìÃ¤ÆÃ ½ÅÃ» ¸ð´Þ
+	{	//	ï¿½×·ï¿½Ã¤ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½
 		AP_IChatGroupModalWindow apChatGroupModalWindow = cFactory.CreateChatGroupModalWindow( m_pGaeaClient, this, m_pEngineDevice );
 		m_pChatGroupModalWindow = apChatGroupModalWindow.release();
 		m_pChatGroupModalWindow->CreateUIWindowAndRegisterOwnership();
 	}
 
-	{	//	¹°°Ç ÆÈ±â ¼¼ÆÃ ¸ð´Þ
+	{	//	ï¿½ï¿½ï¿½ï¿½ ï¿½È±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		m_pPrivateMarketSellWindow = new CPrivateMarketSellWindow ( this, m_pEngineDevice );
 		m_pPrivateMarketSellWindow->Create ( PRIVATE_MARKET_SELL_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );		
 		m_pPrivateMarketSellWindow->CreateBaseModal ( "PRIVATE_MARKET_SELL_WINDOW");
@@ -4295,7 +4304,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiShowGroupFocus ( PRIVATE_MARKET_SELL_WINDOW );
 	}
 
-	{	//	¸Ê ÀÌµ¿
+	{	//	ï¿½ï¿½ ï¿½Ìµï¿½
 		m_pMapMoveDisplay = new CMapMoveDisplay ( m_pGaeaClient, m_pEngineDevice );
 		m_pMapMoveDisplay->Create ( MAPMOVE_DISPLAY, "BASIC_MAPMOVE_DISPLAY", UI_FLAG_CENTER_X | UI_FLAG_CENTER_Y );
 		m_pMapMoveDisplay->CreateSubControl ();
@@ -4337,14 +4346,14 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiShowGroupFocus ( WAITSERVER_DISPLAY );
 	}
 
-	{	//	´ë·Ã Ä«¿îÆ® ¸Å´ÏÀú
+	{	//	ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ® ï¿½Å´ï¿½ï¿½ï¿½
         AP_IConftDisplayMan apConftDisplayMan = cFactory.CreateConftDisplayMan( this, m_pEngineDevice );
         m_pConftDisplayMan = apConftDisplayMan.release();
         m_pConftDisplayMan->CreateUIWindowAndRegisterOwnership();
 	}
 
 	{
-		// WebBrowser »ý¼ºµÇ¾î ÀÖÀ¸¸é CHelpWindowWeb »ý¼º, ¾øÀ¸¸é CHelpWindow »ý¼º
+		// WebBrowser ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CHelpWindowWeb ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CHelpWindow ï¿½ï¿½ï¿½ï¿½
 		if( COMMON_WEB::IsCreate() )
 		{
 			CHelpWindowWeb* pHelpWindow = new CHelpWindowWeb ( this, m_pEngineDevice );
@@ -4365,7 +4374,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiShowGroupFocus ( HELP_WINDOW );
 	}
 
-//#if defined ( CH_PARAM ) || defined ( TH_PARAM ) || defined( PH_PARAM ) || defined ( JP_PARAM ) || defined(_RELEASED) // ÇÊ¸®ÇÉ ¾ÆÀÌÅÛ¼¥
+//#if defined ( CH_PARAM ) || defined ( TH_PARAM ) || defined( PH_PARAM ) || defined ( JP_PARAM ) || defined(_RELEASED) // ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½
 	
 	/*if (sp == SP_THAILAND || sp == SP_PHILIPPINES || sp == SP_JAPAN || sp == SP_CHINA)
 	{
@@ -4537,10 +4546,10 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		pHairStyleCard->CreateBaseWindowLightGray( "HAIRSTYLECARD_WINDOW", NULL );
 		pHairStyleCard->CreateSubControl();
 		pHairStyleCard->SetAlignFlag ( UI_FLAG_CENTER_X | UI_FLAG_CENTER_Y );
-		{	// Note : ½ÇÁ¦ À©µµ¿ì Å¸ÀÌÆ²À» ¿©±â¼­ ÀÔ·ÂÇß´Ù.
-			// Å¸ÀÌÆ² ÀÔ·ÂÈÄ À©µµ¿ì »çÀÌÁî°¡ º¯°æµÇ¹Ç·Î
-			// 80ÀÌ ³Ñ´Â ½ºÆ®¸µÀº Â©¸®´Â Çö»óÀÌ »ý±ä´Ù.
-			// ±×·¡¼­ À©µµ¿ì°¡ ¸®»çÀÌÁî µÈ ÈÄ¿¡ Å¸ÀÌÆ²À» ¼ÂÆÃÇÏ¸é Á¤»óÀûÀ¸·Î Ãâ·ÂµÈ´Ù.
+		{	// Note : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Æ²ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½Ô·ï¿½ï¿½ß´ï¿½.
+			// Å¸ï¿½ï¿½Æ² ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î°¡ ï¿½ï¿½ï¿½ï¿½Ç¹Ç·ï¿½
+			// 80ï¿½ï¿½ ï¿½Ñ´ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ Â©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
+			// ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ì°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ä¿ï¿½ Å¸ï¿½ï¿½Æ²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÂµÈ´ï¿½.
 			pHairStyleCard->SetTitleName( (char*)ID2GAMEWORD("HAIRSTYLECARD_WINDOW_TITLE") );
 		}
 		UiRegisterControl( pHairStyleCard );
@@ -4692,7 +4701,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 
 //#if defined(VN_PARAM) //vietnamtest%%%
 	if (sp == SP_VIETNAM)
-	{	//	º£Æ®³² Å½´Ð ¹æÁö ÀÎº¥Åä¸®
+	{	//	ï¿½ï¿½Æ®ï¿½ï¿½ Å½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®
 		m_pVNGainSysInventory = new CVNGainSysInventory(m_pGaeaClient, this, m_pEngineDevice);
 		m_pVNGainSysInventory->Create ( VNGAINSYS_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 		m_pVNGainSysInventory->CreateBaseWindowLightGray ( "VNGAINSYS_WINDOW", (char*)ID2GAMEWORD("VNGAINSYSTEM_NAME_STATIC") );
@@ -4702,7 +4711,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiShowGroupFocus ( VNGAINSYS_WINDOW );
 //		UiHideGroup ( VNGAINSYS_WINDOW );
 		
-		//	º£Æ®³² Å½´Ð ¹æÁö °ÔÀÌÁö
+		//	ï¿½ï¿½Æ®ï¿½ï¿½ Å½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_pVNGainSysGauge = new CVNGainSysGauge(m_pEngineDevice);
 		m_pVNGainSysGauge->Create ( VNGAINSYS_GAUGE_WINDOW, "VNGAINSYS_GAUGE_WINDOW", UI_FLAG_RIGHT );
 		m_pVNGainSysGauge->CreateSubControl ();
@@ -4800,7 +4809,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiHideGroup ( CONFT_CONFIRM );
 	}
 
-	{	//	Æê
+	{	//	ï¿½ï¿½
 		m_pPetWindow = new CPetWindow ( m_pGaeaClient, this, m_pEngineDevice );
 		m_pPetWindow->Create ( PET_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 		m_pPetWindow->CreateBaseWindowLightGray ( "PET_WINDOW", (char*)ID2GAMEWORD("PET_NAME_STATIC") );
@@ -4819,7 +4828,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 	}
 
 	{
-		// ÄÚ½ºÆ¬ ÄÃ·¯ º¯°æ
+		// ï¿½Ú½ï¿½Æ¬ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½
         m_pCostumColorChangeWindow = new CUIColorSelectorWindow( m_pGaeaClient, this, m_pEngineDevice );
         m_pCostumColorChangeWindow->Create       ( COSTUM_COLOR_CHANGE_WINDOW, "COLORSELECTOR_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
         m_pCostumColorChangeWindow->SetAlignFlag ( UI_FLAG_CENTER_X | UI_FLAG_CENTER_Y );
@@ -4837,7 +4846,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiShowGroupFocus ( COSTUM_COLOR_CHANGE_WINDOW );
 	}
 	
-	{	// Å»°Í
+	{	// Å»ï¿½ï¿½
         AP_IVehicleWindow apVehicleWindow = cFactory.CreateVehicleWindow( m_pGaeaClient, this, m_pEngineDevice );
         m_pVehicleWindow = apVehicleWindow.release();
         m_pVehicleWindow->CreateUIWindowAndRegisterOwnership();
@@ -4845,7 +4854,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 	}
 
 	{
-		//¹ÙÀÌÅ©
+		//ï¿½ï¿½ï¿½ï¿½Å©
 		m_pBikeWindow = new CBikeWindow ( m_pGaeaClient, this, m_pEngineDevice );
 		m_pBikeWindow->Create ( BIKE_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 		m_pBikeWindow->CreateBaseWindowLightGray ( "BIKE_WINDOW", (char*)ID2GAMEWORD("VEHICLE_NAME_STATIC",1 ) );
@@ -4856,7 +4865,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 	}
 
 	{
-		//Å»°Í ÄÃ·¯ º¯°æ
+		//Å»ï¿½ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½
 		m_pVehicleColorChangeWindow = new CUIColorSelectorWindow ( m_pGaeaClient, this, m_pEngineDevice );
 		m_pVehicleColorChangeWindow->Create ( VEHICLE_COLOR_CHANGE_WINDOW, "COLORSELECTOR_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
         m_pVehicleColorChangeWindow->SetAlignFlag ( UI_FLAG_CENTER_X | UI_FLAG_CENTER_Y );
@@ -4876,7 +4885,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 
 	{
 
-		//¹ÙÀÌÅ© ³»¸®±â
+		//ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_pBikeGetOffWindow = new CBikeGetOffWindow ( m_pGaeaClient, m_pEngineDevice );
 		m_pBikeGetOffWindow->Create ( BIKE_GET_OFF_WINDOW, "BIKE_GET_OFF_WINDOW", UI_FLAG_DEFAULT );
 		m_pBikeGetOffWindow->CreateSubControl ();
@@ -4886,7 +4895,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 	}
 
 	{
-		//¹ÙÀÌÅ© ¸Þ¼¼Áö
+		//ï¿½ï¿½ï¿½ï¿½Å© ï¿½Þ¼ï¿½ï¿½ï¿½
 		m_pBikeMessageWindow = new CBikeMessageWindow(m_pEngineDevice);
 		m_pBikeMessageWindow->Create ( BIKE_MESSAGE_WINDOW, "BIKE_MESSAGE_DISPLAY", UI_FLAG_CENTER_X );
 		m_pBikeMessageWindow->CreateSubControl ();
@@ -4895,7 +4904,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 	}
 
 	{
-		//¹ÙÀÌÅ© ºÎ½ºÅÍ
+		//ï¿½ï¿½ï¿½ï¿½Å© ï¿½Î½ï¿½ï¿½ï¿½
 		m_pBikeBoostWindow = new CBikeBoostWindow ( m_pGaeaClient, m_pEngineDevice );
 		m_pBikeBoostWindow->Create ( BIKE_BOOST_WINDOW, "BOOST_WINDOW", UI_FLAG_RIGHT | UI_FLAG_BOTTOM );
 		m_pBikeBoostWindow->CreateSubControl ();
@@ -4905,7 +4914,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 	}
 
 	{
-		// ÀÚµ¿Â÷ À©µµ¿ì;
+		// ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
 		m_pCarWindow = new CCarWindow( m_pGaeaClient,this, m_pEngineDevice );
 		m_pCarWindow->Create( CAR_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 		m_pCarWindow->CreateBaseWindowLightGray ( "CAR_WINDOW", (char*)ID2GAMEWORD("VEHICLE_NAME_STATIC",1 ) );
@@ -4916,7 +4925,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 	}
 
 	{
-		// ¸®¾îÄ« À©µµ¿ì;
+		// ï¿½ï¿½ï¿½ï¿½Ä« ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
 		m_pRearcarWindow = new CRearcarWindow( m_pGaeaClient,this, m_pEngineDevice );
 		m_pRearcarWindow->Create( REARCAR_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 		m_pRearcarWindow->CreateBaseWindowLightGray ( "REARCAR_WINDOW", (char*)ID2GAMEWORD("VEHICLE_NAME_STATIC",1 ) );
@@ -4927,12 +4936,12 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 	}
 
 
-	{	// ¾ÆÀÌÅÛ °Ë»ö
+	{	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
         AP_IShopItemSearchWindow apShopItemSearchWindow = cFactory.CreateShopItemSearchWindow( m_pGaeaClient, this, m_pEngineDevice );
         m_pShopItemSearchWindow = apShopItemSearchWindow.release();
         m_pShopItemSearchWindow->CreateUIWindowAndRegisterOwnership();
 	
-		// ¾ÆÀÌÅÛ °Ë»ö °á°ú
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½
         AP_IItemSearchResultWindow apItemSearchResultWindow = cFactory.CreateItemSearchResultWindow( m_pGaeaClient, this, m_pEngineDevice );
         m_pItemSearchResultWindow = apItemSearchResultWindow.release();
         m_pItemSearchResultWindow->CreateUIWindowAndRegisterOwnership();
@@ -4946,7 +4955,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		m_pBasicInfoViewDummy->SetVisibleSingle( FALSE );
 
 		m_pLeftTopGroupDummy = new CUIControl(m_pEngineDevice);
-//#ifndef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+//#ifndef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		m_pLeftTopGroupDummy->Create( NO_ID, "LEFTTOP_CONTROL_GROUP" );
 //#else
 //		m_pLeftTopGroupDummy->Create( NO_ID, "BASIC_QUICK_SKILL_SLOT" );
@@ -4956,7 +4965,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 
 	}
 
-/* // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+/* // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #ifdef CH_PARAM
 		m_pBasicPotionTrayDummy = new CUIControl(m_pRenderDevice);
 		m_pBasicPotionTrayDummy->CreateEx( NO_ID, "LEFTTOP_CONTROL_GROUP" );
@@ -4970,10 +4979,10 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 #endif
 */
 
-//	IPº¸³Ê½º
+//	IPï¿½ï¿½ï¿½Ê½ï¿½
 //#if defined( TH_PARAM ) || defined( MYE_PARAM ) || defined(MY_PARAM) || defined( PH_PARAM ) //|| defined(_RELEASED)
 	//if (sp == SP_THAILAND || sp == SP_MALAYSIA || sp == SP_MALAYSIA_EN || sp == SP_PHILIPPINES)
-	{	// ÅÂ±¹ »çÀÌ¹ö±îÆä ¸¶Å©
+	{	// ï¿½Â±ï¿½ ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©
 		m_pThaiCCafeMark = new CThaiCCafeMark(m_pEngineDevice);
 		m_pThaiCCafeMark->Create ( THAI_CCAFE_MARK, "THAI_CCAFE_MARK", UI_FLAG_RIGHT );
 		m_pThaiCCafeMark->CreateSubControl ();
@@ -5239,14 +5248,14 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 	}
 
     {
-        // ÁøÇà»óÈ² Ãâ·Â
+        // ï¿½ï¿½ï¿½ï¿½ï¿½È² ï¿½ï¿½ï¿½
         AP_IProgressDisplay apProgressDisplay = cFactory.CreateProgressDisplay( m_pGaeaClient, this, m_pEngineDevice );
         m_pProgressDisplay = apProgressDisplay.release();
         m_pProgressDisplay->CreateUIWindowAndRegisterOwnership();
     }
 
     {
-        // »ýÈ°±â·ÏºÎ
+        // ï¿½ï¿½È°ï¿½ï¿½Ïºï¿½
         AP_IStudentRecordWindow apStudentRecordWindow = cFactory.CreateStudentRecordWindow( m_pGaeaClient, this, m_pEngineDevice );
         m_pStudentRecordWindow = apStudentRecordWindow.release();
         m_pStudentRecordWindow->CreateUIWindowAndRegisterOwnership( pd3dDevice );
@@ -5256,7 +5265,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
             UiHideGroup( STUDENTRECORD_NOTIFY_BUTTON );
         }
 
-        // ÀÓ½Ã Æ¯º°È°µ¿
+        // ï¿½Ó½ï¿½ Æ¯ï¿½ï¿½È°ï¿½ï¿½
 		//ActivityWindow* pWindow = new ActivityWindow ( m_pGaeaClient, this );
 		//pWindow->Create ( SPECIAL_ACTIVITY_WINDOW, "BASIC_WINDOW", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
 		//pWindow->CreateBaseWindowLightGray ( "SPECIAL_ACTIVITY_WINDOW", (char*)ID2GAMEWORD("SPECIAL_ACTIVITY_WINDOW") );
@@ -5353,7 +5362,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		m_pItemRebuildRenewal->CreateUIWindowAndRegisterOwnership();
 	}
 
-	//ÇÁ·Î±×·¡½º Å¸ÀÌ¸Ó
+	//ï¿½ï¿½ï¿½Î±×·ï¿½ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½
 	{
 		AP_IProgessTimer apProgessTimer = cFactory.CreateProgessTimer( m_pGaeaClient, this, m_pEngineDevice );
 		m_pProgessTimer = apProgessTimer.release();
@@ -5393,10 +5402,10 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
         m_pColorProperty->CreateUIWindowAndRegisterOwnership();
     }
 
-    //ÀÎ´ø ½ºÅ©¸³Æ®¿ë UI
+    //ï¿½Î´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ UI
     if ( GLUseFeatures::GetInstance().IsUsingNewInstance() )
     {
-        //ÀÎ´ø¿ë °ø¿ë UI
+        //ï¿½Î´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UI
         {
             AP_ISimpleSystemMessageDisplay apSimpleSystemMessageDisplay = cFactory.CreateSimpleSystemMessageDisplay( m_pGaeaClient, this, m_pEngineDevice );
             m_pSimpleSystemMessageDisplay = apSimpleSystemMessageDisplay.release();
@@ -5407,32 +5416,32 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
             m_pSimpleTimerMessageBox->CreateUIWindowAndRegisterOwnership();
         }
 
-        //ÀÎ´ø¿ë Renewal CDM 
+        //ï¿½Î´ï¿½ï¿½ï¿½ Renewal CDM 
         {
-            //Rn CDM »óÅÂ Ç¥½Ã
+            //Rn CDM ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
             AP_IRnCDMProgress apRnCDMProgress = cFactory.CreateRnCDMProgress( m_pGaeaClient, this, m_pEngineDevice );
             m_pRnCDMProgress = apRnCDMProgress.release();
             m_pRnCDMProgress->CreateUIWindowAndRegisterOwnership();
 
-            //Rn CDM Á¡¼ö Ç¥½Ã
+            //Rn CDM ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
             AP_IRnCDMRankWindow apRnCDMRankWindow = cFactory.CreateRnCDMRankWindow( m_pGaeaClient, this, m_pEngineDevice );
             m_pRnCDMRankWindow = apRnCDMRankWindow.release();
             m_pRnCDMRankWindow->CreateUIWindowAndRegisterOwnership();
 
-            //Rn CDM Å¬·´Á¤º¸
+            //Rn CDM Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             AP_IRnCDMClubInfo apRnCDMClubInfo = cFactory.CreateRnCDMClubInfo( m_pGaeaClient, this, m_pEngineDevice );
             m_pRnCDMClubInfo = apRnCDMClubInfo.release();
             m_pRnCDMClubInfo->CreateUIWindowAndRegisterOwnership();
         }        
         
-        //ÀÎ´ø CaptureTheFlag
+        //ï¿½Î´ï¿½ CaptureTheFlag
         {
             AP_ICaptureTheFlagEffectMan apCaptureTheFlagEffectMan = cFactory.CreateCaptureTheFlagEffectMan(m_pGaeaClient, this, m_pEngineDevice);
             m_pCaptureTheFlagEffecMan = apCaptureTheFlagEffectMan.release();
             m_pCaptureTheFlagEffecMan->CreateUIWindowAndRegisterOwnership();
         }
 
-        // ÀÎ´ø GuidanceClubBattle
+        // ï¿½Î´ï¿½ GuidanceClubBattle
         {
             AP_IGuidanceAuthProgressUI apGuidanceAuthProgressUI = cFactory.CreateGuidanceAuthProgressUI(m_pGaeaClient, this, m_pEngineDevice);
             m_pGuidanceAuthProgressUI = apGuidanceAuthProgressUI.release();
@@ -5447,7 +5456,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
             m_pGuidanceRankInfoUI->CreateUIWindowAndRegisterOwnership();
         }
 
-		// ÀÎ´ø CTI
+		// ï¿½Î´ï¿½ CTI
 		{
 			AP_ICTIAuthProgressUI apCTIAuthProgressUI = cFactory.CreateCTIAuthProgressUI(m_pGaeaClient, this, m_pEngineDevice);
 			m_pCTIAuthProgressUI = apCTIAuthProgressUI.release();
@@ -5537,14 +5546,14 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 			UiHideGroup(COMPETITION_TOURNAMENT_OBSERVE);
 			AddNonCloseUI( COMPETITION_TOURNAMENT_OBSERVE);
 
-			//UI Æ®¸®°Å ³Ö±â
+			//UI Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
 
 			MatchingSystem::GLTouranmentClient* glTour = m_pGaeaClient->GetTournamentClient();
 
 			InstanceSystem::InstancePopUpTrigger * ptrigger = new InstanceSystem::InstancePopUpTrigger();
 			ptrigger->RegistCallback(*this,&CInnerInterface::SetInstancePopUp);
 
-			// Æ®¸®°Å ¿¬°á!
+			// Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!
 			glTour->SetInstancePopupEvent(ptrigger);
 
 		}
@@ -5721,6 +5730,15 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		m_pAnimatedPKStreak->CreateSubControl ();
 		UiRegisterControl ( m_pAnimatedPKStreak, true );
 		UiShowGroupTop ( PK_COMBO_DISPLAY );
+	}
+
+	// Kill Card System
+	{
+		m_pKillCardManager = new CKillCardManager(m_pEngineDevice);
+		m_pKillCardManager->Create ( KILL_CARD_DISPLAY, "KILL_CARD_DISPLAY", UI_FLAG_CENTER_X | UI_FLAG_CENTER_Y );
+		m_pKillCardManager->CreateSubControl ();
+		UiRegisterControl ( m_pKillCardManager, true );
+		UiShowGroupTop ( KILL_CARD_DISPLAY );
 	}
 
     CWebWindowBase::s_bSkipVisibleWeb = FALSE;
@@ -6268,7 +6286,7 @@ void CInnerInterface::ToggleWindowClub()
 
 void CInnerInterface::ToggleWindowQuest()
 {
-	// ÀüÀå¼­¹öÀÏ °æ¿ì ½Ã½ºÅÛ ¸Þ½ÃÁö¸¦ Ãâ·ÂÇÑ´Ù;
+	// ï¿½ï¿½ï¿½å¼­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½;
 	if ( GLUseFeatures::GetInstance().IsUsingWorldBattle() )
 	{
 		PrintMsgText( NS_UITEXTCOLOR::RED,

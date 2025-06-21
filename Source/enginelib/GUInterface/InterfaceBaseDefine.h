@@ -9,10 +9,10 @@ enum
 {
 	EItemToolTipCount = 10,
 	ESkillToolTipCount = 10,
-	MAX_GROUP_CHAT_WINDOW_MAXCOUNT = 50, //±×·ìÃ¤ÆÃ MAXROOM°¹¼ö 50°³·Î Á¦ÇÑ 
+	MAX_GROUP_CHAT_WINDOW_MAXCOUNT = 50, //ï¿½×·ï¿½Ã¤ï¿½ï¿½ MAXROOMï¿½ï¿½ï¿½ï¿½ 50ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 };
 
-enum ET_UIGUID_INNER // ÄÁÆ®·Ñ ID
+enum ET_UIGUID_INNER // ï¿½ï¿½Æ®ï¿½ï¿½ ID
 {
     BASIC_QUICK_SKILL_SLOT = NO_ID + 1,
     QUICK_SKILL_TRAY_OPEN_BUTTON,
@@ -314,11 +314,12 @@ enum ET_UIGUID_INNER // ÄÁÆ®·Ñ ID
 	SELECTIVEFORMBOX_WINDOW,
 
 	PK_COMBO_DISPLAY,
+	KILL_CARD_DISPLAY,
 	RANKING_DISPLAY,
 	PK_NOTIFICATION,
 	COMBAT_REPORT_DISPLAY,
 	
-	//		IDÀÇ ³¡
+	//		IDï¿½ï¿½ ï¿½ï¿½
     MODAL_WINDOW,
 };
 
@@ -402,8 +403,8 @@ enum
     OUTER_MODAL_MAKE_CLUB_FAIL,
     OUTER_MODAL_JOIN_CLUB_SUCCESS,
     OUTER_MODAL_JOIN_CLUB_FAIL,
-	OUTER_MODAL_JOIN_SECOUNDPASSWORD, // 2Â÷ºñ¹ø
-	OUTER_MODAL_JOIN_SECOUNDPASSWORD_GS, // 2Â÷ºñ¹ø
+	OUTER_MODAL_JOIN_SECOUNDPASSWORD, // 2ï¿½ï¿½ï¿½ï¿½ï¿½
+	OUTER_MODAL_JOIN_SECOUNDPASSWORD_GS, // 2ï¿½ï¿½ï¿½ï¿½ï¿½
 	OUTER_MODAL_SHOW_COUNTRY_SELECT_LIST_UI,
 	OUTER_MODAL_SELECTED_COUNTRY,
 	OUTER_MODAL_RIDE_VEHICLETARGET,	
@@ -431,7 +432,7 @@ enum
     UI_ATTACK = 1
 };
 
-//!	´ë·Ã½Ã¿¡ Å°¿öµå
+//!	ï¿½ï¿½Ã½Ã¿ï¿½ Å°ï¿½ï¿½ï¿½ï¿½
 enum
 {
     CONFT_WIN_INDEX = 0,
@@ -439,7 +440,7 @@ enum
     CONFT_DRAW_INDEX
 };
 
-//!	ÇÐ±³
+//!	ï¿½Ð±ï¿½
 enum
 {	
     SUNGMOON = 0,
@@ -611,8 +612,8 @@ namespace UI
 		MODAL_NPC_EXCHANGE_BUY_ITEM,
 
 		MODAL_COSTUME_STAT_APPLY,
-		MODAL_COSTUME_STAT_BASIC_HAS, // ÄÚ½ºÆ¬ ±âº»´É·ÂÄ¡°¡ ÀÌ¹Ì ÀÖ´Ù.
-		MODAL_COSTUME_STAT_APPLIED,   // ÄÚ½ºÆ¬ ´É·ÂÄ¡°¡ ÀÌ¹Ì Àû¿ë µÇ¾î ÀÖ´Ù.
+		MODAL_COSTUME_STAT_BASIC_HAS, // ï¿½Ú½ï¿½Æ¬ ï¿½âº»ï¿½É·ï¿½Ä¡ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½Ö´ï¿½.
+		MODAL_COSTUME_STAT_APPLIED,   // ï¿½Ú½ï¿½Æ¬ ï¿½É·ï¿½Ä¡ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½.
 
 		MODAL_CONFIRM_CHANGE_COUNTRY,
 		MODAL_CONFIRM_JOIN_PVP_SERVER,
@@ -633,16 +634,16 @@ namespace UI
 
     enum EMMANAGECONTROL_TYPE
     {
-        EMMANAGECONTROL_TYPE_NPCACTIONABLE, // NPC¸¦ ÅëÇØ ºÎ¸£´Â ÄÁÆ®·Ñ
+        EMMANAGECONTROL_TYPE_NPCACTIONABLE, // NPCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½
     };
 
     enum EMMAPCHECK_TYPE
     {
-        EMMAPCHECK_NONE			= 0,	// ºñµ¿ÀÛ »óÅÂ
-        EMMAPCHECK_LEVELUP		= 1,	// ·¹º§¾÷À¸·Î ³ª°¡¾ßÇÒ °æ¿ì
-        EMMAPCHECK_ENTRYFAIL	= 2,	// ÁøÀÔ Á¶°Ç ½ÇÆÐ·Î ³ª°¡¾ßÇÒ °æ¿ì
-        EMMAPCHECK_LIMITTIME	= 3,	// ½Ã°£ Á¦ÇÑÀ¸·Î ³ª°¡¾ßÇÒ °æ¿ì
-		EMMAPCHECK_EXPEDITION	= 4,	// ¿øÁ¤´ë°¡ ¾Æ´Ñ °æ¿ì
+        EMMAPCHECK_NONE			= 0,	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        EMMAPCHECK_LEVELUP		= 1,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        EMMAPCHECK_ENTRYFAIL	= 2,	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        EMMAPCHECK_LIMITTIME	= 3,	// ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		EMMAPCHECK_EXPEDITION	= 4,	// ï¿½ï¿½ï¿½ï¿½ï¿½ë°¡ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½
     };
 
     enum EMSTATSRESETWINDOW_TYPE
@@ -661,7 +662,7 @@ namespace UI
 
     enum EMPROGRESSDISPLAY_TYPE
     {
-        //! ÀÌ ¼ø¼­´Â Ãâ·Â ¿ì¼±¼øÀ§¿Í »ó°ü ÀÖ½À´Ï´Ù.
+        //! ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ì¼±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
         EMPROGRESSDISPLAY_TYPE_CTF_START,
         EMPROGRESSDISPLAY_TYPE_CTF_CAPTURED_BY_SM,
         EMPROGRESSDISPLAY_TYPE_CTF_CAPTURED_BY_HA,
