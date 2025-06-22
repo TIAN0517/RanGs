@@ -1,5 +1,6 @@
-#include "pch.h"
 #include "StyleManager.h"
+#include <cstring>
+#include <string>
 
 //-----------------------------------------------------------------------------------------------//
 // Kill Panel Style Management System Implementation - Jy技術團隊
