@@ -1,13 +1,15 @@
-//PK Notification - Arvin.BC
-#include "StdAfx.h"
+//PK Notification - Arvin.BC - Updated with 4D Tech Panel System
+#include "stdafx.h"
 #include "PKRankNotificationInfo.h"
-#include "../EngineLib/DxTools/D3DFont.h"
-#include "../../../EngineLib/GUInterface/UITextControl.h"
-#include "../../../EngineLib/GUInterface/GameTextControl.h"
-#include "../../../EngineLib/GUInterface/BasicLineBoxEx.h"
-#include "../../../EngineLib/GUInterface/BasicTextBoxEx.h"
+#include "PKTechPanel.h"
+#include "../../enginelib/DxTools/D3DFont.h"
+#include "../../../enginelib/GUInterface/UITextControl.h"
+#include "../../../enginelib/GUInterface/GameTextControl.h"
+#include "../../../enginelib/GUInterface/BasicLineBoxEx.h"
+#include "../../../enginelib/GUInterface/BasicTextBoxEx.h"
 #include "../../../RanLogicClient/Char/GLCharacter.h"
 #include "../../../RanLogicClient/GLGaeaClient.h"
+#include "../../../SigmaCore/Util/Util.h"
 
 #include "../../InnerInterface.h"
 
@@ -23,6 +25,8 @@ CPKRankNotificationInfo::CPKRankNotificationInfo ( GLGaeaClient* pGaeaClient, En
 	m_pNameKilled( NULL ),
 	m_pLineBox( NULL ),
 	m_pKillIcon( NULL ),
+	m_pTechPanel( NULL ),
+	m_bTechPanelEnabled( true ),
 	m_bAnimationsEnabled( true ),
 	m_eLastAnimationType( KILL_ANIM_SLASH ),
 	m_fAnimationDelay( 0.0f )
@@ -37,6 +41,7 @@ CPKRankNotificationInfo::CPKRankNotificationInfo ( GLGaeaClient* pGaeaClient, En
 
 CPKRankNotificationInfo::~CPKRankNotificationInfo()
 {
+	SAFE_DELETE(m_pTechPanel);
 }
 
 void CPKRankNotificationInfo::CreateSubControl()
@@ -139,6 +144,13 @@ void CPKRankNotificationInfo::CreateSubControl()
 	m_pKillIcon = new CUIControl(m_pEngineDevice);
 	m_pKillIcon->CreateSub ( this, "RANK_INFO_CHARACTER_KILL" );
 	RegisterControl ( m_pKillIcon );
+	
+	// Create 4D Tech Panel for holographic kill notifications
+	m_pTechPanel = new CPKTechPanel(m_pGaeaClient, m_pEngineDevice);
+	m_pTechPanel->CreateSub(this, "TECH_PANEL_MAIN");
+	m_pTechPanel->CreateSubControl();
+	m_pTechPanel->SetVisibleSingle(FALSE);
+	RegisterControl(m_pTechPanel);
 }
 
 void CPKRankNotificationInfo::TranslateUIMessage( UIGUID cID, DWORD dwMsg )
@@ -184,6 +196,37 @@ void CPKRankNotificationInfo::SetData( SPK_HISTORY sHistory )
 	if ( sHistory.cSchoolKiller >= RANK_INFO_ICON_SCHOOL )	return;
 	if ( sHistory.cSchoolKilled >= RANK_INFO_ICON_SCHOOL )	return;
 
+	DWORD dwCharID = m_pGaeaClient->GetCharacter()->GetCharID();
+
+	// Check if player has tech card for 4D panel activation
+	if (m_bTechPanelEnabled && IsTechCardActive())
+	{
+		// Use 4D Tech Panel System
+		if (dwCharID == sHistory.dwKiller)
+		{
+			// Player got a kill - show tech panel with full effects
+			ShowTechKillNotification(sHistory);
+		}
+		else if (dwCharID == sHistory.dwKilled)
+		{
+			// Player was killed - show tech panel with different color scheme
+			ShowTechKillNotification(sHistory);
+		}
+		else
+		{
+			// Other players' kills - show reduced tech panel or skip
+			if (m_pTechPanel && m_pTechPanel->IsTechCardActive())
+			{
+				ShowTechKillNotification(sHistory);
+			}
+		}
+		
+		// Hide traditional UI when using tech panel
+		m_pLineBox->SetUseRender(FALSE);
+		return;
+	}
+
+	// Fallback to original system when no tech card
 	m_pSchoolIconKiller[sHistory.cSchoolKiller]->SetVisibleSingle ( TRUE );
 	m_pSchoolIconKilled[sHistory.cSchoolKilled]->SetVisibleSingle ( TRUE );
 
@@ -192,8 +235,6 @@ void CPKRankNotificationInfo::SetData( SPK_HISTORY sHistory )
 
 	m_pNameKiller->SetText( sHistory.szCharKiller );
 	m_pNameKilled->SetText( sHistory.szCharKilled );
-
-	DWORD dwCharID = m_pGaeaClient->GetCharacter()->GetCharID();
 
 	if ( dwCharID == sHistory.dwKilled )
 	{
@@ -205,7 +246,7 @@ void CPKRankNotificationInfo::SetData( SPK_HISTORY sHistory )
 		m_pLineBox->SetUseRender ( TRUE );
 		m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::GREENYELLOW );
 		
-		// Trigger kill animation for the player when they get a kill
+		// Trigger legacy kill animation for the player when they get a kill
 		if (m_bAnimationsEnabled)
 		{
 			// Calculate animation position and direction
@@ -375,4 +416,19 @@ void CPKRankNotificationInfo::PlayRandomKillAnimation(const D3DXVECTOR3& vPositi
 {
 	KILL_ANIMATION_TYPE eRandomType = static_cast<KILL_ANIMATION_TYPE>(rand() % KILL_ANIM_MAX);
 	KillAnimationManager::GetInstance().PlayKillAnimation(eRandomType, vPosition, vDirection);
+}
+
+// Tech Panel Methods for 4D Holographic Kill Notifications
+bool CPKRankNotificationInfo::IsTechCardActive() const
+{
+	if (!m_pTechPanel) return false;
+	return m_pTechPanel->IsTechCardActive();
+}
+
+void CPKRankNotificationInfo::ShowTechKillNotification(const SPK_HISTORY& sHistory)
+{
+	if (m_pTechPanel)
+	{
+		m_pTechPanel->ShowTechKillNotification(sHistory);
+	}
 }

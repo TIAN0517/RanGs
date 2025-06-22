@@ -1,13 +1,15 @@
 #pragma	once
 
-#include "../../../EngineLib/GUInterface/UIGroup.h"
-#include "../RanLogic/Character/GLCharDefine.h"
-#include "../RanLogic/Msg/PKRankData.h"
+#include "../../../enginelib/GUInterface/UIGroup.h"
+#include "../../RanLogic/Character/GLCharDefine.h"
+#include "../../RanLogic/Msg/PKRankData.h"
 #include "../../../enginelib/DxEffect/Single/KillAnimationManager.h"
+#include "PKTechPanel.h"
 
 class CBasicTextBoxEx;
 class CBasicLineBox;
 class GLGaeaClient;
+class CPKTechPanel;
 
 class CPKRankNotificationInfo : public CUIGroup
 {
@@ -45,7 +47,11 @@ public:
 private:
 	GLGaeaClient*		m_pGaeaClient;
 	
-	// Kill animation system integration
+	// Tech Panel System (4D holographic kill notifications)
+	CPKTechPanel*		m_pTechPanel;
+	bool				m_bTechPanelEnabled;
+	
+	// Legacy animation system integration (fallback when no tech card)
 	bool m_bAnimationsEnabled;
 	KILL_ANIMATION_TYPE m_eLastAnimationType;
 	float m_fAnimationDelay;
@@ -53,7 +59,13 @@ private:
 public:
 	void SetData( SPK_HISTORY sHistory );
 	
-	// Animation control functions
+	// Tech Panel Control (4D holographic system)
+	void SetTechPanelEnabled(bool bEnabled) { m_bTechPanelEnabled = bEnabled; }
+	bool IsTechPanelEnabled() const { return m_bTechPanelEnabled; }
+	bool IsTechCardActive() const;
+	void ShowTechKillNotification(const SPK_HISTORY& sHistory);
+	
+	// Legacy Animation control functions (fallback)
 	void SetAnimationsEnabled(bool bEnabled) { m_bAnimationsEnabled = bEnabled; }
 	bool IsAnimationsEnabled() const { return m_bAnimationsEnabled; }
 	void TriggerKillAnimation(const D3DXVECTOR3& vKillerPos, const D3DXVECTOR3& vKilledPos, KILL_ANIMATION_TYPE eType = KILL_ANIM_SLASH);
