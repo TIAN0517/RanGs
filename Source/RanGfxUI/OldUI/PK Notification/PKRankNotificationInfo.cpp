@@ -22,7 +22,10 @@ CPKRankNotificationInfo::CPKRankNotificationInfo ( GLGaeaClient* pGaeaClient, En
 	m_pNameKiller( NULL ),
 	m_pNameKilled( NULL ),
 	m_pLineBox( NULL ),
-	m_pKillIcon( NULL )
+	m_pKillIcon( NULL ),
+	m_bAnimationsEnabled( true ),
+	m_eLastAnimationType( KILL_ANIM_SLASH ),
+	m_fAnimationDelay( 0.0f )
 {
 	for( int i = 0; i < RANK_INFO_ICON_SCHOOL; ++i )
 	{
@@ -201,9 +204,175 @@ void CPKRankNotificationInfo::SetData( SPK_HISTORY sHistory )
 	{
 		m_pLineBox->SetUseRender ( TRUE );
 		m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::GREENYELLOW );
+		
+		// Trigger kill animation for the player when they get a kill
+		if (m_bAnimationsEnabled)
+		{
+			// Calculate animation position and direction
+			D3DXVECTOR3 vAnimationPos = CalculateAnimationPosition(sHistory);
+			D3DXVECTOR3 vAnimationDir = CalculateAnimationDirection(sHistory);
+			
+			// Select appropriate animation based on classes
+			KILL_ANIMATION_TYPE eAnimType = SelectAnimationByClass(
+				static_cast<EMCHARCLASS>(sHistory.cClassKiller),
+				static_cast<EMCHARCLASS>(sHistory.cClassKilled)
+			);
+			
+			// Trigger the kill animation
+			TriggerKillAnimation(vAnimationPos, vAnimationDir, eAnimType);
+		}
 	}
 	else
 	{
 		m_pLineBox->SetUseRender ( FALSE );
+		
+		// Show kill animation for other players' kills if enabled
+		if (m_bAnimationsEnabled)
+		{
+			D3DXVECTOR3 vAnimationPos = CalculateAnimationPosition(sHistory);
+			D3DXVECTOR3 vAnimationDir = CalculateAnimationDirection(sHistory);
+			
+			// Use a more subtle animation for other players
+			KILL_ANIMATION_TYPE eAnimType = SelectAnimationByClass(
+				static_cast<EMCHARCLASS>(sHistory.cClassKiller),
+				static_cast<EMCHARCLASS>(sHistory.cClassKilled)
+			);
+			
+			// Reduced intensity for other players' kills
+			KILL_ANIMATION_CONFIG config;
+			config.fIntensity = 0.6f;
+			config.fScale = 0.8f;
+			config.bUseSound = false; // No sound for other players
+			
+			KillAnimationManager::GetInstance().PlayKillAnimation(eAnimType, vAnimationPos, vAnimationDir, &config);
+		}
 	}
+}
+
+// Trigger kill animation at specified position and direction
+void CPKRankNotificationInfo::TriggerKillAnimation(const D3DXVECTOR3& vKillerPos, const D3DXVECTOR3& vKilledPos, KILL_ANIMATION_TYPE eType)
+{
+	// Use the provided animation type or select one
+	KILL_ANIMATION_TYPE eAnimType = eType;
+	
+	// Calculate position between killer and killed
+	D3DXVECTOR3 vAnimationPos = (vKillerPos + vKilledPos) * 0.5f;
+	
+	// Calculate direction from killer to killed
+	D3DXVECTOR3 vAnimationDir = vKilledPos - vKillerPos;
+	D3DXVec3Normalize(&vAnimationDir, &vAnimationDir);
+	
+	// Play the animation with full intensity for player kills
+	KILL_ANIMATION_CONFIG config;
+	config.fIntensity = 1.2f;
+	config.fScale = 1.0f;
+	config.bUseSound = true;
+	config.bUseScreenEffect = true;
+	
+	bool result = KillAnimationManager::GetInstance().PlayKillAnimation(eAnimType, vAnimationPos, vAnimationDir, &config);
+	
+	if (result)
+	{
+		m_eLastAnimationType = eAnimType;
+	}
+}
+
+// Select animation type based on character classes
+KILL_ANIMATION_TYPE CPKRankNotificationInfo::SelectAnimationByClass(EMCHARCLASS eKillerClass, EMCHARCLASS eKilledClass)
+{
+	// Map character classes to appropriate animations
+	switch (eKillerClass)
+	{
+	case GLCC_FIGHTER_M:
+	case GLCC_FIGHTER_W:
+		// Fighters use slash or explosion
+		return (rand() % 2 == 0) ? KILL_ANIM_SLASH : KILL_ANIM_EXPLOSION;
+		
+	case GLCC_ARMS_M:
+	case GLCC_ARMS_W:
+		// Swordsmen use slash or stab
+		return (rand() % 2 == 0) ? KILL_ANIM_SLASH : KILL_ANIM_STAB;
+		
+	case GLCC_ARCHER_M:
+	case GLCC_ARCHER_W:
+		// Archers use stab (piercing arrows)
+		return KILL_ANIM_STAB;
+		
+	case GLCC_SPIRIT_M:
+	case GLCC_SPIRIT_W:
+		// Shamans use elemental attacks
+		{
+			int elementChoice = rand() % 3;
+			switch (elementChoice)
+			{
+			case 0: return KILL_ANIM_FLAME;
+			case 1: return KILL_ANIM_FREEZE;
+			case 2: return KILL_ANIM_LIGHTNING;
+			default: return KILL_ANIM_FLAME;
+			}
+		}
+		
+	case GLCC_EXTREME_M:
+	case GLCC_EXTREME_W:
+		// Extreme classes use explosive techniques
+		return KILL_ANIM_EXPLOSION;
+		
+	case GLCC_SCIENTIST_M:
+	case GLCC_SCIENTIST_W:
+		// Scientists use lightning (technology)
+		return KILL_ANIM_LIGHTNING;
+		
+	default:
+		// Default to slash
+		return KILL_ANIM_SLASH;
+	}
+}
+
+// Calculate animation position based on game world data
+D3DXVECTOR3 CPKRankNotificationInfo::CalculateAnimationPosition(const SPK_HISTORY& sHistory)
+{
+	// Try to get actual character positions from the game client
+	if (m_pGaeaClient)
+	{
+		GLCharacter* pCharacter = m_pGaeaClient->GetCharacter();
+		if (pCharacter)
+		{
+			// Use player's current position as base
+			D3DXVECTOR3 vPlayerPos = pCharacter->GetPosition();
+			
+			// Add some randomization for visual variety
+			float fOffsetX = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 10.0f;
+			float fOffsetZ = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 10.0f;
+			
+			return D3DXVECTOR3(vPlayerPos.x + fOffsetX, vPlayerPos.y + 2.0f, vPlayerPos.z + fOffsetZ);
+		}
+	}
+	
+	// Fallback to default position
+	return D3DXVECTOR3(0.0f, 2.0f, 0.0f);
+}
+
+// Calculate animation direction based on game context
+D3DXVECTOR3 CPKRankNotificationInfo::CalculateAnimationDirection(const SPK_HISTORY& sHistory)
+{
+	// Try to get character orientation from game client
+	if (m_pGaeaClient)
+	{
+		GLCharacter* pCharacter = m_pGaeaClient->GetCharacter();
+		if (pCharacter)
+		{
+			// Use player's facing direction
+			return pCharacter->GetDirect();
+		}
+	}
+	
+	// Fallback to forward direction
+	return D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+}
+
+// Play a random kill animation at the specified position
+void CPKRankNotificationInfo::PlayRandomKillAnimation(const D3DXVECTOR3& vPosition, const D3DXVECTOR3& vDirection)
+{
+	KILL_ANIMATION_TYPE eRandomType = static_cast<KILL_ANIMATION_TYPE>(rand() % KILL_ANIM_MAX);
+	KillAnimationManager::GetInstance().PlayKillAnimation(eRandomType, vPosition, vDirection);
 }
