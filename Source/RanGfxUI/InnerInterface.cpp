@@ -157,6 +157,8 @@ CInnerInterface::CInnerInterface(GLGaeaClient* pGaeaClient, EngineDeviceMan* pEn
 	, m_bBlockModalUI(false)
 	, m_pCostumeStatWindow(NULL)
 	, m_pSelformBoxWindow(NULL)
+	, m_pAnimatedPKStreak(NULL)
+	, m_pKillCardManager(NULL)
 {
     m_pPath = m_pGaeaClient->GetSubPath();
 
@@ -292,7 +294,7 @@ CInnerInterface::~CInnerInterface ()
 		{
 			WORD wPileNum = pItemData->sDrugOp.wPileNum;
 			WORD wTurnNum = sItemCustom.wTurnNum;				
-			if ( bInPrivateMarket )	//	°³ÀÎ »óÁ¡
+			if ( bInPrivateMarket )	//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				strText.Format("%s:%d", ID2GAMEWORD("ITEM_TURN_INFO", 0 ), wTurnNum);
 				AddTextNoSplit(strText,NS_UITEXTCOLOR::CHARTREUSE);
@@ -317,19 +319,19 @@ CInnerInterface::~CInnerInterface ()
 		SITEM* pItemData = GLItemMan::GetInstance().GetItem ( sNativeID );
 		SNATIVEID sSkillID = pItemData->sSkillBookOp.sSkill_ID;
 
-		//	Note : ½ºÅ³ Á¤º¸ °¡Á®¿È.
+		//	Note : ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		PGLSKILL pSkill = GLSkillMan::GetInstance().GetData ( sSkillID.wMainID, sSkillID.wSubID );
 		if ( pSkill )
 		{
-			//	±âº» Á¤º¸
+			//	ï¿½âº» ï¿½ï¿½ï¿½ï¿½
 			//{
-			//	//	3. ¼Ó¼º
+			//	//	3. ï¿½Ó¼ï¿½
 			//	strText.Format("%s:%s",ID2GAMEWORD("SKILL_BASIC_INFO", 2), COMMENT::BRIGHT[pSkill->m_sLEARN.emBRIGHT].c_str());
 			//	AddTextNoSplit(strText,NS_UITEXTCOLOR::PALEGREEN);
 			//}
 
 			//{
-			//	//	¸ñÇ¥ °¡´É°Å¸®
+			//	//	ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½É°Å¸ï¿½
 			//	const SKILL::SBASIC& sBASIC = pSkill->m_sBASIC;		
 
 			//	if ( sBASIC.wTARRANGE )
@@ -339,7 +341,7 @@ CInnerInterface::~CInnerInterface ()
 			//	}
 			//}
 
-			//	ÀÌ¹Ì ¹è¿î ½ºÅ³
+			//	ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å³
 			if ( pPetClient->ISLEARNED_SKILL( sSkillID ) )
 			{
 				AddTextNoSplit ( ID2GAMEWORD ( "ITEM_SKILL_CONDITION", 0 ), NS_UITEXTCOLOR::RED );	
@@ -357,21 +359,21 @@ CInnerInterface::~CInnerInterface ()
 		SITEM* pItemData = GLItemMan::GetInstance().GetItem ( sNativeID );
 		SNATIVEID sSkillID = pItemData->sSkillBookOp.sSkill_ID;
 
-		//	Note : ½ºÅ³ Á¤º¸ °¡Á®¿È.
+		//	Note : ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		PGLSKILL pSkill = GLSkillMan::GetInstance().GetData ( sSkillID.wMainID, sSkillID.wSubID );
 		if ( pSkill )
 		{
-			//	±âº» Á¤º¸
+			//	ï¿½âº» ï¿½ï¿½ï¿½ï¿½
 			{
-				//	2. µî±Þ
+				//	2. ï¿½ï¿½ï¿½
 				strText.Format("%s:%d",ID2GAMEWORD("SKILL_BASIC_INFO", 1), pSkill->m_sBASIC.dwGRADE);
 				AddTextNoSplit(strText,NS_UITEXTCOLOR::PALEGREEN);
 
-				//	3. ¼Ó¼º
+				//	3. ï¿½Ó¼ï¿½
 				strText.Format("%s:%s",ID2GAMEWORD("SKILL_BASIC_INFO", 2), COMMENT::BRIGHT[pSkill->m_sLEARN.emBRIGHT].c_str());
 				AddTextNoSplit(strText,NS_UITEXTCOLOR::PALEGREEN);
 
-				//	4. Á÷¾÷
+				//	4. ï¿½ï¿½ï¿½ï¿½
 				strText.Format ("%s:", ID2GAMEWORD("SKILL_BASIC_INFO", 3) );
 				if ( pSkill->m_sLEARN.dwCLASS & GLCC_FIGHTER_M )	strText.AppendFormat ( "%s", COMMENT::CHARCLASS[0].c_str() );
 				if ( pSkill->m_sLEARN.dwCLASS & GLCC_FIGHTER_W )	strText.AppendFormat ( "%s", COMMENT::CHARCLASS[6].c_str() );
@@ -394,7 +396,7 @@ CInnerInterface::~CInnerInterface ()
 			}
 
 			{
-				//	¸ñÇ¥ °¡´É°Å¸®, ¿Þ¼Õ, ¿À¸¥¼Õ µµ±¸
+				//	ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½É°Å¸ï¿½, ï¿½Þ¼ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				const SKILL::SBASIC& sBASIC = pSkill->m_sBASIC;		
 
 				if ( sBASIC.wTARRANGE )
@@ -429,14 +431,14 @@ CInnerInterface::~CInnerInterface ()
 				}
 			}
 
-			//	ÀÌ¹Ì ¹è¿î ½ºÅ³
+			//	ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å³
 			if ( pCharacter->GETLEARNED_SKILL ( sSkillID ) )
 			{
 				AddTextNoSplit ( ID2GAMEWORD ( "ITEM_SKILL_CONDITION", 0 ), NS_UITEXTCOLOR::RED );	
 				return ;
 			}
 
-			//	¿ä±¸Ä¡ Á¤º¸
+			//	ï¿½ä±¸Ä¡ ï¿½ï¿½ï¿½ï¿½
 			{
 				AddTextNoSplit( ID2GAMEWORD("SKILL_CATEGORY", 7), NS_UITEXTCOLOR::LIGHTSKYBLUE);
 
@@ -444,7 +446,7 @@ CInnerInterface::~CInnerInterface ()
 				SKILL::SLEARN& sLEARN = pSkill->m_sLEARN;
 				SKILL::SLEARN_LVL& sLVL = sLEARN.sLVL_STEP[wLevel];
 
-				//	1. ¿ä±¸º¸À¯½ºÅ³
+				//	1. ï¿½ä±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³
 				SNATIVEID NeedSkillID = pSkill->m_sLEARN.sSKILL;			
 				if ( NeedSkillID != NATIVEID_NULL() )
 				{
@@ -458,7 +460,7 @@ CInnerInterface::~CInnerInterface ()
 					strNeedSkillName.Format("%s:%s", ID2GAMEWORD( "SKILL_ADVANCED_INFO", 0), pNeedSkill->GetName() );
 					bVALID = pCharacter->ISLEARNED_SKILL ( NeedSkillID );			
 
-					//	2. ¿ä±¸º¸À¯½ºÅ³·¹º§
+					//	2. ï¿½ä±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½
 					if ( 0 < sLVL.dwSKILL_LVL )
 					{
 						strNeedSkillLevel.Format("%s:%d",ID2GAMEWORD( "SKILL_ADVANCED_INFO", 1), (sLVL.dwSKILL_LVL + 1) );
@@ -470,7 +472,7 @@ CInnerInterface::~CInnerInterface ()
 						{
 							SCHARSKILL& rCharSkill = (*iter).second;
 
-							//	»ö Á¶Àý
+							//	ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							bVALID = rCharSkill.wLevel >= sLVL.dwSKILL_LVL;						
 						}
 					}
@@ -481,21 +483,21 @@ CInnerInterface::~CInnerInterface ()
 						AddTextNoSplit(strNeedSkillLevel, NS_UITEXTCONTROL::GetEvaluateColor ( bVALID ) );
 				}
 
-				//	3. ¿ä±¸°æÇèÄ¡
+				//	3. ï¿½ä±¸ï¿½ï¿½ï¿½ï¿½Ä¡
 				if ( 0 < sLVL.dwSKP )
 				{
 					strText.Format("%s:%d",ID2GAMEWORD( "SKILL_ADVANCED_INFO", 2), sLVL.dwSKP);				
 					AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( pCharacter->m_dwSkillPoint >= sLVL.dwSKP ) );
 				}
 
-				//	4. ¿ä±¸·¹º§
+				//	4. ï¿½ä±¸ï¿½ï¿½ï¿½ï¿½
 				if ( 0 < sLVL.dwLEVEL )
 				{
 					strText.Format("%s:%d",ID2GAMEWORD( "SKILL_ADVANCED_INFO", 3), sLVL.dwLEVEL);
 					AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( pCharacter->GETLEVEL () >= int(sLVL.dwLEVEL) ) );
 				}
 
-				//	5. Á¶°Ç - ¾Ï±¤
+				//	5. ï¿½ï¿½ï¿½ï¿½ - ï¿½Ï±ï¿½
 				BOOL bValue = TRUE;
 				strText.Format ( "%s", COMMENT::BRIGHT[pItemData->sBasicOp.emReqBright].c_str() );
 				if ( pItemData->sBasicOp.emReqBright != BRIGHT_BOTH )
@@ -516,42 +518,42 @@ CInnerInterface::~CInnerInterface ()
 				//}
 
 				//	Stats
-				//	1. ¿ä±¸Èû
+				//	1. ï¿½ä±¸ï¿½ï¿½
 				if ( 0 < sLVL.sSTATS.wPow )
 				{
 					strText.Format("%s:%d",ID2GAMEWORD( "SKILL_ADVANCED_INFO_STATS", 0), sLVL.sSTATS.wPow);
 					AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( pCharacter->m_sSUMSTATS.wPow >= sLVL.sSTATS.wPow ) );
 				}
 
-				//	2. ¿ä±¸Ã¼·Â
+				//	2. ï¿½ä±¸Ã¼ï¿½ï¿½
 				if ( 0 < sLVL.sSTATS.wStr )
 				{
 					strText.Format("%s:%d",ID2GAMEWORD( "SKILL_ADVANCED_INFO_STATS", 1), sLVL.sSTATS.wStr);
 					AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( pCharacter->m_sSUMSTATS.wStr >= sLVL.sSTATS.wStr ) );
 				}
 
-				//	3. ¿ä±¸Á¤½Å
+				//	3. ï¿½ä±¸ï¿½ï¿½ï¿½ï¿½
 				if ( 0 < sLVL.sSTATS.wSpi )
 				{
 					strText.Format("%s:%d",ID2GAMEWORD( "SKILL_ADVANCED_INFO_STATS", 2), sLVL.sSTATS.wSpi);
 					AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( pCharacter->m_sSUMSTATS.wSpi >= sLVL.sSTATS.wSpi ));
 				}
 
-				//	4. ¿ä±¸¹ÎÃ¸
+				//	4. ï¿½ä±¸ï¿½ï¿½Ã¸
 				if ( 0 < sLVL.sSTATS.wDex )
 				{
 					strText.Format("%s:%d",ID2GAMEWORD( "SKILL_ADVANCED_INFO_STATS", 3), sLVL.sSTATS.wDex);
 					AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( pCharacter->m_sSUMSTATS.wDex >= sLVL.sSTATS.wDex ) );
 				}
 
-				//	5. ¿ä±¸Áö·Â
+				//	5. ï¿½ä±¸ï¿½ï¿½ï¿½ï¿½
 				if ( 0 < sLVL.sSTATS.wInt )
 				{
 					strText.Format("%s:%d",ID2GAMEWORD( "SKILL_ADVANCED_INFO_STATS", 4), sLVL.sSTATS.wInt);
 					AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( pCharacter->m_sSUMSTATS.wInt >= sLVL.sSTATS.wInt ) );
 				}
 
-				//	6. ¿ä±¸±Ù·Â
+				//	6. ï¿½ä±¸ï¿½Ù·ï¿½
 				if ( 0 < sLVL.sSTATS.wSta )
 				{
 					strText.Format("%s:%d",ID2GAMEWORD( "SKILL_ADVANCED_INFO_STATS", 5), sLVL.sSTATS.wSta);
@@ -578,9 +580,9 @@ CInnerInterface::~CInnerInterface ()
 			EMITEM_ADDON emTYPE = sSUIT.sADDON[i].emTYPE;
 			{
 				//	NOTE
-				//		°¡»êÈ¿°ú°¡ Á¸ÀçÇÒ°æ¿ì¿¡¸¸ Å¸ÀÌÆ²À»
-				//		Ãâ·ÂÇÏ±â À§ÇØ, Àû¾îµµ ÇÏ³ª°¡ Á¸ÀçÇÒ¶§
-				//		»Ñ¸°´Ù´Â °ÍÀ» Ã¼Å©ÇÑ´Ù.
+				//		ï¿½ï¿½ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ì¿¡ï¿½ï¿½ Å¸ï¿½ï¿½Æ²ï¿½ï¿½
+				//		ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½îµµ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½
+				//		ï¿½Ñ¸ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 				if ( bLEAST_HAVE_ONE && emTYPE < EMADDEX_INCR_NONE )
 				{
 					AddTextNoSplit( ID2GAMEWORD ( "ITEM_CATEGORY", 10 ),NS_UITEXTCOLOR::LIGHTSKYBLUE);
@@ -786,13 +788,13 @@ CInnerInterface::~CInnerInterface ()
 
 	void CInnerInterface::CutZero( CString& cstr, int ncount  )
 	{
-		// '.' Á¡ÀÌ ¾ø´Ù´Â °ÍÀº ¼Ò¼öÁ¡ ÀÌÇÏ ÀÚ¸®°¡ ¾øÀ¸¹Ç·Î ¸®ÅÏ
+		// '.' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if (cstr.Find('.') == -1)
 			return;
 
 		CString temp = cstr;
 
-		//ncount ¼Ò¼ýÁ¡ ¸îÂ° ÀÚ¸® ±îÁö Àß¶ó³¾Âî Á¤ÇÑ´Ù
+		//ncount ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½Â° ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½
 		for (int i = 0; i < ncount + 1; i++ )
 		{
 			temp = cstr.Right( 1 );
@@ -816,7 +818,7 @@ CInnerInterface::~CInnerInterface ()
 		if ( !pItemData ) return ;
 		
 		DWORD dwLevel = pItemData->sBasicOp.emLevel;
-		//	ÀÌ¸§
+		//	ï¿½Ì¸ï¿½
 		AddTextNoSplit ( pItemData->GetName(), COMMENT::ITEMCOLOR[dwLevel] );
 	}
 
@@ -889,7 +891,7 @@ CInnerInterface::~CInnerInterface ()
 
 			//////////////////////////////////////////////////////////////////////////////////////////////////////
 			//	BasicInfo
-			//	1.¾ÆÀÌÅÛ ÀÌ¸§		
+			//	1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½		
 			BOOL bInsert = FALSE;
 
 			/*item wrapper, Juver, 2018/01/12 */
@@ -905,7 +907,7 @@ CInnerInterface::~CInnerInterface ()
 			DWORD dwLevel = (DWORD)pItemData->sBasicOp.emLevel;
 //			AddTextNoSplit ( strText, COMMENT::ITEMCOLOR[dwLevel] );
 
-			//	ÄÚ½ºÃã
+			//	ï¿½Ú½ï¿½ï¿½ï¿½
 			if ( sItemCustom.nidDISGUISE!=SNATIVEID(false) )
 			{
 				SITEM* pDisguiseData = GLItemMan::GetInstance().GetItem ( sItemCustom.nidDISGUISE );
@@ -914,7 +916,7 @@ CInnerInterface::~CInnerInterface ()
 				AddTextNoSplit ( strText, NS_UITEXTCOLOR::GREENYELLOW );
 			}
 
-			//	ÄÚ½ºÃõ ±â°£ Ç¥½Ã
+			//	ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½â°£ Ç¥ï¿½ï¿½
 			if ( sItemCustom.tDISGUISE!=0 )
 			{				
 				CTime cTime(sItemCustom.tDISGUISE);
@@ -935,7 +937,7 @@ CInnerInterface::~CInnerInterface ()
 
 			DWORD dwCOMMISSION_MONEY = 0;
 
-			//	2.°¡°Ý
+			//	2.ï¿½ï¿½ï¿½ï¿½
 			if ( pItemData->sBasicOp.dwBuyPrice || bInPrivateMarket )
 			{
 				if ( bInPrivateMarket )
@@ -944,7 +946,7 @@ CInnerInterface::~CInnerInterface ()
 					DWORD dwPrivateMarketID;
 					GetPrivateMarketInfo ( bOPENER, dwPrivateMarketID );
 					D3DCOLOR dwColor = NS_UITEXTCOLOR::GOLD;
-					if ( bOPENER )	//	ÆÄ´Â »ç¶÷
+					if ( bOPENER )	//	ï¿½Ä´ï¿½ ï¿½ï¿½ï¿½
 					{
 						GLPrivateMarket &sPMarket = GetGaeaClient()->GetCharacter()->m_sPMarket;
 
@@ -964,7 +966,7 @@ CInnerInterface::~CInnerInterface ()
 							AddTextNoSplit ( strText, dwColor );
 						}						
 					}
-					else		//	»ç´Â »ç¶÷
+					else		//	ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					{
 						//std::tr1::shared_ptr<GLCharClient> pCLIENT = GetGaeaClient()->GetChar ( dwPrivateMarketID );
 						//if ( !pCLIENT ) return ;
@@ -988,7 +990,7 @@ CInnerInterface::~CInnerInterface ()
 						//}
 					}
 				}				
-				else if ( bShopOpen && bInMarket )	// »ì¶§ °¡°Ý
+				else if ( bShopOpen && bInMarket )	// ï¿½ì¶§ ï¿½ï¿½ï¿½ï¿½
 				{
 					LONGLONG dwNpcSellPrice = 0;
 
@@ -1018,7 +1020,7 @@ CInnerInterface::~CInnerInterface ()
 
 					strText.Format( "%s:%s", ID2GAMEWORD("ITEM_BASIC_INFO", 1), strMoney );
 
-					//	Ä¿¹Ì¼Ç ¾×¼ö
+					//	Ä¿ï¿½Ì¼ï¿½ ï¿½×¼ï¿½
 					dwCOMMISSION_MONEY = dwPrice - dwNpcSellPrice;
 					
 					D3DCOLOR dwColor = NS_UITEXTCOLOR::RED;
@@ -1035,7 +1037,7 @@ CInnerInterface::~CInnerInterface ()
 					}
 					AddTextNoSplit ( strText, dwColor );
 				}
-				else if ( bShopOpen ) // ÆÈ¶§ °¡°Ý
+				else if ( bShopOpen ) // ï¿½È¶ï¿½ ï¿½ï¿½ï¿½ï¿½
 				{
 					D3DCOLOR dwColor = NS_UITEXTCOLOR::PALEGREEN;
 					volatile float fSHOP_RATE = GetGaeaClient()->GetCharacter()->GetSaleRate();
@@ -1044,7 +1046,7 @@ CInnerInterface::~CInnerInterface ()
 					volatile DWORD dwPrice = pItemData->GETSELLPRICE ( sItemCustom.wTurnNum );
 					volatile DWORD dwSALE_PRICE = DWORD ( dwPrice * fSALE_DISCOUNT );					
 
-					//	Ä¿¹Ì¼Ç ¾×¼ö
+					//	Ä¿ï¿½Ì¼ï¿½ ï¿½×¼ï¿½
 					volatile DWORD dwDISPRICE = pItemData->GETSELLPRICE ( sItemCustom.wTurnNum );
 					dwCOMMISSION_MONEY = dwDISPRICE - dwSALE_PRICE;
 
@@ -1062,7 +1064,7 @@ CInnerInterface::~CInnerInterface ()
 				}
 			}
 
-			//	¼ö¼ö·á Ç¥½Ã
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
 			if ( dwCOMMISSION_MONEY )
 			{
 				CString strMoney = NS_UITEXTCONTROL::MAKE_MONEY_FORMAT ( dwCOMMISSION_MONEY, 3, "," );
@@ -1071,10 +1073,10 @@ CInnerInterface::~CInnerInterface ()
 				AddTextNoSplit ( strText, NS_UITEXTCOLOR::PALEGREEN );
 			}
 
-			//	¼ö·®Ç¥½Ã
+			//	ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½
 			AddItemTurnInfo ( sItemCustom, bInMarket, bInPrivateMarket );
 
-			//	±â°£Ç¥½Ã
+			//	ï¿½â°£Ç¥ï¿½ï¿½
 			if ( sItemCustom.IsTimeLimit() )
 			{
 				CTime cTime(sItemCustom.tBORNTIME);
@@ -1092,7 +1094,7 @@ CInnerInterface::~CInnerInterface ()
 				}
 			}
 
-			//	Âø¿ëÁ¶°Ç->¿ä±¸ ·¹º§
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->ï¿½ä±¸ ï¿½ï¿½ï¿½ï¿½
 			if ( pItemData->sBasicOp.wReqLevelDW || pItemData->sBasicOp.wReqLevelUP )
 			{
 				bool bReqLevel = true;
@@ -1108,7 +1110,7 @@ CInnerInterface::~CInnerInterface ()
 				AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( pItemData->sBasicOp.wReqLevelDW <= pCharacter->m_wLevel && bReqLevel ) );
 			}
 
-			//	Àç»ç¿ë ´ë±â½Ã°£
+			//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã°ï¿½
 			if ( pItemData->sBasicOp.IsCoolTime() )
 			{
 				CString strTime = "";
@@ -1125,7 +1127,7 @@ CInnerInterface::~CInnerInterface ()
 				AddTextNoSplit ( strText, NS_UITEXTCOLOR::DARKORANGE );	
 			}
 
-			//	³²Àº½Ã°£
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 
 
 			GLCharacter* pCharacter = GetGaeaClient()->GetCharacter();
@@ -1167,13 +1169,13 @@ CInnerInterface::~CInnerInterface ()
 
 					BYTE uGRADE = 0;
 
-					//	°ø°Ý·Â
+					//	ï¿½ï¿½ï¿½Ý·ï¿½
 					GLPADATA &sDamage = sItemCustom.getdamage();
 					nExtraValue = sItemCustom.GETGRADE_DAMAGE();
 					uGRADE = sItemCustom.GETGRADE(EMGRINDING_DAMAGE);
 					AddInfoItemAddonRange ( sDamage.wLow, sDamage.wHigh, nExtraValue, uGRADE, ID2GAMEWORD("ITEM_ADVANCED_INFO", 0) );
 
-					//	±â·ÂÄ¡
+					//	ï¿½ï¿½ï¿½Ä¡
 					nExtraValue = sItemCustom.GETGRADE_DAMAGE();
 					if ( nExtraValue )
 					{
@@ -1183,45 +1185,45 @@ CInnerInterface::~CInnerInterface ()
 						AddTextNoSplit ( strText, NS_UITEXTCOLOR::PRIVATE );
 					}
 
-					//	¹æ¾î·Â
+					//	ï¿½ï¿½ï¿½ï¿½
 					short nDefense = sItemCustom.getdefense();
 					nExtraValue = sItemCustom.GETGRADE_DEFENSE();
 					uGRADE = sItemCustom.GETGRADE(EMGRINDING_DEFENSE);
 					AddInfoItemAddon ( nDefense, nExtraValue, uGRADE, ID2GAMEWORD("ITEM_ADVANCED_INFO", 1) );
 
-					//	°ø°Ý °Å¸®
+					//	ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
 					if ( sItemCustom.GETATTRANGE() )
 					{
 						strText.Format("%s:%d",ID2GAMEWORD("ITEM_ADVANCED_INFO", 2), sItemCustom.GETATTRANGE() );
 						AddTextNoSplit ( strText, NS_UITEXTCOLOR::DEFAULT );
 					}
 
-					//	¸íÁß·ü
+					//	ï¿½ï¿½ï¿½ß·ï¿½
 					if ( sItemCustom.GETHITRATE() )
 					{
 						nExtraValue = 0;
 						AddInfoItemAddon ( sItemCustom.GETHITRATE(), nExtraValue, ID2GAMEWORD("ITEM_ADVANCED_INFO", 3) );		
 					}
 
-					//	È¸ÇÇÀ²
+					//	È¸ï¿½ï¿½ï¿½ï¿½
 					if ( sItemCustom.GETAVOIDRATE() )
 					{
 						nExtraValue = 0;
 						AddInfoItemAddon ( sItemCustom.GETAVOIDRATE(), nExtraValue, ID2GAMEWORD("ITEM_ADVANCED_INFO", 4) );
 					}
 
-					//	Âø¿ëÀ§Ä¡
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
 					strText.Format("%s:%s ", ID2GAMEWORD("ITEM_ADVANCED_INFO", 5), COMMENT::ITEMSUIT[pItemData->sSuitOp.emSuit].c_str() );
 					AddTextNoSplit (strText, NS_UITEXTCOLOR::DEFAULT );
 
-					//	°ø°Ý ¼Ó¼º
+					//	ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½
 					if ( pItemData->sSuitOp.emAttack != ITEMATT_NOTHING )
 					{
 						strText.Format("%s:%s", ID2GAMEWORD("ITEM_ADVANCED_INFO", 6), COMMENT::ITEMATTACK[pItemData->sSuitOp.emAttack].c_str() );
 						AddTextNoSplit ( strText, NS_UITEXTCOLOR::DEFAULT );
 					}
 
-					//	SP ¼Ò¸ð
+					//	SP ï¿½Ò¸ï¿½
 					const WORD wReqSP = sItemCustom.GETREQ_SP();
 					if ( 0 < wReqSP )
 					{
@@ -1229,8 +1231,8 @@ CInnerInterface::~CInnerInterface ()
 						AddTextNoSplit ( strText, NS_UITEXTCOLOR::ORANGE );
 					}
 				
-					//	Âø¿ëÁ¶°Ç-------------------------------------------------------------------------------------
-					//	Âø¿ëÁ¶°Ç-Âø¿ë°¡´É Å¬·¡½º
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-------------------------------------------------------------------------------------
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ë°¡ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 					AddTextNoSplit( ID2GAMEWORD ( "ITEM_CATEGORY", 2 ), NS_UITEXTCOLOR::LIGHTSKYBLUE );
 
 					if ( pItemData->sBasicOp.dwReqSchool!=GLSCHOOL_ALL )
@@ -1821,7 +1823,7 @@ CInnerInterface::~CInnerInterface ()
 						}
 					}
 
-					//	Á¶°Ç - ¾Ï±¤
+					//	ï¿½ï¿½ï¿½ï¿½ - ï¿½Ï±ï¿½
 					bValue = TRUE;
 					strText.Format ( "%s", COMMENT::BRIGHT[pItemData->sBasicOp.emReqBright].c_str() );
 					if ( pItemData->sBasicOp.emReqBright != BRIGHT_BOTH )
@@ -1833,13 +1835,13 @@ CInnerInterface::~CInnerInterface ()
 					}
 					AddTextNoSplit ( strText, NS_UITEXTCONTROL::GetEvaluateColor ( bValue ) );					
 
-					//	Âø¿ëÁ¶°Ç->°ÝÅõÄ¡
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½ï¿½ï¿½Ä¡
 					if ( pItemData->sBasicOp.wReqPA )
 					{
 						strText.Format("%s:%d", ID2GAMEWORD("ITEM_ADVANCED_INFO_CONDITION", 1), pItemData->sBasicOp.wReqPA );
 						AddTextNoSplit ( strText, NS_UITEXTCONTROL::GetEvaluateColor ( pItemData->sBasicOp.wReqPA <= pCharacter->m_nPA_ADD ) );
 					}
-					//	Âø¿ëÁ¶°Ç->»ç°ÝÄ¡
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½ï¿½Ä¡
 					if ( pItemData->sBasicOp.wReqSA )
 					{
 						strText.Format("%s:%d", ID2GAMEWORD("ITEM_ADVANCED_INFO_CONDITION", 2 ), pItemData->sBasicOp.wReqSA );
@@ -1847,44 +1849,44 @@ CInnerInterface::~CInnerInterface ()
 					}
 
 					//	Stats
-					//	Âø¿ëÁ¶°Ç->Èû
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½
 					if ( rItemStats.wPow )
 					{
 						strText.Format( "%s:%d", ID2GAMEWORD("ITEM_ADVANCED_INFO_CONDITION_STATS", 0 ), rItemStats.wPow );
 						AddTextNoSplit ( strText, NS_UITEXTCONTROL::GetEvaluateColor ( rItemStats.wPow <= rCharStats.wPow ) );
 					}
-					//	Âø¿ëÁ¶°Ç->Ã¼·Â
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->Ã¼ï¿½ï¿½
 					if ( rItemStats.wStr )
 					{
 						strText.Format("%s:%d", ID2GAMEWORD("ITEM_ADVANCED_INFO_CONDITION_STATS", 1 ), rItemStats.wStr );
 						AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( rItemStats.wStr <= rCharStats.wStr ) );
 					}
-					//	Âø¿ëÁ¶°Ç->Á¤½Å·Â
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½ï¿½Å·ï¿½
 					if ( rItemStats.wSpi)
 					{
 						strText.Format("%s:%d", ID2GAMEWORD("ITEM_ADVANCED_INFO_CONDITION_STATS", 2 ), rItemStats.wSpi );
 						AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( rItemStats.wSpi <= rCharStats.wSpi ) );
 					}
-					//	Âø¿ëÁ¶°Ç->¹ÎÃ¸¼º
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½Ã¸ï¿½ï¿½
 					if ( rItemStats.wDex )
 					{
 						strText.Format("%s:%d", ID2GAMEWORD("ITEM_ADVANCED_INFO_CONDITION_STATS", 3 ), rItemStats.wDex );
 						AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( rItemStats.wDex <= rCharStats.wDex ) );
 					}
-					//	Âø¿ëÁ¶°Ç->Áö·Â
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½ï¿½ï¿½
 					if ( rItemStats.wInt  )
 					{
 						strText.Format("%s:%d", ID2GAMEWORD("ITEM_ADVANCED_INFO_CONDITION_STATS", 4 ), rItemStats.wInt );
 						AddTextNoSplit(strText, NS_UITEXTCONTROL::GetEvaluateColor ( rItemStats.wInt <= rCharStats.wInt ) );
 					}
-					//	Âø¿ëÁ¶°Ç->±Ù·Â
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->ï¿½Ù·ï¿½
 					if ( rItemStats.wSta )
 					{
 						strText.Format("%s:%d", ID2GAMEWORD("ITEM_ADVANCED_INFO_CONDITION_STATS", 5 ), rItemStats.wSta );
 						AddTextNoSplit ( strText, NS_UITEXTCONTROL::GetEvaluateColor ( rItemStats.wSta <= rCharStats.wSta ) );
 					}
 					//-----------------------------------------------------------------------------------------------
-					//	ÀúÇ×°ª
+					//	ï¿½ï¿½ï¿½×°ï¿½
 					const int nELEC   = sItemCustom.GETRESIST_ELEC();
 					const int nFIRE   = sItemCustom.GETRESIST_FIRE();
 					const int nICE    = sItemCustom.GETRESIST_ICE();
@@ -1933,7 +1935,7 @@ CInnerInterface::~CInnerInterface ()
 					}
 
 
-					//	»óÅÂÀÌ»ó
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½
 					EMSTATE_BLOW emBLOW = pItemData->sSuitOp.sBLOW.emTYPE;
 					if ( emBLOW !=EMBLOW_NONE )
 					{
@@ -1979,7 +1981,7 @@ CInnerInterface::~CInnerInterface ()
 
 
 					//	NOTE
-					//		°¡»ê È¿°ú
+					//		ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
 					AddTextAddValue( sItemCustom, pItemData->sSuitOp );
 					if( pItemData->sBasicOp.emItemType == ITEM_VEHICLE )
 					{
@@ -2029,7 +2031,7 @@ CInnerInterface::~CInnerInterface ()
 						}
 					}
 
-					//	Æ¯¼ö±â´É
+					//	Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½
 					//
 					{
 						BOOL bSPAC = sItemCustom.GETINCHP() || sItemCustom.GETINCMP() || sItemCustom.GETINCSP() || sItemCustom.GETINCAP();
@@ -2042,7 +2044,7 @@ CInnerInterface::~CInnerInterface ()
 							AddTextNoSplit ( ID2GAMEWORD ( "ITEM_CATEGORY", 5 ), NS_UITEXTCOLOR::LIGHTSKYBLUE );
 						}
 						
-						//	Æ¯¼ö±â´É ( º¯È­À² )
+						//	Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½È­ï¿½ï¿½ )
 						//
 						float fVAR_SCALE(0);
 						if ( emITEM_VAR != EMVAR_NONE )
@@ -2116,7 +2118,7 @@ CInnerInterface::~CInnerInterface ()
 							AddTextNoSplit(strText,NS_UITEXTCOLOR::PRIVATE);
 						}
 
-						// °æÇèÄ¡ ¹èÀ²
+						// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 						float fExpMultiple = pItemData->GetExpMultiple();
 						if( fExpMultiple != 1.0f )
 						{
@@ -2128,7 +2130,7 @@ CInnerInterface::~CInnerInterface ()
 							AddTextNoSplit(strText,NS_UITEXTCOLOR::PRIVATE);
 						}
 
-						//	Æ¯¼ö±â´É ( º¯È­·® )
+						//	Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½È­ï¿½ï¿½ )
 						//
 						if ( emITEM_VOL != EMVAR_NONE)
 						{
@@ -2179,7 +2181,7 @@ CInnerInterface::~CInnerInterface ()
 					}
 
 
-					// Info : ·£´ý ¼öÄ¡
+					// Info : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 					{
 						if( sItemCustom.IsSetRandOpt() )
 						{
@@ -2510,7 +2512,7 @@ CInnerInterface::~CInnerInterface ()
 				{
 					AddTextNoSplit ( ID2GAMEWORD ( "ITEM_CATEGORY", 1 ), NS_UITEXTCOLOR::LIGHTSKYBLUE );
 
-					//	°ø°Ý·Â
+					//	ï¿½ï¿½ï¿½Ý·ï¿½
 					GLDWDATA &sDAMAGE = sItemCustom.GETDAMAGE();
 					if ( sDAMAGE.dwLow || sDAMAGE.dwHigh  )
 					{
@@ -2523,7 +2525,7 @@ CInnerInterface::~CInnerInterface ()
  
 
 					//	NOTE
-					//		°¡»ê È¿°ú
+					//		ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
 					AddTextAddValue( sItemCustom, pItemData->sSuitOp );					
 				}
 				break;
@@ -2563,7 +2565,7 @@ CInnerInterface::~CInnerInterface ()
 				}
 				break;
 
-				// °æÇèÄ¡ È¹µæ Ä«µå Á¤º¸
+				// ï¿½ï¿½ï¿½ï¿½Ä¡ È¹ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			case ITEM_VIETNAM_EXPGET:
 				{
 					if ( pItemData->sDrugOp.bRatio )
@@ -2578,7 +2580,7 @@ CInnerInterface::~CInnerInterface ()
 					AddTextNoSplit(strText,NS_UITEXTCOLOR::LIGHTSKYBLUE);
 				}
 				break;
-				// ¾ÆÀÌÅÛ È¹µæ Ä«µå Á¤º¸
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			case ITEM_VIETNAM_ITEMGET:
 				{
 					strText.Format(ID2GAMEWORD ("ITEM_CATEGORY_VIETNAM_ITEM", 0) , pItemData->sDrugOp.dwCureVolume );
@@ -2592,7 +2594,7 @@ CInnerInterface::~CInnerInterface ()
 			{
 				INFO_DISPLAY_ITEM_AddTextNoSplit( ID2GAMEWORD( "ITEM_CATEGORY", 8 ), NS_UITEXTCOLOR::LIGHTSKYBLUE );
 
-				// Note : ½Ã±Í/Á÷±Í Ä«µå¿¡ ¸ÊÀÌ¸§ ÁÂÇ¥ Ãâ·Â
+				// Note : ï¿½Ã±ï¿½/ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½å¿¡ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½
 				if( pItemData->sDrugOp.emDrug == ITEM_DRUG_CALL_REGEN )
 				{
 					GLCharacter* pCharacter = m_pGaeaClient->GetCharacter();	
@@ -2697,12 +2699,12 @@ CInnerInterface::~CInnerInterface ()
 			}
 
 
-			//  Âø¿ëÁ¶°Ç->¿ä±¸È°µ¿
+			//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->ï¿½ä±¸È°ï¿½ï¿½
 			if ( pItemData->sBasicOp.wReqActPointDW || pItemData->sBasicOp.wReqActPointUP )
 			{
 				int emType = pItemData->sBasicOp.emReqActivityType;
 				bool bReqActPoint = true;
-				// ¾Æ·¡ÀÇ COMMENT´Â µ¥ÀÌÅÍ¿¡¼­ ÀÐ¾î¿ÀÁö¾Ê´Â´Ù;
+				// ï¿½Æ·ï¿½ï¿½ï¿½ COMMENTï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½Ê´Â´ï¿½;
 				strText.Format( "%s:%s(%d", ID2GAMEWORD("ITEM_ADVANCED_INFO_CONDITION", 3), 
 					COMMENT::ACTIVITY_CLASS[emType].c_str(), pItemData->sBasicOp.wReqActPointDW );
 
@@ -2722,7 +2724,7 @@ CInnerInterface::~CInnerInterface ()
 			}
 
 
-			//  Âø¿ëÁ¶°Ç->±â¿©µµ
+			//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½->ï¿½â¿©ï¿½ï¿½
 			if ( pItemData->sBasicOp.dwReqContribution )
 			{
 				bool bReqPoint = true;
@@ -2733,7 +2735,7 @@ CInnerInterface::~CInnerInterface ()
 					pItemData->sBasicOp.dwReqContribution <= static_cast< DWORD >( pCharacter->m_nContributionPoint ) ) );
 			}
 
-			{ // ¼³¸í
+			{ // ï¿½ï¿½ï¿½ï¿½
 				const TCHAR * pszComment(NULL);
 
 				if ( (emItemType != ITEM_SKILL) || (emItemType != ITEM_PET_SKILL) )
@@ -2746,7 +2748,7 @@ CInnerInterface::~CInnerInterface ()
 					SITEM* pItemData = GLItemMan::GetInstance().GetItem ( sNativeID );
 					SNATIVEID sSkillID = pItemData->sSkillBookOp.sSkill_ID;
 
-					//	Note : ½ºÅ³ Á¤º¸ °¡Á®¿È.
+					//	Note : ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					PGLSKILL pSkill = GLSkillMan::GetInstance().GetData ( sSkillID.wMainID, sSkillID.wSubID );
 					if ( pSkill )
 					{
@@ -3218,8 +3220,8 @@ HRESULT CInnerInterface::FrameMove( LPDIRECT3DDEVICEQ pd3dDevice, float fElapsed
 {
 	GASSERT( pd3dDevice );
 
-	//	¹«Á¶°Ç ¾È º¸ÀÌ°Ô ¸¸µê.
-	//	»ç¿ë½Ã¿¡ Update()¿¡¼­ ÄÑ°í µ¿ÀÛ.
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	//	ï¿½ï¿½ï¿½Ã¿ï¿½ Update()ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½.
     UiHideGroup( ITEM_INFOR_TOOLTIP );
     UiHideGroup( ITEM_INFOR_TOOLTIP_WEAR );
 	UiHideGroup( ITEM_INFOR_TOOLTIP_DURABILITY );
@@ -3231,15 +3233,15 @@ HRESULT CInnerInterface::FrameMove( LPDIRECT3DDEVICEQ pd3dDevice, float fElapsed
 	UiHideGroup( INFO_DISPLAY_EX );
 	
 
-	ResetTargetInfoMouseOver ();	//	Å¸°Ù Á¤º¸Ã¢ ¸®¼Â
-	NSGUI::ResetCharMoveAllBlock();	//	Ä³¸¯ÅÍÀÇ ÀüÃ¼ ¿òÁ÷ÀÓ Àá±Ý Ç®±â
-	NSGUI::ResetCharMoveBlock ();	//	Ä³¸¯ÅÍ ¿òÁ÷ÀÓ Àá±Ý Ç®±â	
-	ResetSnapItem ();		        //	¾ÆÀÌÅÛ ½º³À ¸®¼Â
-	ResetFirstItemSlot ();	        //	¾ÆÀÌÅÛ½½·Ô ºÙ±â ¸®¼Â
+	ResetTargetInfoMouseOver ();	//	Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
+	NSGUI::ResetCharMoveAllBlock();	//	Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½
+	NSGUI::ResetCharMoveBlock ();	//	Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½	
+	ResetSnapItem ();		        //	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	ResetFirstItemSlot ();	        //	ï¿½ï¿½ï¿½ï¿½ï¿½Û½ï¿½ï¿½ï¿½ ï¿½Ù±ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	m_bUSING_INFO_DISPLAY = false;
  
-	// ¾ÆÀÌÅÛ ¹ðÅ©Ã¢ µô·¹ÀÌ ÃøÁ¤
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( !IsBankOpen() && m_fItemBankDelay < 5.0f )
 	{
 		m_fItemBankDelay += fElapsedTime;
@@ -3250,7 +3252,7 @@ HRESULT CInnerInterface::FrameMove( LPDIRECT3DDEVICEQ pd3dDevice, float fElapsed
 	// DXInputString* pInputString = m_pEngineDevice->GetInputString();
 	//if (UiIsVisibleGroup ( MODAL_WINDOW ) ||
 	//	UiIsVisibleGroup ( REBIRTH_DIALOGUE ) ||
-	//	//UiIsVisibleGroup ( HELP_WINDOW ) ||	// À¥ ºê¶ó¿ìÀú¿ë, ¾ÆÁ÷ »ç¿ë ¾ÈÇÔ
+	//	//UiIsVisibleGroup ( HELP_WINDOW ) ||	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	//	UiIsVisibleGroup ( ITEMSHOP_WINDOW ) ||
 	//  UiIsVisibleGroup ( FACEBOOK_WINDOW ) ||
 	//  UiIsVisibleGroup ( TWITTER_WINDOW ) ||
@@ -3272,7 +3274,7 @@ HRESULT CInnerInterface::FrameMove( LPDIRECT3DDEVICEQ pd3dDevice, float fElapsed
 
 	UpdateStatus();
 
-	//	´õÀÌ»ó ¾ÆÀÌÅÛ Á¤º¸¸¦ Ç¥½ÃÇÏÁö ¾ÊÀ» °æ¿ì¿¡ Áö¿öÁØ´Ù. 
+	//	ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½. 
 	if ( !m_bUSING_INFO_DISPLAY )
 		RESET_INFO();
 	if ( !bKEYBOARD_BLOCK )
@@ -3682,15 +3684,15 @@ void CInnerInterface::UpdateShortcutBefore ()
 				return ;
 			}
 
-			//	ÆÄÆ¼
-			GLPartyClient* const pMyParty = m_pGaeaClient->GetMyPartyClient(); //	¸¶½ºÅÍ
+			//	ï¿½ï¿½Æ¼
+			GLPartyClient* const pMyParty = m_pGaeaClient->GetMyPartyClient(); //	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if ( pMyParty->isValid() == true )
 			{				
-				if (m_pGaeaClient->GetCharacter()->IsConfting())	//	ÆÄÆ¼ ´ë·Ã ÁßÀÎ°¡?
+				if (m_pGaeaClient->GetCharacter()->IsConfting())	//	ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½?
 				{
 					m_pNameDisplayMan->SetNameType ( NAME_DISPLAY_PARTY_CONFT );			
 				}
-				else	//	ÆÄÆ¼ ±¸¼º µÈ °æ¿ì
+				else	//	ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 				{
 					m_pNameDisplayMan->SetNameType ( NAME_DISPLAY_PARTY );		
 				}
@@ -3698,7 +3700,7 @@ void CInnerInterface::UpdateShortcutBefore ()
 			}
 			else
 			{
-				//	¹«Á¶°Ç »Ñ¸²
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¸ï¿½
 				m_pNameDisplayMan->SetNameType ( NAME_DISPLAY_DEFAULT );
 				UiShowGroupBottom ( NAME_DISPLAY_MAN );
 			}
@@ -3709,7 +3711,7 @@ void CInnerInterface::UpdateShortcutBefore ()
 void CInnerInterface::UpdateShortcutAfter ()
 {
 	// bjju.ControlType
-	// ´ÜÃàÅ°µéÀÌ RanLogicClient/GLControlBase.cpp ·Î ¿Å°ÜÁü
+	// ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½ RanLogicClient/GLControlBase.cpp ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½
 	// 11-10-31
 
 	if ( UIKeyCheck::GetInstance()->Check ( DIK_ESCAPE, DXKEY_DOWN ) )
@@ -3717,9 +3719,9 @@ void CInnerInterface::UpdateShortcutAfter ()
 		bool bALLHIDE = true;
 
 		//	NOTE
-		//		µ¿½Ã¿¡ µÎ °÷¿¡¼­ FocusList¿¡
-		//		Á¢±ÙÇÒ °¡´É¼ºÀÌ ¾ø´Ù´Â °¡Á¤ÀÌ ÀÖ¾î¾ß ÇÑ´Ù.
-		//		À§ÇèÇÏ±º ¤Ñ.¤Ñ
+		//		ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ FocusListï¿½ï¿½
+		//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
+		//		ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½.ï¿½ï¿½
 		CUIFocusContainer::UICONTROL_FOCUSLIST list = uiman::GetInnerUIMan().GetFocusList()->GetFocusList ();
 		CUIFocusContainer::UICONTROL_FOCUSLIST_RITER riter = list.rbegin ();
 		CUIFocusContainer::UICONTROL_FOCUSLIST_RITER riter_end = list.rend ();
@@ -3775,7 +3777,7 @@ void CInnerInterface::UpdateShortcutAfter ()
 				else if ( cID == MINIPARTY_WINDOW )
 				{
 					//UiShowGroupBottom ( MINIPARTY_OPEN );
-					//// #ifdef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+					//// #ifdef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					////					UpdatePotionTrayPosition();
 					//// #endif
 					bAnotherProcess = true;	
@@ -3796,11 +3798,11 @@ void CInnerInterface::UpdateShortcutAfter ()
 				{
 					SetItemRebuildWindowClose();
 				}
-				else if( cID == ITEM_GARBAGE_WINDOW )	// ÈÞÁöÅë
+				else if( cID == ITEM_GARBAGE_WINDOW )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					CloseItemGarbageWindow();
 				}
-				else if( cID == PRODUCT_WINDOW )	// ¾ÆÀÌÅÛ Á¶ÇÕ
+				else if( cID == PRODUCT_WINDOW )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				{
 					ToggleWindowProduct();
 				}
@@ -3849,7 +3851,7 @@ void CInnerInterface::UpdateShortcutAfter ()
 	GLCharacter* const pCharacter = m_pGaeaClient->GetCharacter ();
 	//if ( pCharacter )
 	//{
-	//	//	Äü ½ºÅ³
+	//	//	ï¿½ï¿½ ï¿½ï¿½Å³
 	//	for( int i = 0; i < QUICK_SKILL_SLOT_MAX; ++i)
 	//	{
  //          		 if ( UIKeyCheck::GetInstance()->Check ( RANPARAM::SkillSlot[i], DXKEY_DOWN ) )
@@ -3857,8 +3859,8 @@ void CInnerInterface::UpdateShortcutAfter ()
 	//			INT nIndex = m_pSkillTrayTab->GetTabIndex() * QUICK_SKILL_SLOT_MAX + i;
 	//			if ( S_OK == pCharacter->ReqSkillRunSet( nIndex ) )
 	//			{	
-	//				// ½ºÅ³À» º¯°æ½Ã¿¡ ¼­ºê ¹«±â¿¡ ÇØ´ç ½ºÅ³À» »ç¿ëÇÒ ¼ö ÀÖ´Â ¹«±â°¡ 
-	//				// ÀåÂøÁßÀÌ¶ó¸é º¯°æÇÑ´Ù. ´Ü, ÀÌ¹Ì ½º¿Ò ±â´É ¿¹¾à½Ã¿¡´Â ÇÏÁö ¾Ê´Â´Ù.
+	//				// ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½Ø´ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½â°¡ 
+	//				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½ï¿½, ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 	//				AutoArmSwap();
 	//			}
 	//		}
@@ -3876,7 +3878,7 @@ void CInnerInterface::UpdateShortcutAfter ()
 	
 
 
-	////	ÅÇÅ° ¿¹¾à ( ÀÌ¹Ì ¿¹¾àÁßÀÌ¸é µ¿ÀÛ X )
+	////	ï¿½ï¿½Å° ï¿½ï¿½ï¿½ï¿½ ( ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ X )
 	//if ( UIKeyCheck::GetInstance()->Check( DIK_TAB, DXKEY_DOWN ) && !m_bArmsSwapReserve )
 	//{
 	//	EMCHARCLASS emClass = m_pGaeaClient->GetCharacter()->m_emClass;
@@ -3885,19 +3887,19 @@ void CInnerInterface::UpdateShortcutAfter ()
 	//	{
 	//		m_bArmsSwapReserve = true;
 
-	//		// ¹Ì¸® ½ºÅ³ ½½·ÔÀ» Ã¼ÀÎÁö ÇÑ´Ù. AutoArmSwap±â´ÉÀÌ¶û Áßº¹ ¹æÁö À§ÇØ
+	//		// ï¿½Ì¸ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½. AutoArmSwapï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
  //           bool bMain = (0!=pCharacter->IsUseArmSub());
 	//		AutoSkillSolt( bMain );
 	//	}
 	//}
 
-	////	ÅÇÅ° ¿¹¾à ÁßÀÌ¸é
+	////	ï¿½ï¿½Å° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½
 	//if ( m_bArmsSwapReserve ) 
 	//{
 	//	if ( S_OK == m_pGaeaClient->GetCharacter()->ReqSlotChange() ) 
 	//	{
 	//		m_bArmsSwapReserve = false;
-	//		// ½ºÅ³ ½½·Ô Ã¼ÀÎÁö
+	//		// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½
 	//	}
 	//}
 
@@ -4068,7 +4070,7 @@ void CInnerInterface::UpdateShortcutAfter ()
     //}
 
 
-//#if defined ( CH_PARAM ) || defined ( TH_PARAM ) || defined( PH_PARAM ) || defined ( JP_PARAM ) || defined(_RELEASED) // ÇÊ¸®ÇÉ ¾ÆÀÌÅÛ¼¥
+//#if defined ( CH_PARAM ) || defined ( TH_PARAM ) || defined( PH_PARAM ) || defined ( JP_PARAM ) || defined(_RELEASED) // ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½
 //	if ( UIKeyCheck::GetInstance()->Check ( RANPARAM::MenuShotcut[SHOTCUT_POINT_SHOP], DXKEY_DOWN) )
 //	{
 //		if ( !UiIsVisibleGroup ( ITEMSHOP_WINDOW ) )
@@ -4129,7 +4131,7 @@ void CInnerInterface::UpdateShortcutAfter ()
 	//}
 
 
-	// ½ºÅ³ ½½·Ô F4Å°¸¦ ÇÒ´çÇÏ¸é¼­ ÀÌºÎºÐÀº »èÁ¦ ÇÑ´Ù.
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ F4Å°ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½Ï¸é¼­ ï¿½ÌºÎºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 /*
 	if ( UIKeyCheck::GetInstance()->CheckSimple ( DIK_LMENU, DXKEY_PRESSED ) )
 	{
@@ -4141,11 +4143,11 @@ void CInnerInterface::UpdateShortcutAfter ()
 */
 
 
-////#ifndef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+////#ifndef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	if( UIKeyCheck::GetInstance()->Check ( DIK_GRAVE, DXKEY_DOWN ) )
 ////		UIKeyCheck::GetInstance()->Check ( DIK_Y, DXKEY_DOWN ) )
 //	{
-//		if ( m_pGaeaClient->GetTutorial()->IsTutorial() ) // Æ©Åä¸®¾ó Áß¿¡´Â »ç¿ë±ÝÁö.
+//		if ( m_pGaeaClient->GetTutorial()->IsTutorial() ) // Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //			PrintMsgText ( NS_UITEXTCOLOR::DISABLE, ID2GAMEINTEXT("TUTORIAL_CANNOT_USE") );
 //		else
 //		{
@@ -4267,7 +4269,7 @@ void CInnerInterface::UpdateStatus ()
 	}	
 	
 	
-	//	Ä³¸¯ÅÍ »ýÁ¸ »óÅÂ È®ÀÎ
+	//	Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	if ( pCharacter->IsDie () && m_pRebirthWindow->CapableVisible() )
 	{
         if ( !UiIsVisibleGroup ( REBIRTH_WINDOW ) )
@@ -4278,7 +4280,7 @@ void CInnerInterface::UpdateStatus ()
 			bool bAutoRebirth = false;
 			bool bCantUseRebirth = true;
 
-			//	±ÍÈ¥ÁÖ Äð Å¸ÀÓ Ã¼Å©
+			//	ï¿½ï¿½È¥ï¿½ï¿½ ï¿½ï¿½ Å¸ï¿½ï¿½ Ã¼Å©
 			if( true == bItemRebirth ) 
 			{
 				if( NULL != pReviveItem &&
@@ -4296,7 +4298,7 @@ void CInnerInterface::UpdateStatus ()
 
 			if( true == bItemRebirth )
 			{
-				// ¼Ò¸ð¼º ±ÍÈ¥ÁÖÀÌ¸é ÀÚµ¿ ±ÍÈ¥ÁÖ »ç¿ë
+				// ï¿½Ò¸ï¿½ ï¿½ï¿½È¥ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Úµï¿½ ï¿½ï¿½È¥ï¿½ï¿½ ï¿½ï¿½ï¿½
 				if( NULL  != pReviveItem &&
 					false == pReviveItem->ISINSTANCE() )
 					bAutoRebirth = true;
@@ -4323,7 +4325,7 @@ void CInnerInterface::UpdateStatus ()
                 bool bAutoRebirth = false;
                 bool bCantUseRebirth = FALSE;
 
-                //	±ÍÈ¥ÁÖ Äð Å¸ÀÓ Ã¼Å©
+                //	ï¿½ï¿½È¥ï¿½ï¿½ ï¿½ï¿½ Å¸ï¿½ï¿½ Ã¼Å©
                 if ( bItemRebirth ) 
 				{
 					SITEM* pITEM = (GLUseFeatures::GetInstance().IsUsingRenewInvenWindow()) ? pCharacter->GET_SLOT_ITEMDATA(SLOT_DECORATION) : pCharacter->GET_SLOT_ITEMDATA(SLOT_NECK);
@@ -4341,7 +4343,7 @@ void CInnerInterface::UpdateStatus ()
 
                 if ( bItemRebirth )
                 {
-                    // ¼Ò¸ð¼º ±ÍÈ¥ÁÖÀÌ¸é ÀÚµ¿ ±ÍÈ¥ÁÖ »ç¿ë
+                    // ï¿½Ò¸ï¿½ ï¿½ï¿½È¥ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Úµï¿½ ï¿½ï¿½È¥ï¿½ï¿½ ï¿½ï¿½ï¿½
 					SITEM* pITEM = (GLUseFeatures::GetInstance().IsUsingRenewInvenWindow()) ? pCharacter->GET_SLOT_ITEMDATA(SLOT_DECORATION) : pCharacter->GET_SLOT_ITEMDATA(SLOT_NECK);
                     if ( pITEM && !pITEM->ISINSTANCE() ) bAutoRebirth = true;
                 }
@@ -4378,7 +4380,7 @@ void CInnerInterface::UpdateStatus ()
 				UiHideGroup ( MULTIMAPMOVE_DISPLAY );
 				break;
 			case 1:
-				{ //	¸¸¾à ¸Ê ÀÌ¸§ÀÌ ¾ø´Ù¸é, ÀÌµ¿ÇÒ ¼ö ¾ø´Ù.					
+				{ //	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½, ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.					
 					if ( m_pMapMoveDisplay == NULL )
 						break;
 					
@@ -4459,12 +4461,12 @@ void CInnerInterface::UpdateStatus ()
 		}
 	}
 
-    // TODO : ºÒ¹ý ÇÁ·Î±×·¥ °¨Áö Å×½ºÆ®..
+    // TODO : ï¿½Ò¹ï¿½ ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®..
     /*if ( !IsBlockProgramFound() )
         SetBlockProgramFound( true );*/
     //
     
-	//	½ºÇÙ, ¿ÀÅä ÇÁ·Î¼¼½º Ã¼Å©
+	//	ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ Ã¼Å©
 	if ( IsBlockProgramFound () )
 	{
 		if ( !UiIsVisibleGroup ( WAITSERVER_DISPLAY ) )
@@ -4472,7 +4474,7 @@ void CInnerInterface::UpdateStatus ()
 	}
 
     DxGlobalStage* pGlobalStage = m_pGaeaClient->GetGlobalStage();
-	if (!pGlobalStage->IsEmulator()  && !m_bDuplicateLogin)	//³×Æ®¿öÅ© ¿¬°áÀÌ ²÷¾îÁ³°í Áßº¹ ·Î±×ÀÎÀÌ ¾Æ´Ñ °æ¿ì
+	if (!pGlobalStage->IsEmulator()  && !m_bDuplicateLogin)	//ï¿½ï¿½Æ®ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½
 	{
 		if (!pGlobalStage->IsSTATE(DxGlobalStage::EM_CHANGE))
 		{
@@ -4510,7 +4512,7 @@ void CInnerInterface::UpdateStatus ()
 	UpdateStateSimpleHP ();	
 
 	if ( UiIsVisibleGroup ( ACADEMY_CONFT_DISPLAY ) || UiIsVisibleGroup ( SYSTEM_MESSAGE_WINDOW )
-		|| m_pGaeaClient->GetTutorial()->IsTutorial() ) // ¼öÁ¤ : Æ©Åä¸®¾ó Áß¿¡ Ç¥½Ã ÇÏÁö ¸»Áö. by luxes.
+		|| m_pGaeaClient->GetTutorial()->IsTutorial() ) // ï¿½ï¿½ï¿½ï¿½ : Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ß¿ï¿½ Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. by luxes.
 	{
 		UiHideGroup ( SIMPLE_MESSAGE_MAN );
 
@@ -4522,7 +4524,7 @@ void CInnerInterface::UpdateStatus ()
 	}
 	else
 	{
-		// Åä³Ê¸ÕÆ®Áß ÆÄÆ¼¸¦ ÇÒ¼ö°¡ ¾ø´Ù.
+		// ï¿½ï¿½Ê¸ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		// TOURNAMENT_UNIQ_DISABLE
 		bool bTOURNAMNET = m_pGaeaClient->GetTournamentClient()->GetIsTournamentView();
 
@@ -4536,13 +4538,13 @@ void CInnerInterface::UpdateStatus ()
 		}
 	}
 
-    //! Progress Display ¾÷µ¥ÀÌÆ®
+    //! Progress Display ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     if( m_pProgressDisplay )
     {
         m_pProgressDisplay->Update();		
     }
 
-    //! Á¡·ÉÀü Á¤º¸ Ç¥½Ã UI ¾÷µ¥ÀÌÆ®
+    //! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     if ( m_pInfoCTFDisplay )
     {
         m_pInfoCTFDisplay->Update();
@@ -4555,7 +4557,7 @@ void CInnerInterface::UpdateFocusOrder ()
     enum EMORDERSTATE{ EMORDERSTATE_NONE, EMORDERSTATE_CHECK, EMORDERSTATE_CHANGE };
     enum EMORDERTUPLE{ INDEX_SRCID, INDEX_DESTID, INDEX_FUNCTION, INDEX_STATE };
 
-    // ÇØ´çID, ¹«Á¶°Ç µÚ¿¡ ÀÖ¾î¾ßÇÒ ID, Ã¼Å©ÇÔ¼ö, »óÅÂ
+    // ï¿½Ø´ï¿½ID, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ ID, Ã¼Å©ï¿½Ô¼ï¿½, ï¿½ï¿½ï¿½ï¿½
     typedef tuple<UIGUID, UIGUID, function<bool (void)>, EMORDERSTATE>  ORDERTUPLE;
     typedef std::list<ORDERTUPLE>                                       ORDERLIST;
     typedef ORDERLIST::iterator                                         ORDERLIST_ITER;
@@ -4574,14 +4576,14 @@ void CInnerInterface::UpdateFocusOrder ()
 
         OrderList.push_back( make_tuple(QUICK_SKILL_TRAY_TAB_WINDOW, BASIC_CHAT_BOX, !bind( &IBasicChatWindow::IsChatBegin, GetBasicChatWindow() ), EMORDERSTATE_NONE ) );
 		
-		// Non Close UI´Â Ã¤ÆÃ¹Ú½ºº¸´Ù ¹«Á¶°Ç À§¿¡ ÀÖ¾î¾ß ÇÑ´Ù;
+		// Non Close UIï¿½ï¿½ Ã¤ï¿½Ã¹Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½;
 		for( unsigned int i=0; i<m_vNonCloseUI.size(); ++i )
 			OrderList.push_back( make_tuple(m_vNonCloseUI.at( i ), BASIC_CHAT_BOX, !bind( &IBasicChatWindow::IsChatBegin, GetBasicChatWindow() ), EMORDERSTATE_NONE ) );
 
         m_bInitUpdateOrder = true;
     }
 
-    // ÃÊ±âÈ­
+    // ï¿½Ê±ï¿½È­
     BOOST_FOREACH ( ORDERTUPLE& sTuple, OrderList )
     {
         EMORDERSTATE& emState = tuples::get<INDEX_STATE>(sTuple);
@@ -4590,7 +4592,7 @@ void CInnerInterface::UpdateFocusOrder ()
 
     DWORD dwCount = (DWORD)OrderList.size();
 
-    // ¼ø¼­¸¦ °Ë»çÇÑ´Ù
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½
     BOOST_REVERSE_FOREACH ( const CUIFocusContainer::SUICONTROL& sControl,
         uiman::GetInnerUIMan().GetFocusList()->GetFocusList() )
     {
@@ -4632,7 +4634,7 @@ void CInnerInterface::UpdateFocusOrder ()
         }
     }
 
-    // ¹Ù²ã¾ßÇÒ ÄÁÆ®·ÑµéÀÇ À§Ä¡¸¦ ¹Ù²Û´Ù
+    // ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñµï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ù²Û´ï¿½
     BOOST_FOREACH ( ORDERTUPLE& sTuple, OrderList )
     {   
         if ( tuples::get<INDEX_STATE>(sTuple) != EMORDERSTATE_CHANGE )
@@ -4685,7 +4687,7 @@ void CInnerInterface::MoveBasicInfoWindow ()
 {
 	IUILeftTopGroup* pUILeftTopGroup = GetUILeftTopGroup();
 
-//#ifdef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+//#ifdef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	pControl = m_pBasicQuickSkillSlot;
 //#else
 	//pControl = m_pUILeftTopGroup;
@@ -4706,7 +4708,7 @@ void CInnerInterface::MoveBasicInfoWindow ()
 	const D3DXVECTOR2 vDist = vBasicInfoViewDummy - vBasicInfoView;
 	const float fDist = D3DXVec2LengthSq ( &vDist );
 
-	if ( fDist > 900.0f )	//	ÄÁÆ®·ÑÀÌ ¶³¾îÁ³³ª?
+	if ( fDist > 900.0f )	//	ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 	{	
 		if ( vBasicInfoViewDummy != vLeftTopGroup ) pUILeftTopGroup->SetUIWindowGlobalPos ( vBasicInfoViewDummy );
 	}
@@ -4721,7 +4723,7 @@ void CInnerInterface::BasicInfoViewDoubleClick()
 {
 	IUILeftTopGroup* pUILeftTopGroup = GetUILeftTopGroup();
 
-//#ifdef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+//#ifdef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	pControl = m_pBasicQuickSkillSlot;
 //#else
 	//pControl = m_pUILeftTopGroup;
@@ -4746,7 +4748,7 @@ void CInnerInterface::BasicInfoViewDoubleClick()
 //************************************
 BOOL CInnerInterface::IsOpenWindowToMoveBlock()
 {
-	// ¿©±â¿¡ Ãß°¡µÇ´Â ÄÁÆ®·ÑÀº ¹ÝµíÀÌ InitDeviceObjects¿¡¼­ »ý¼º½Ã SetVisibleSingle( FALSE )¸¦ ÇØÁà¾ß ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½â¿¡ ï¿½ß°ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ýµï¿½ï¿½ï¿½ InitDeviceObjectsï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SetVisibleSingle( FALSE )ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	if( UiIsVisibleGroup( TRADE_WINDOW ) || 
 		UiIsVisibleGroup( TRADEINVENTORY_WINDOW ) || 
 		UiIsVisibleGroup( PRIVATE_MARKET_WINDOW ) ||
@@ -4757,7 +4759,7 @@ BOOL CInnerInterface::IsOpenWindowToMoveBlock()
  		UiIsVisibleGroup( ITEM_GARBAGE_WINDOW ) || 
 		UiIsVisibleGroup( ITEMSHOP_WINDOW ) ||
  		UiIsVisibleGroup( ITEM_SHOP_SEARCH_WINDOW ) ||
- 		UiIsVisibleGroup( ITEM_SEARCH_RESULT_WINDOW ) || // ¾ÆÀÌÅÛ °Ë»ö Ã¢
+ 		UiIsVisibleGroup( ITEM_SEARCH_RESULT_WINDOW ) || // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ Ã¢
         UiIsVisibleGroup( PETSKIN_MIX_IMAGE_WINDOW ) ||
 		UiIsVisibleGroup( COSTUME_STATS_WINDOW ) )
 	{
@@ -4858,7 +4860,7 @@ void CInnerInterface::CloseAllWindowFromNPC()
 }
 
 /*
-#ifdef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+#ifdef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void CInnerInterface::UpdatePotionTrayPosition()
 {
 	m_pUILeftTopGroup->SetGlobalPos( m_pBasicPotionTrayDummy->GetGlobalPos() );
@@ -4870,7 +4872,7 @@ void CInnerInterface::UpdatePotionTrayPosition()
 	if( bVisibleQuest && bVisibleMini ) return;
 
 	UIRECT rcDummy = m_pUILeftTopGroup->GetGlobalPos();
-	rcDummy.left += 41; // Äù½ºÆ®, ¹Ì´ÏÆÄÆ¼ ¹öÆ°ÀÇ °¡·Î Å©±â°¡ 41
+	rcDummy.left += 41; // ï¿½ï¿½ï¿½ï¿½Æ®, ï¿½Ì´ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â°¡ 41
 	rcDummy.right = rcDummy.left + rcDummy.sizeX;
 	m_pUILeftTopGroup->SetGlobalPos( rcDummy );
 
@@ -4930,7 +4932,7 @@ bool CInnerInterface::ItemShopAuth ()
 
 		m_bItemShopLoad = true;
 
-		// ·Îµù ¿Ï·á ¸Þ¼¼Áö°¡ ¿Ã¶§±îÁö ±â´Ù¸°´Ù.
+		// ï¿½Îµï¿½ ï¿½Ï·ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½.
 		return false;
 	}
 //#endif
@@ -4997,7 +4999,7 @@ void CInnerInterface::VisibleCDMSafeTime( bool bVisible, float fCDM_SAFE_TIME )
 {
 	if ( !m_pCdmSafeTimeDisplay ) return;
     
-	// Áö¼Ó ½ºÅ³ Á¤º¸Ã¢ À§Ä¡ °»½Å
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 	if ( bVisible )
 	{
 		m_pCdmSafeTimeDisplay->SetCDMSafeTime( fCDM_SAFE_TIME );
@@ -5013,7 +5015,7 @@ void CInnerInterface::CalcSkillDisplayPos( bool bVisible )
 {
 	if ( !m_pSkillTimeDisplay || !m_pCdmSafeTimeDisplay ) return;
     
-	// Áö¼Ó ½ºÅ³ Á¤º¸Ã¢ À§Ä¡ °»½Å
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 	if ( bVisible )
 	{
 		const UIRECT& rcPos = m_pCdmSafeTimeDisplay->GetGlobalPos ();
@@ -5040,11 +5042,11 @@ void CInnerInterface::SetChatType(DWORD dwChatType)
         m_pBasicChat->SetChatType(dwChatType);
 }
 
-void CInnerInterface::ChatToLink( const SLINK_DATA_BASIC& sLinkDataBasic, const SITEMCUSTOM *pItemCustom/*GroupChat¿¡¼­´Â SITEMCUSTOMÀ» »ç¿ëÇÑ´Ù*/)
+void CInnerInterface::ChatToLink( const SLINK_DATA_BASIC& sLinkDataBasic, const SITEMCUSTOM *pItemCustom/*GroupChatï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SITEMCUSTOMï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½*/)
 {
 	/*
 	//GroupChat
-	if ( ±×·ìÃ¤ÆÃÀÌ¸é )
+	if ( ï¿½×·ï¿½Ã¤ï¿½ï¿½ï¿½Ì¸ï¿½ )
 	{
 		GASSERT(pItemCustom);
 
@@ -5093,7 +5095,7 @@ void  CInnerInterface::SetPartyLinkOnce ( int nLinkIndex )
 	MAP_PARTY_LINK_DATA_INDEX_ITER pos = m_mapPartyLinkData.find ( nLinkIndex );	
 	if ( pos == m_mapPartyLinkData.end() ) return;
 
-	// ÆÄÆ¼¸ðÁý UIÇ¥½Ã
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ UIÇ¥ï¿½ï¿½
 	GLPARTY_LINK& sPartyLink = pos->second;
 	sPartyLink.bOnce = true;
 }
@@ -5164,9 +5166,9 @@ BOOL CInnerInterface::GetLinkdataIndex(SLINK_DATA_ITEM& itrLinkData, int nIdx)
 
 bool CInnerInterface::LinkDataProcess( int nLinkIndex )
 {
-	// ÇÔ¼ö È®ÀåÀÌ ÇÊ¿äÇÏ´Ù;
-	// ¾ÆÀÌÅÛ¿¡ µû¶ó ¼­·Î Å¸ÀÔÀÌ ´Ù¸£Áö¸¸ ´ÜÃàÅ°´Â °°Àº °æ¿ì°¡ÀÖ´Ù;
-	// ¶Ç ¸¶¿ì½º ÀÔ·ÂÁ¤º¸´Â ÀÌÇÔ¼ö·Î´Â Ä³Ä¡ÇØ³»±â°¡ Èûµé´Ù;
+	// ï¿½Ô¼ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ï´ï¿½;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì°¡ï¿½Ö´ï¿½;
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Î´ï¿½ Ä³Ä¡ï¿½Ø³ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ï¿½;
 	if ( nLinkIndex < 0 ) return false;
 	
 	SLINK_DATA_INDEX* pLinkBasic = GetLinkBasicData( nLinkIndex );
@@ -5219,10 +5221,10 @@ bool CInnerInterface::LinkDataProcess( int nLinkIndex )
 					if ( pos == m_mapPartyLinkData.end() )
 						return false;
 
-					// ÆÄÆ¼¸ðÁý UIÇ¥½Ã
+					// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ UIÇ¥ï¿½ï¿½
 					const GLPARTY_LINK& sPartyLink = pos->second;
 
-					//	ÆÄÆ¼Àå È®ÀÎ
+					//	ï¿½ï¿½Æ¼ï¿½ï¿½ È®ï¿½ï¿½
 					if ( !sPartyLink.sPartyMem[0].VALID() )
 						return false;
 
@@ -5237,10 +5239,10 @@ bool CInnerInterface::LinkDataProcess( int nLinkIndex )
 					if ( pos == m_mapPartyLinkData.end() )
 						return false;
 
-					// ÆÄÆ¼¸ðÁý UIÇ¥½Ã
+					// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ UIÇ¥ï¿½ï¿½
 					GLPARTY_LINK& sPartyLink = pos->second;
 
-					//	ÆÄÆ¼Àå È®ÀÎ
+					//	ï¿½ï¿½Æ¼ï¿½ï¿½ È®ï¿½ï¿½
 					if ( !sPartyLink.sPartyMem[0].VALID() ) return false;
 					if ( sPartyLink.bOnce ) return false;
 
@@ -5256,10 +5258,10 @@ bool CInnerInterface::LinkDataProcess( int nLinkIndex )
 					MAP_PARTY_LINK_DATA_INDEX_ITER pos = m_mapPartyLinkData.find ( nDataIndex );	
 					if ( pos == m_mapPartyLinkData.end() ) return false;
 
-					// ÆÄÆ¼¸ðÁý UIÇ¥½Ã
+					// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ UIÇ¥ï¿½ï¿½
 					GLPARTY_LINK& sPartyLink = pos->second;
 
-					//	ÆÄÆ¼Àå È®ÀÎ
+					//	ï¿½ï¿½Æ¼ï¿½ï¿½ È®ï¿½ï¿½
 					if ( !sPartyLink.sPartyMem[0].VALID() ) return false;
 
 					if ( sPartyLink.bOnce ) return false;
@@ -5329,7 +5331,7 @@ bool CInnerInterface::GetLinkName( CString& strLinkName, int nLinkIndex )
 			case ITEM_LINK_CLUB_STORAGE:
 			case ITEM_LINK_CROW_SALE:			
 
-				//	ÀÌ¹Ì Ç×¸ñÀÌ ÀÖÀ»°æ¿ì »èÁ¦ÇÏ°í »õ·Î¿î µ¥ÀÌÅÍ·Î °»½Å
+				//	ï¿½Ì¹ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½ï¿½ï¿½
 				MAP_ITEM_LINK_DATA_INDEX_ITER pos = m_mapItemLinkData.find ( nDataIndex );	
 				if ( pos == m_mapItemLinkData.end() )
 					return false;
@@ -5357,7 +5359,7 @@ bool CInnerInterface::GetLinkName( CString& strLinkName, int nLinkIndex )
  
                     CString strLocation("");
 
-                    // Áö¿ª Á¤º¸ Ç¥½Ã
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
                     if ( m_pGaeaClient )
                     {
                         GLPARTY_LINK& sPartyLink = pos->second;
@@ -5428,7 +5430,7 @@ DWORD CInnerInterface::GetLinkColor( int nLinkIndex )
 			case ITEM_LINK_CLUB_STORAGE:
 			case ITEM_LINK_CROW_SALE:			
 
-				//	ÀÌ¹Ì Ç×¸ñÀÌ ÀÖÀ»°æ¿ì »èÁ¦ÇÏ°í »õ·Î¿î µ¥ÀÌÅÍ·Î °»½Å
+				//	ï¿½Ì¹ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½ï¿½ï¿½
 				MAP_ITEM_LINK_DATA_INDEX_ITER pos = m_mapItemLinkData.find ( nDataIndex );	
 				if ( pos == m_mapItemLinkData.end() )
 					return dwColor;
@@ -5439,7 +5441,7 @@ DWORD CInnerInterface::GetLinkColor( int nLinkIndex )
 				if ( !pItem )
 					return dwColor;
 
-                //¾ÆÀÌÅÛ ¸µÅ©º°·Î »ö»óÀÌ ´Ù¸£µµ·Ï ¼öÁ¤ 
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
                 //dwColor = COMMENT::ITEMCOLOR[pItem->sBasicOp.emLevel];
                 dwColor = ITEM_INFOR_COLOR::dwItemRank[ pItem->sBasicOp.emLevel ];
 
@@ -5660,8 +5662,8 @@ int CInnerInterface::AddLinkDataToList_Client( const SLINK_DATA_BASIC& sLinkData
 			{
 			case PARTY_LINK_RECRUIT:
 				{
-					// ³ªÀÇ Á¤º¸¸¦ ÀÔ·ÂÇÏ´Â°÷ÀÌ´Ù.
-					// ÆÄÆ¼ÀåÀÌ ¾Æ´Ï¸é ¾ÈµÈ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï´Â°ï¿½ï¿½Ì´ï¿½.
+					// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ÈµÈ´ï¿½.
 					
 					GLCharacter* pCharacter = m_pGaeaClient->GetCharacter();
 					if ( pCharacter == NULL )
@@ -5710,9 +5712,9 @@ int CInnerInterface::AddLinkDataToList_Client( const SLINK_DATA_BASIC& sLinkData
 					return nLinkIndex;
 				}
 				break;
-			case PARTY_LINK_ACCEPT:				//	ÇØ´ç »çÇ×ÀÌ ¾ø´Ù.
+			case PARTY_LINK_ACCEPT:				//	ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				break;
-			case PARTY_LINK_REFUSE:				//	ÇØ´ç »çÇ×ÀÌ ¾ø´Ù.
+			case PARTY_LINK_REFUSE:				//	ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				break;
 			}
 		}
@@ -5738,7 +5740,7 @@ int CInnerInterface::AddLinkDataToList ( const std::string& strCharName, const S
 	if ( !sLinkType.VALID() )
 		return nLinkIndex;
 
-	//	Index¸¦ ¸ðµÎ ¼Ò¸ðÇÑ °æ¿ì 0À¸·Î ÃÊ±âÈ­ 
+	//	Indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ 
 	if ( m_dwLinkDataIndex == CHAT_LINK_INDEX_MAX ) 
 	{
 		m_dwLinkDataIndex = 0;
@@ -5757,13 +5759,13 @@ int CInnerInterface::AddLinkDataToList ( const std::string& strCharName, const S
 		{
 			int nDelete = m_dwLinkDataIndex - CHAT_LINK_BASIC_DATA_MAX; 
 
-			// 0º¸´Ù ÀÛ´Ù´Â°ÍÀº Index°¡ ÇÑ¹ÙÄû µ¹¾Ò´Ù´Â ¶æÀÌ´Ù.
+			// 0ï¿½ï¿½ï¿½ï¿½ ï¿½Û´Ù´Â°ï¿½ï¿½ï¿½ Indexï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 			if ( nDelete < 0 ) 
 			{
 				nDelete += CHAT_LINK_INDEX_MAX;
 			}
 
-			//	ÀÌÀü µ¥ÀÌÅÍ ºÎÅÍ »èÁ¦
+			//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			MAP_LINK_DATA_INDEX_ITER pos = m_mapLinkData.find ( nDelete );	
 			if ( pos != m_mapLinkData.end() )
 			{
@@ -5805,7 +5807,7 @@ int	CInnerInterface::AddLinkDataToTypeList ( const std::string& strCharName, con
 
 					memcpy ( &sItemCustom, pBuffer, dwSize );
 
-					//	Index¸¦ ¸ðµÎ ¼Ò¸ðÇÑ °æ¿ì 0À¸·Î ÃÊ±âÈ­ 
+					//	Indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ 
 					if ( m_dwItemLinkDataIndex == CHAT_LINK_INDEX_MAX )
 					{
 						m_dwItemLinkDataIndex = 0;
@@ -5818,12 +5820,12 @@ int	CInnerInterface::AddLinkDataToTypeList ( const std::string& strCharName, con
 					m_mapItemLinkData.insert( std::make_pair( m_dwItemLinkDataIndex, sData ) );
 					nIndex = m_dwItemLinkDataIndex;
 
-					//	CHAT_LINK_DATA_MAX »çÀÌÁî¸¸Å­¸¸ °¡Áö°í ÀÖ´Â´Ù.
+					//	CHAT_LINK_DATA_MAX ï¿½ï¿½ï¿½ï¿½ï¿½î¸¸Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 					if ( m_mapItemLinkData.size() > CHAT_LINK_DATA_MAX ) 
 					{
 						int nDelete = m_dwItemLinkDataIndex - CHAT_LINK_DATA_MAX; 
 
-						// 0º¸´Ù ÀÛ´Ù´Â°ÍÀº Index°¡ ÇÑ¹ÙÄû µ¹¾Ò´Ù´Â ¶æÀÌ´Ù.
+						// 0ï¿½ï¿½ï¿½ï¿½ ï¿½Û´Ù´Â°ï¿½ï¿½ï¿½ Indexï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 						if ( nDelete < 0 ) 
 						{
 							nDelete += CHAT_LINK_INDEX_MAX;
@@ -5853,7 +5855,7 @@ int	CInnerInterface::AddLinkDataToTypeList ( const std::string& strCharName, con
                     DWORD        dwOffset  = 0;
                     DWORD        dwCurSize = 0;
 
-					// ¸Ê¾ÆÀÌµðº¹»ç
+					// ï¿½Ê¾ï¿½ï¿½Ìµðº¹»ï¿½
 					memcpy ( &sPartyLink.sMapID, pBuffer, sizeof(SNATIVEID) );
 					dwOffset  += sizeof(SNATIVEID);
 
@@ -5869,7 +5871,7 @@ int	CInnerInterface::AddLinkDataToTypeList ( const std::string& strCharName, con
 
 					memcpy ( sPartyLink.sPartyMem, (BYTE*)pBuffer+dwOffset, dwCurSize );
 
-					//	Index¸¦ ¸ðµÎ ¼Ò¸ðÇÑ °æ¿ì 0À¸·Î ÃÊ±âÈ­ 
+					//	Indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ 
 					if ( m_dwPartyLinkDataIndex == CHAT_LINK_INDEX_MAX )
 					{
 						m_dwPartyLinkDataIndex = 0;
@@ -5878,12 +5880,12 @@ int	CInnerInterface::AddLinkDataToTypeList ( const std::string& strCharName, con
 					m_mapPartyLinkData.insert( std::make_pair( m_dwPartyLinkDataIndex, sPartyLink ) );
 					nIndex = m_dwPartyLinkDataIndex;
 
-					//	CHAT_LINK_DATA_MAX »çÀÌÁî¸¸Å­¸¸ °¡Áö°í ÀÖ´Â´Ù.
+					//	CHAT_LINK_DATA_MAX ï¿½ï¿½ï¿½ï¿½ï¿½î¸¸Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 					if ( m_mapPartyLinkData.size() > CHAT_LINK_DATA_MAX ) 
 					{
 						int nDelete = m_dwPartyLinkDataIndex - CHAT_LINK_DATA_MAX; 
 
-						// 0º¸´Ù ÀÛ´Ù´Â°ÍÀº Index°¡ ÇÑ¹ÙÄû µ¹¾Ò´Ù´Â ¶æÀÌ´Ù.
+						// 0ï¿½ï¿½ï¿½ï¿½ ï¿½Û´Ù´Â°ï¿½ï¿½ï¿½ Indexï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 						if ( nDelete < 0 ) 
 						{
 							nDelete += CHAT_LINK_INDEX_MAX;
@@ -5908,7 +5910,7 @@ int	CInnerInterface::AddLinkDataToTypeList ( const std::string& strCharName, con
 					sPartyLink.dwHashKey = pBuffer4Byte[1];
 					sPartyLink.dwTimeKey = pBuffer4Byte[2];
 
-					//	Index¸¦ ¸ðµÎ ¼Ò¸ðÇÑ °æ¿ì 0À¸·Î ÃÊ±âÈ­ 
+					//	Indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ 
 					if ( m_dwPartyLinkDataIndex == CHAT_LINK_INDEX_MAX )
 					{
 						m_dwPartyLinkDataIndex = 0;
@@ -5917,12 +5919,12 @@ int	CInnerInterface::AddLinkDataToTypeList ( const std::string& strCharName, con
 					m_mapPartyLinkData.insert( std::make_pair( m_dwPartyLinkDataIndex, sPartyLink ) );
 					nIndex = m_dwPartyLinkDataIndex;
 
-					//	CHAT_LINK_DATA_MAX »çÀÌÁî¸¸Å­¸¸ °¡Áö°í ÀÖ´Â´Ù.
+					//	CHAT_LINK_DATA_MAX ï¿½ï¿½ï¿½ï¿½ï¿½î¸¸Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 					if ( m_mapPartyLinkData.size() > CHAT_LINK_DATA_MAX ) 
 					{
 						int nDelete = m_dwPartyLinkDataIndex - CHAT_LINK_DATA_MAX; 
 
-						// 0º¸´Ù ÀÛ´Ù´Â°ÍÀº Index°¡ ÇÑ¹ÙÄû µ¹¾Ò´Ù´Â ¶æÀÌ´Ù.
+						// 0ï¿½ï¿½ï¿½ï¿½ ï¿½Û´Ù´Â°ï¿½ï¿½ï¿½ Indexï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 						if ( nDelete < 0 ) 
 						{
 							nDelete += CHAT_LINK_INDEX_MAX;
@@ -5943,7 +5945,7 @@ int	CInnerInterface::AddLinkDataToTypeList ( const std::string& strCharName, con
 					GLPARTY_LINK sPartyLink;
 					memcpy ( &sPartyLink.sPartyMem[0].dwGaeaID, pBuffer, dwSize );
 
-					//	Index¸¦ ¸ðµÎ ¼Ò¸ðÇÑ °æ¿ì 0À¸·Î ÃÊ±âÈ­ 
+					//	Indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ 
 					if ( m_dwPartyLinkDataIndex == CHAT_LINK_INDEX_MAX )
 					{
 						m_dwPartyLinkDataIndex = 0;
@@ -5952,12 +5954,12 @@ int	CInnerInterface::AddLinkDataToTypeList ( const std::string& strCharName, con
 					m_mapPartyLinkData.insert( std::make_pair( m_dwPartyLinkDataIndex, sPartyLink ) );
 					nIndex = m_dwPartyLinkDataIndex;
 
-					//	CHAT_LINK_DATA_MAX »çÀÌÁî¸¸Å­¸¸ °¡Áö°í ÀÖ´Â´Ù.
+					//	CHAT_LINK_DATA_MAX ï¿½ï¿½ï¿½ï¿½ï¿½î¸¸Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 					if ( m_mapPartyLinkData.size() > CHAT_LINK_DATA_MAX ) 
 					{
 						int nDelete = m_dwPartyLinkDataIndex - CHAT_LINK_DATA_MAX; 
 
-						// 0º¸´Ù ÀÛ´Ù´Â°ÍÀº Index°¡ ÇÑ¹ÙÄû µ¹¾Ò´Ù´Â ¶æÀÌ´Ù.
+						// 0ï¿½ï¿½ï¿½ï¿½ ï¿½Û´Ù´Â°ï¿½ï¿½ï¿½ Indexï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 						if ( nDelete < 0 ) 
 						{
 							nDelete += CHAT_LINK_INDEX_MAX;
@@ -5990,7 +5992,7 @@ int	CInnerInterface::AddLinkDataToTypeList ( const std::string& strCharName, con
 
 void CInnerInterface::ConvertLinkData ( const VEC_LINK_TEXT_DATA_EX& vecLinkDataIN, VEC_LINK_TEXT_DATA& vecLinkDataOut )
 {
-	// Å¬¶óÀÌ¾ðÆ® ¸µÅ© µ¥ÀÌÅÍ¸¦ ¼­¹öµ¥ÀÌÅÍ·Î º¯È¯ 
+	// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½È¯ 
 	for ( DWORD i =0; i < vecLinkDataIN.size(); ++i )
 	{
 		int nLinkIndex = AddLinkDataToList_Client( vecLinkDataIN[i].sLinkDataBasic );
@@ -6007,7 +6009,7 @@ void CInnerInterface::ConvertLinkData ( const VEC_LINK_TEXT_DATA_EX& vecLinkData
 	}	
 }
 
-// ¼­¹ö¿¡ º¸³¾ Á¤º¸·Î º¯°æÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 void CInnerInterface::ConvertSendData(CString& strInput, const VEC_LINK_TEXT_DATA_EX& vecLinkData, VEC_LINK_DATA_BASIC& vecLinkDataBasic)
 {
     size_t LinkDataSize = vecLinkData.size();
@@ -6110,25 +6112,25 @@ void CInnerInterface::ConvertRecvData( CString& strText, VEC_LINK_TEXT_DATA& vec
 	}
 }
 
-//	¹«±â°¡ ¹Ù²ï´Ù. ( ¹Ù²ð ¿¹Á¤°ªÀÌ µé¾î¿Â´Ù. ) 
+//	ï¿½ï¿½ï¿½â°¡ ï¿½Ù²ï¿½ï¿½. ( ï¿½Ù²ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½. ) 
 void CInnerInterface::AutoSkillSolt( bool bMain )
 {
-	//	½ºÅ³ ½½·Ô Ã¼ÀÎÁö
+	//	ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½
 	int nIndex = m_pSkillTrayTab->GetTabIndex();
 	
-	//	¸ÞÀÎ ¹«±â
+	//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if ( bMain ) 
 	{
-		//F3,F4 ÀÏ°æ¿ì F1,F2·Î °£´Ù.
+		//F3,F4 ï¿½Ï°ï¿½ï¿½ F1,F2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		if ( nIndex == 2 ) nIndex = 0;
 		if ( nIndex == 3 ) nIndex = 1;
 		
 		m_pSkillTrayTab->SetTabIndex( nIndex );
 	}
-	//	º¸Á¶¹«±â
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	else
 	{
-		// F1,F2 ÀÏ°æ¿ì F3,F4·Î °£´Ù.
+		// F1,F2 ï¿½Ï°ï¿½ï¿½ F3,F4ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		if ( nIndex == 0 ) nIndex = 2;
 		if ( nIndex == 1 ) nIndex = 3;
 
@@ -6160,7 +6162,7 @@ void CInnerInterface::AutoArmSwap ()
 	if ( !pSkill ) return;
 	if ( pSkill->m_sBASIC.emROLE == SKILL::EMROLE_PASSIVE )	return;
 
-	//	Note : ¾ÆÀÌÅÛ Âø¿ë Á¶°Ç °Ë»ç.
+	//	Note : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½.
 	//
 
 	EMSLOT emRHand, emRHand_S;
@@ -6184,10 +6186,10 @@ void CInnerInterface::AutoArmSwap ()
 	{
 		SITEM* pItem = pCharacter->GET_SLOT_ITEMDATA(emRHand);
 		
-		//	¾ÆÀÌÅÛÀÌ ¾ø°Å³ª ½ºÅ³ ±¸µ¿ Á¶°Ç ¾ÆÀÌÅÛÀÌ ¾Æ´Ò¶§ 
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ò¶ï¿½ 
 		if ( !pItem || !CHECHSKILL_ITEM(emSKILL_RIGHT,pCharacter->CONVERT_ITEMATT( pItem->sSuitOp.emAttack ),bHiddenWeapon) )
 		{
-			// Sub¹«±â¸¦ Ã¼Å©ÇØ¼­ ¸ÂÀ»°æ¿ì ½º¿ÒÇÑ´Ù.
+			// Subï¿½ï¿½ï¿½â¸¦ Ã¼Å©ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			SITEM* pItem_S = pCharacter->GET_SLOT_ITEMDATA(emRHand_S);
 			if ( pItem_S && CHECHSKILL_ITEM(emSKILL_RIGHT,pCharacter->CONVERT_ITEMATT( pItem_S->sSuitOp.emAttack ),bHiddenWeapon) )
 			{
@@ -6204,7 +6206,7 @@ void CInnerInterface::DoModal(const std::string& strText, int nModalTitle, int n
         // UiHideGroup ( MODAL_WINDOW, true );
         if (UiIsVisibleGroup(MODAL_WINDOW))
         {
-            // GASSERT ( 0 && "ÀÌ¹Ì ÄÑÁ®ÀÖ½À´Ï´Ù." );
+            // GASSERT ( 0 && "ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½." );
             UiHideGroup(MODAL_WINDOW, true);
         }
 
@@ -6221,7 +6223,7 @@ void CInnerInterface::DoModalTipBox ( const std::string& strText, const std::str
         // UiHideGroup ( MODAL_WINDOW, true );
         if (UiIsVisibleGroup(MODAL_WINDOW))
         {
-            // GASSERT ( 0 && "ÀÌ¹Ì ÄÑÁ®ÀÖ½À´Ï´Ù." );
+            // GASSERT ( 0 && "ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½." );
             UiHideGroup(MODAL_WINDOW, true);
         }
 
@@ -6271,7 +6273,7 @@ void CInnerInterface::DoPartyModal ( const std::string& strText, UIGUID CallerID
 	if ( pPartyModalWindow == NULL || pPartyWindowRenewal == NULL )
 		return;
 
-	// bExpedition : ¸Þ¼¼Áö ´Ù¸£°Ô Ãâ·ÂÇØ¾ßÇÔ;;
+	// bExpedition : ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½;;
 
 	pPartyModalWindow->DoModal( strText.c_str(), CallerID );
 	pPartyModalWindow->SetPartyOption(PartyOption);
@@ -6546,7 +6548,7 @@ void CInnerInterface::SetEnableDialogueWindowMarketPage(bool bEnable)
 
 void CInnerInterface::ProductWindowSetSeletedTabID( UIGUID ControlID )
 {
-	//ÅÇÀÌ º¯°æµÇ¾úÀ»¶§
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( m_pProductWindow )
 		m_pProductWindow->SetSeletedTabID( ControlID );
 }
@@ -6556,7 +6558,7 @@ void CInnerInterface::ProductWindowSetSeletedItem( SProductRecipe* pProductRecip
     if( pProductRecipe == NULL )
         return;
 
-	//Á¦Á¶ ¸ñ·Ï¿¡¼­ ¾ÆÀÌÅÛÀ» ¼±ÅÃÇßÀ»¶§
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( m_pProductWindow )
 		m_pProductWindow->SetItemMix( pProductRecipe );
 }
@@ -6566,7 +6568,7 @@ void CInnerInterface::MsgWishListInsert( BYTE nType )
 	if( !m_pInventory )
 		return;
 
-	// ÀÎº¥Åä¸®¿Í ¹ðÅ©¿¡¼­ À§½Ã¸®½ºÆ®·Î ´ãÀ»¶§´Â ÅÇ º¯°æÇÏÁö ¸»ÀÚ
+	// ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( nType == WishList::ETypeInventory ||
 		nType == WishList::ETypeBank )
 	{
@@ -6597,7 +6599,7 @@ void CInnerInterface::OpenPopupMenu( popupmenu::SP_POPUP_MENU PopupMenu )
 
 void CInnerInterface::UpdateWhenReceiveDamage()
 {
-    // TODO : ÇÇ°Ý ½Ã¿¡ UI¿¡¼­ ÇØ ÁÙ ÀÏµé.
+    // TODO : ï¿½Ç°ï¿½ ï¿½Ã¿ï¿½ UIï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ïµï¿½.
 }
 
 void CInnerInterface::SetVisibleSkillEffectPartyStateWindow(const BOOL bChecked)

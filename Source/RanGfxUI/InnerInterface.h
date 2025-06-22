@@ -167,6 +167,7 @@ class DoublePoint;
 class CCostumeStatWindow;
 class SelectiveformBoxWindow;
 class CAnimatedPKStreak;
+class CKillCardManager;
 
 namespace InstanceSystem
 {
@@ -207,7 +208,7 @@ public:
     virtual void StartClubDeathMatchTime() = 0;
     virtual void UpdateClubDeathMatchTime( const float fTime ) = 0;
 
-    virtual void EndClubBattleTime() = 0;   //¼±µµÀü°ú µ¥½º¸ÞÄ¡ ÇÔ¼ö °øÀ¯
+    virtual void EndClubBattleTime() = 0;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     virtual const UIRECT& GetUIWindowGlobalPos() = 0;
     virtual const UIRECT& GetMinimapBackGlobalPos() = 0;
@@ -689,7 +690,7 @@ public:
     virtual void EndEditFriendList() = 0;
     virtual std::tr1::shared_ptr<SFRIEND> GetFriendSMSInfo() = 0;
 
-    //¸®´º¾óUI Ãß°¡
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½UI ï¿½ß°ï¿½
     virtual void AddFriendBlock( const std::string& strName, bool bBlock ) = 0;
 };
 
@@ -875,11 +876,11 @@ public:
     virtual const UIRECT& GetUIWindowGlobalPos() = 0;
 
 public:
-    // ¿¹Àü ½ºÅ³Ã¢
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³Ã¢
     virtual void ShowPageForTutorial() = 0;
 
 public:
-    // »õ·Î¿î ½ºÅ³Ã¢
+    // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½Å³Ã¢
     virtual void Refresh() = 0;
 };
 
@@ -1723,7 +1724,7 @@ const float fDEFAULT_WAITTIME_LEFT = 5.0f;
 class CInnerInterface : public InterfaceBase, public ITranslateUIMsg
 {
 private:
-	//	Á¤º¸ Ç¥½Ã Å¸ÀÔ
+	//	ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ Å¸ï¿½ï¿½
 	enum ET_INFOTYPE
 	{		
 		ET_ITEM_INFO,
@@ -1761,7 +1762,7 @@ private:
     SUBPATH* m_pPath;
     bool m_bToolMode;
 
-    // µî·ÏµÇ´Â interface.
+    // ï¿½ï¿½ÏµÇ´ï¿½ interface.
 
 	CRankingDisplay*			m_pRankingDisplay;
 	//PK History
@@ -1883,7 +1884,7 @@ private:
 	ICTIProgressInfoUI*			m_pCTIProgressInfoUI;
 	ICTIRankInfoUI*				m_pCTIRankInfoUI;
 	
-private: //	µî·ÏµÇ´Â ¸ðµç ÄÁÆ®·Ñ
+private: //	ï¿½ï¿½ÏµÇ´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½
 	CAcademyConftDisplay*		m_pAcademyConftDisplay;				
 	CAdminMessageDisplay*		m_pAdminMessageDisplay;			
 	CBasicGameMenu*				m_pGameMenu;		
@@ -1933,7 +1934,7 @@ private: //	µî·ÏµÇ´Â ¸ðµç ÄÁÆ®·Ñ
 	CSimpleHP*					m_pSummonHP;			
 	CStorageChargeCard*			m_pStorageChargeCard;			
 	CStorageWindow*				m_pStorageWindow;			
-	CSubMasterSet*				m_pSubMasterSet;		// ºÎ¸¶½ºÅÍ ¼³Á¤ Ã¢
+	CSubMasterSet*				m_pSubMasterSet;		// ï¿½Î¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¢
 	CSystemMessageWindow*		m_pSystemMessageWindow;		
 	CWaitServerDialogue*		m_pWaitServerDisplay;
 	CBonusTimeGauge*			m_pBonusTimeGauge;
@@ -1994,8 +1995,8 @@ private: //	µî·ÏµÇ´Â ¸ðµç ÄÁÆ®·Ñ
 	CItemInfoTooltip* m_pItemInforTooltipDurability;
 
     CSkillInfoTooltip* m_pSkillTooltip;
-	CSkillInfoTooltip* m_pSkillTooltipSubSkill;	// ¼­ºê ½ºÅ³;
-	CSkillLinkInfoTooltip* m_pSkillTooltipLinkSkill;	// ¸µÅ© ½ºÅ³;
+	CSkillInfoTooltip* m_pSkillTooltipSubSkill;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³;
+	CSkillLinkInfoTooltip* m_pSkillTooltipLinkSkill;	// ï¿½ï¿½Å© ï¿½ï¿½Å³;
 	CSkillInfoTooltip* m_pSkillTooltipDelayActionSkill;
     CForceRebirth* m_pForceRebirth;
     CNotifyCTFSpurt* m_pNotifyCTFSpurt;
@@ -2009,21 +2010,22 @@ private: //	µî·ÏµÇ´Â ¸ðµç ÄÁÆ®·Ñ
 	SkillToolTipVec m_vecSkillToolTipPool;
 	SkillToolTipVec m_vecSkillToolTipUsed;
 
-	//Åä³Ê¸ÕÆ® UI
-	CTournamentEntranceConfirm*	m_pEntranceConfirm;			// ÀÔÀå Ãë¼Ò
-	TournamentObserveWindow*	m_pTournamentObserveWindow;	// Åä³Ê¸ÕÆ® °üÀüÀÚ UI
-	CTournamentMulty*			m_pTournamentMulty;			// Score ³»±â UI
-	TournamentMiniExpeditionWindow* m_pBigGroupWindowRight;	// ¿À¸¥ÂÊÆÀ Ä³¸¯ÅÍ Á¤º¸
-	TournamentMiniExpeditionWindow* m_pBigGroupWindowLeft;	// ¿ÞÂÊÆÀ Ä³¸¯ÅÍ Á¤º¸
-	CTournamentExpeditionInfoGroup* m_pMiniGroupWindowRight; // ¿À¸¥ÂÊÆÀ Ä³¸¯ÅÍ Á¤º¸
-	CTournamentExpeditionInfoGroup* m_pMiniGroupWindowLeft; // ¿À¸¥ÂÊÆÀ Ä³¸¯ÅÍ Á¤º¸
+	//ï¿½ï¿½Ê¸ï¿½Æ® UI
+	CTournamentEntranceConfirm*	m_pEntranceConfirm;			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	TournamentObserveWindow*	m_pTournamentObserveWindow;	// ï¿½ï¿½Ê¸ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UI
+	CTournamentMulty*			m_pTournamentMulty;			// Score ï¿½ï¿½ï¿½ï¿½ UI
+	TournamentMiniExpeditionWindow* m_pBigGroupWindowRight;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	TournamentMiniExpeditionWindow* m_pBigGroupWindowLeft;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	CTournamentExpeditionInfoGroup* m_pMiniGroupWindowRight; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	CTournamentExpeditionInfoGroup* m_pMiniGroupWindowLeft; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
-	CTournamentIndicator* m_pTournamentIndicator;						// Åä³Ê¸ÕÆ® ÀÌµðÄÉÀÌÅÍ.
+	CTournamentIndicator* m_pTournamentIndicator;						// ï¿½ï¿½Ê¸ï¿½Æ® ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
 	DoublePoint*		m_pDoublePoint;
 
 	CCostumeStatWindow*	m_pCostumeStatWindow;
 	CAnimatedPKStreak*			m_pAnimatedPKStreak;
+	CKillCardManager*			m_pKillCardManager;
 
 private:
 	CUIControl*	m_pSystemMessageWindowDummy;
@@ -2078,7 +2080,7 @@ public:
     virtual void UiShowGroupTop(UIGUID ControlID, bool bMakeMsg = false);
     virtual void UiShowGroupBottom(UIGUID ControlID, bool bMakeMsg = false);
     virtual void UiShowGroupFocus(UIGUID ControlID, bool bMakeMsg = false);
-	virtual void UiSetGroupLock(UIGUID ControlID, bool bLock = true); // CUIMan::SetGorupLock() ÇÔ¼ö ÁÖ¼® ÂüÁ¶.
+	virtual void UiSetGroupLock(UIGUID ControlID, bool bLock = true); // CUIMan::SetGorupLock() ï¿½Ô¼ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½.
     virtual void UISetModalGroup(UIGUID ControlID, bool bModal = true);
     virtual void UiHideGroup(UIGUID ControlID, bool bMakeMsg = false);
 	virtual void UiRefresh( UIGUID ControlID );
@@ -2318,7 +2320,7 @@ public:
 	virtual std::string	 GetSelectTextName();
 	virtual void SetVisibleReferCharacterAdditionalWindow( bool bVisible );
 
-    //! ItemRepair ( ¾ÆÀÌÅÛ ¼ö¸®, ³»±¸µµ )
+    //! ItemRepair ( ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )
     virtual void ItemRepairWindowOpen( bool bOpen = true  );
     virtual void ItemRepairCardUse( WORD wPosX, WORD wPosY );
 
@@ -2396,7 +2398,7 @@ public:
 	virtual void SetBlockProgramFound( bool bFOUND )	{ m_bBlockProgramFound = bFOUND; }
 	virtual bool IsBlockProgramFound()					{ return m_bBlockProgramFound; }
 
-	// ¸ð´Þ À©µµ¿ì ¶ô;
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½;
 	virtual void SetBlockModalUI( bool bModal )	{ m_bBlockModalUI = bModal; }
 	virtual bool IsBlockModalUI()					{ return m_bBlockModalUI; }
 
@@ -2473,14 +2475,14 @@ public:
     virtual void	SetItemSearchResultWindowOpen();
     virtual void	SetItemSearchResultWindowClose();
 
-	virtual void OpenItemGarbageWindow();	// ÈÞÁöÅë
+	virtual void OpenItemGarbageWindow();	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	virtual void CloseItemGarbageWindow();
     virtual void CheckItemGarbageWindowClose();
 
 
 	virtual void	SetItemMixResult( CString strMsg, bool bSuccess = false, bool bFail = false );
 
-	virtual void	OPEN_TAXI_WINDOW( WORD wPosX, WORD wPosY );			// ÅÃ½Ã Ä«µå
+	virtual void	OPEN_TAXI_WINDOW( WORD wPosX, WORD wPosY );			// ï¿½Ã½ï¿½ Ä«ï¿½ï¿½
 
 	virtual void	SetPrivateMarketMake ();
 	virtual void	SetPrivateMarketOpen ( const bool& bOPENER, const DWORD& dwGaeaID );
@@ -2499,8 +2501,8 @@ public:
 	virtual CString GET_RECORD_CHAT();
 	virtual CString GetdwKeyToString(int dwKey);
 
-	//		Ã¤ÆÃÃ¢ ¸µÅ© °ü·Ã	
-	virtual void ChatToLink(const SLINK_DATA_BASIC& sLinkDataBasic, const SITEMCUSTOM *pItemCustom = NULL /*GroupChat¿¡¼­´Â SITEMCUSTOMÀ» »ç¿ëÇÑ´Ù*/);	
+	//		Ã¤ï¿½ï¿½Ã¢ ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½	
+	virtual void ChatToLink(const SLINK_DATA_BASIC& sLinkDataBasic, const SITEMCUSTOM *pItemCustom = NULL /*GroupChatï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SITEMCUSTOMï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½*/);	
 
 	virtual SLINK_DATA_INDEX* GetLinkBasicData ( int nLinkIndex );
 
@@ -2509,16 +2511,16 @@ public:
 	virtual bool 	GetLinkName( CString& strLinkName, int nLinkIndex );
 
 
-	//	¸µÅ© Á¤º¸¸¦ µî·ÏÇÑ´Ù. 
-	virtual int		AddLinkDataToList_Client ( const SLINK_DATA_BASIC& sLinkDataBasic );		//	Å¬¶óÀÌ¾ðÆ® Á¤º¸·Î µî·Ï
+	//	ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
+	virtual int		AddLinkDataToList_Client ( const SLINK_DATA_BASIC& sLinkDataBasic );		//	Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	virtual int		AddLinkDataToList ( const std::string& strCharName, const SLINK_TYPE& sLinkType, void* pBuffer, DWORD dwSize );
 	virtual int		AddLinkDataToTypeList ( const std::string& strCharName, const SLINK_TYPE& sLinkType, void* pBuffer, DWORD dwSize );
 
-	//	Àü¼Û µ¥ÀÌÅÍ º¯°æ
+	//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	virtual void	ConvertRecvData ( CString& strText, VEC_LINK_TEXT_DATA& vecLinkTextData );	
 	virtual void	ConvertSendData ( CString& strInput, const VEC_LINK_TEXT_DATA_EX& vecLinkData, VEC_LINK_DATA_BASIC& vecLinkDataBasic );
 
-	// Å¬¶óÀÌ¾ðÆ® ¸µÅ© µ¥ÀÌÅÍ¸¦ ¼­¹öµ¥ÀÌÅÍ·Î º¯È¯ 
+	// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½È¯ 
 	virtual void	ConvertLinkData ( const VEC_LINK_TEXT_DATA_EX& vecLinkDataIN, VEC_LINK_TEXT_DATA& vecLinkDataOut );
 
 	virtual BOOL	GetLinkdataIndex(SLINK_DATA_ITEM&, int nIdx);
@@ -2604,7 +2606,7 @@ public:
     virtual void CloseAllWindowFromNPC ();
 
 public:
-	// ÀÎÅÍÆäÀÌ½º »ç¿ë½Ã Ä³¸¯ÅÍÀÇ ¿òÁ÷ÀÓÀ» Á¦¾î
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	BOOL IsOpenWindowToMoveBlock();
 
 	BOOL IsSnapItem()								{ return m_bSnapItem; }
@@ -2626,12 +2628,12 @@ public:
 	virtual bool	SET_KEEP_QUESTION_ITEM_ID ( int nID );
 	virtual void	RESET_KEEP_QUESTION_ITEM ();
 
-	virtual void	BONUS_TIME_EVENT_START( bool bCharging ); // ÀÌº¥Æ® ½ÃÀÛ
-	virtual void	BONUS_TIME_EVENT_END(); // ÀÌº¥Æ® Á¾·á
-	virtual void	BONUS_TIME_BUSTER_START(); // °æÇèÄ¡ ½ÃÀÛ
-	virtual void	BONUS_TIME_BUSTER_END(); // °æÇèÄ¡ Á¾·á
+	virtual void	BONUS_TIME_EVENT_START( bool bCharging ); // ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+	virtual void	BONUS_TIME_EVENT_END(); // ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+	virtual void	BONUS_TIME_BUSTER_START(); // ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+	virtual void	BONUS_TIME_BUSTER_END(); // ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 
-	// º£Æ®³² Å½´Ð ¹æÁö ½Ã½ºÅÛ °ÔÀÌÁö
+	// ï¿½ï¿½Æ®ï¿½ï¿½ Å½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	virtual void SET_VNGAINTYPE_GAUGE( int nPos, int nLimit );
 
 	virtual bool SET_QUEST_HELPER( DWORD dwQuestID, bool bCheckPrintMsg = TRUE );
@@ -2676,6 +2678,7 @@ public:
 
 public:
 	void SET_PKCOMBO ( int nIndex );
+	void TriggerKillCard ( int killType, DWORD targetID = 0 );
 
 public:
     //! Friend
@@ -2787,15 +2790,15 @@ private:
 	void	UpdateSimpleMessage ();
 public:
 	void	ReqToggleRun ();
-	bool	ItemShopAuth ();		// ÀÏº» Ä¿½ºÅÒ ºê¶ó¿ìÀú ÀÎÁõ ¸ðµâ //	ItemShopAuth
-	void	ItemShopVisible();		// ÀÏº» Ä¿½ºÅÒ ºê¶ó¿ìÀú ·Îµù ´ë±â //	ItemShopAuth
+	bool	ItemShopAuth ();		// ï¿½Ïºï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ //	ItemShopAuth
+	void	ItemShopVisible();		// ï¿½Ïºï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ //	ItemShopAuth
 
 	virtual void VisibleCDMRanking(bool bVisible);
 	virtual void RefreashCDMRanking();
 	virtual void VisibleCDMSafeTime(bool bVisible, float fCDM_SAFE_TIME);
 	virtual void CalcSkillDisplayPos(bool bVisible);
 
-	//#ifdef CH_PARAM // Áß±¹ ÀÎÅÍÆäÀÌ½º º¯°æ
+	//#ifdef CH_PARAM // ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	//public:
 	//	void UpdatePotionTrayPosition();
 	//#endif
@@ -2849,7 +2852,7 @@ private:
 
 
 //---------------------------------------------------------------------------------------------------------------------------
-// ( ÀÌÀüÀÇ NS_ITEMINFO )
+// ( ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NS_ITEMINFO )
 
 public:
 	void INFO_DISPLAY_ITEM_RESET ();
@@ -2933,7 +2936,7 @@ private:
 	WORD		m_INFO_DISPLAY_ITEM_wPosYBACK;
 
 //---------------------------------------------------------------------------------------------------------------------------
-// ( ÀÌÀüÀÇ NS_SKILLINFO )
+// ( ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NS_SKILLINFO )
 
 public:
 	void		INFO_DISPLAY_SKILL_RESET ();
@@ -3086,7 +3089,7 @@ public:
     virtual void ClubStorageUpdateMoneyInClubWindow() override;
     virtual void ClubUpdateNewbieNotice() override;
 
-	//! °³ÀÎ»óÁ¡ °Ë»ö½Ã½ºÅÛ ( PriviteMarket )
+	//! ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ ( PriviteMarket )
     virtual void PrivateMarketWindowOpen( bool bOpen = true );
 	virtual void PrivatemarketRefreshSearchResult();
 	virtual void SetPageWaiting(bool bIsWaiting);
@@ -3140,7 +3143,7 @@ public:
     virtual void SetTitleClubNameMemberNum( const CString strClubName, int nMembernum );
     virtual void SetRnCDMClubInfoPos(int nPosX, int nPosY);
 
-    // ±ê¹ßÀü ±ê¹ß °¡ÀÌµå È­»ìÇ¥ ÀÌÆåÆ®
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ È­ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½Æ®
     virtual void SetFlagGuideArrow( const int _flagNum, const STARGETID& vPos, const bool bBlink );
 
 	//Rn CDM CompetitionWindow 
