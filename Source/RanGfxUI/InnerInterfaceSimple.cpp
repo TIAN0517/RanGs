@@ -1781,6 +1781,34 @@ void CInnerInterface::TriggerKillCard ( int killType, DWORD targetID )
 	}
 }
 
+void CInnerInterface::OnInventoryChanged(DWORD dwSlotType, DWORD dwItemID)
+{
+	// ��ǿ�Ŀ�����ߵ����
+	if (m_pKillCardManager)
+	{
+		// ���񱳴ҵ�����۰����·��װ��״̬
+		// ������Ϸ������ݿ��е���ǿ�Ŀ����ITEM_ID
+		CKillCardPluginManager::GetInstance().OnInventoryChanged(dwSlotType, dwItemID);
+	}
+}
+
+void CInnerInterface::SetKillCardEffectIntensity(float fIntensity)
+{
+	if (m_pKillCardManager)
+	{
+		m_pKillCardManager->SetEffectIntensity(fIntensity);
+	}
+}
+
+BOOL CInnerInterface::IsKillCardSystemEnabled() const
+{
+	if (m_pKillCardManager)
+	{
+		return m_pKillCardManager->IsEnabled();
+	}
+	return FALSE;
+}
+
 void	CInnerInterface::SetFightEnd( const int nResult )
 {
 	GetConftDisplayMan()->SetFightEnd( nResult );
@@ -5732,12 +5760,16 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 		UiShowGroupTop ( PK_COMBO_DISPLAY );
 	}
 
-	// Kill Card System
+	// ʱ����Ŀ��ߵ����
 	{
 		m_pKillCardManager = new CKillCardManager(m_pEngineDevice);
 		m_pKillCardManager->Create ( KILL_CARD_DISPLAY, "KILL_CARD_DISPLAY", UI_FLAG_CENTER_X | UI_FLAG_CENTER_Y );
 		m_pKillCardManager->CreateSubControl ();
 		UiRegisterControl ( m_pKillCardManager, true );
+		
+		// ���Ӳ��������ͳҿ��
+		CKillCardPluginManager::GetInstance().InitializeDevice(m_pEngineDevice->GetDevice());
+		
 		UiShowGroupTop ( KILL_CARD_DISPLAY );
 	}
 

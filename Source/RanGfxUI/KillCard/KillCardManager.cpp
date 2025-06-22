@@ -1,10 +1,8 @@
 #include "../../stdafx.h"
-#include "KillCardManager.h"
-#include "KillCardAnimation.h"
-#include "KillCardRenderer.h"
-#include "KillCardEffects.h"
-
-#include "../../../SigmaCore/DebugInclude.h"
+#include "KillCardPlugin.h"
+#include "KillCardPostProcess.h"
+#include "KillCardPerformanceMonitor.h"
+#include "KillCardAssetManager.h"
 
 // 静态常量定义
 const float CKillCardManager::CARD_DISPLAY_TIME = 3.0f;

@@ -53,16 +53,30 @@ public:
     virtual void SetVisibleSingle(BOOL bVisible);
 
 public:
-    // 主要接口
+    // 增强的公共接口
     void TriggerKillCard(EKILL_TYPE killType, DWORD targetID = 0);
     void Reset();
     
     // 配置接口
-    void SetEnabled(BOOL bEnabled) { m_bEnabled = bEnabled; }
+    void SetEnabled(BOOL bEnabled);
     BOOL IsEnabled() const { return m_bEnabled; }
     
-    void SetEffectIntensity(float fIntensity) { m_fEffectIntensity = fIntensity; }
+    void SetEffectIntensity(float fIntensity);
     float GetEffectIntensity() const { return m_fEffectIntensity; }
+    
+    // 插件系统接口
+    void OnDeviceLost();
+    void OnDeviceReset();
+    BOOL InitializeAdvancedSystems(LPDIRECT3DDEVICE9 pDevice);
+    void ShutdownAdvancedSystems();
+    
+    // 性能监控接口
+    SKillCardPerformanceData GetPerformanceData() const;
+    void GeneratePerformanceReport(std::string& outReport) const;
+    
+    // 资源管理接口
+    void ReloadAssets();
+    void SaveConfiguration();
 
 private:
     // 内部方法

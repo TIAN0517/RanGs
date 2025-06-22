@@ -2679,6 +2679,14 @@ public:
 public:
 	void SET_PKCOMBO ( int nIndex );
 	void TriggerKillCard ( int killType, DWORD targetID = 0 );
+	
+	// ��ǿ�Ŀ�����鲻��
+	CKillCardManager* GetKillCardManager() { return m_pKillCardManager; }
+	
+	// ������Ʈ����ʽ���ݽӿ�
+	void OnInventoryChanged(DWORD dwSlotType, DWORD dwItemID);
+	void SetKillCardEffectIntensity(float fIntensity);
+	BOOL IsKillCardSystemEnabled() const;
 
 public:
     //! Friend
