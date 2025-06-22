@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// ÅÂ±¹¾î resources
+// ï¿½Â±ï¿½ï¿½ï¿½ resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_THA)
 #ifdef _WIN32
@@ -63,12 +63,12 @@ BEGIN
     END
 END
 
-#endif    // ÅÂ±¹¾î resources
+#endif    // ï¿½Â±ï¿½ï¿½ï¿½ resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// ÀÏº»¾î resources
+// ï¿½Ïºï¿½ï¿½ï¿½ resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
 #ifdef _WIN32
@@ -118,12 +118,12 @@ BEGIN
     END
 END
 
-#endif    // ÀÏº»¾î resources
+#endif    // ï¿½Ïºï¿½ï¿½ï¿½ resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Áß±¹¾î(Áß±¹) resources
+// ï¿½ß±ï¿½ï¿½ï¿½(ï¿½ß±ï¿½) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 #ifdef _WIN32
@@ -173,12 +173,12 @@ BEGIN
     END
 END
 
-#endif    // Áß±¹¾î(Áß±¹) resources
+#endif    // ï¿½ß±ï¿½ï¿½ï¿½(ï¿½ß±ï¿½) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Áß¸³ resources
+// ï¿½ß¸ï¿½ resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
 #ifdef _WIN32
@@ -690,7 +690,7 @@ FONT 9, "MS Shell Dlg", 400, 0, 0x0
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
     LTEXT           "QuestEdit Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) MIN COMMUNICATIONS, INC.",IDC_STATIC,40,26,220,8
+    LTEXT           "Copyright (C) Jyê¸°ìˆ íŒ€",IDC_STATIC,40,26,220,8
     DEFPUSHBUTTON   "OK",IDOK,110,50,50,16,WS_GROUP
 END
 
@@ -807,12 +807,12 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
-#endif    // Áß¸³ resources
+#endif    // ï¿½ß¸ï¿½ resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// ÇÑ±¹¾î resources
+// ï¿½Ñ±ï¿½ï¿½ï¿½ resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 #ifdef _WIN32
@@ -875,7 +875,7 @@ FONT 9, "MS Shell Dlg", 400, 0, 0x0
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,18,18
     LTEXT           "QuestEdit Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) MIN COMMUNICATIONS, INC.",IDC_STATIC,40,26,185,8
+    LTEXT           "Copyright (C) Jyê¸°ìˆ íŒ€",IDC_STATIC,40,26,185,8
     DEFPUSHBUTTON   "OK",IDOK,95,40,50,16,WS_GROUP
 END
 
@@ -1431,8 +1431,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
     "LANGUAGE 18, 1\r\n"
     "#pragma code_page(949)\r\n"
-    "#include ""res\\QuestEdit.rc2""  // Microsoft Visual C++¿¡¼­ ÆíÁýµÇÁö ¾ÊÀº ¸®¼Ò½º\r\n"
-    "#include ""afxres.rc""         // Ç¥ÁØ ±¸¼º ¿ä¼Ò\r\n"
+    "#include ""res\\QuestEdit.rc2""  // Microsoft Visual C++ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½\r\n"
+    "#include ""afxres.rc""         // Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -1471,13 +1471,13 @@ BEGIN
     BEGIN
         BLOCK "041203b5"
         BEGIN
-            VALUE "CompanyName", "TODO: <È¸»ç ÀÌ¸§>"
-            VALUE "FileDescription", "TODO: <ÆÄÀÏ ¼³¸í>"
+            VALUE "CompanyName", "Jyê¸°ìˆ íŒ€"
+            VALUE "FileDescription", "Quest Editor Tool"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "QuestEdit.exe"
-            VALUE "LegalCopyright", "TODO: (c) <È¸»ç ÀÌ¸§>.  All rights reserved."
+            VALUE "LegalCopyright", "(c) Jyê¸°ìˆ íŒ€.  All rights reserved."
             VALUE "OriginalFilename", "QuestEdit.exe"
-            VALUE "ProductName", "TODO: <Á¦Ç° ÀÌ¸§>"
+            VALUE "ProductName", "QuestEdit"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -1537,12 +1537,12 @@ BEGIN
     ID_MENUITEM_EXCELTXT_IMPORT "Excel Text Stringtable Import"
 END
 
-#endif    // ÇÑ±¹¾î resources
+#endif    // ï¿½Ñ±ï¿½ï¿½ï¿½ resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Áß±¹¾î(´ë¸¸) resources
+// ï¿½ß±ï¿½ï¿½ï¿½(ï¿½ë¸¸) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
 #ifdef _WIN32
@@ -1604,12 +1604,12 @@ BEGIN
     IDS_PROPSHT_CAPTION     "Sheet"
 END
 
-#endif    // Áß±¹¾î(´ë¸¸) resources
+#endif    // ï¿½ß±ï¿½ï¿½ï¿½(ï¿½ë¸¸) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// ¿µ¾î(¹Ì±¹) resources
+// ï¿½ï¿½ï¿½ï¿½(ï¿½Ì±ï¿½) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -1671,7 +1671,7 @@ BEGIN
     IDS_PROPSHT_CAPTION     "Sheet"
 END
 
-#endif    // ¿µ¾î(¹Ì±¹) resources
+#endif    // ï¿½ï¿½ï¿½ï¿½(ï¿½Ì±ï¿½) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -1689,8 +1689,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 LANGUAGE 18, 1
 #pragma code_page(949)
-#include "res\QuestEdit.rc2"  // Microsoft Visual C++¿¡¼­ ÆíÁýµÇÁö ¾ÊÀº ¸®¼Ò½º
-#include "afxres.rc"         // Ç¥ÁØ ±¸¼º ¿ä¼Ò
+#include "res\QuestEdit.rc2"  // Microsoft Visual C++ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½
+#include "afxres.rc"         // Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
