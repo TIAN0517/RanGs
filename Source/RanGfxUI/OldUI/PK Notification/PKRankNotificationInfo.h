@@ -14,6 +14,11 @@ class CPKRankNotificationInfo : public CUIGroup
 	{
 		RANK_INFO_ICON_SCHOOL = 3,
 		RANK_INFO_ICON_CLASS = GLCI_NUM_SCIENTIST,
+		
+		// 4D科技感動畫常量
+		TECH_STYLE_OBSERVER = 0,	// 觀戰者
+		TECH_STYLE_KILLER = 1,		// 擊殺者  
+		TECH_STYLE_KILLED = 2,		// 被擊殺者
 	};
 
 public:
@@ -43,7 +48,21 @@ public:
 
 private:
 	GLGaeaClient*		m_pGaeaClient;
+	
+	// 4D科技感動畫系統
+	float				m_fAnimationTime;		// 動畫時間
+	float				m_fGlowIntensity;		// 光暈強度
+	BOOL				m_bAnimationActive;		// 動畫激活狀態
+	DWORD				m_dwTechStyle;			// 科技樣式類型
+	
+	// 動畫配置常量
+	static const float	GLOW_ANIMATION_SPEED;	// 光暈動畫速度
+	static const float	GLOW_MIN_INTENSITY;		// 最小光暈強度
+	static const float	GLOW_MAX_INTENSITY;		// 最大光暈強度
 
 public:
 	void SetData( SPK_HISTORY sHistory );
+	
+private:
+	void UpdateTechAnimation( float fElapsedTime );		// 科技感動畫更新
 };
