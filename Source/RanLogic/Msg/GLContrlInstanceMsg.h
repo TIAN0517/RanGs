@@ -9,93 +9,104 @@ namespace InstanceSystem
     enum EMMESSAGE_TYPE
     {
         EMMESSAGE_ERROR,					// error!;
-        EMMESSAGE_GM_COMMAND,			    // GM ¸í·É¾î;
+        EMMESSAGE_GM_COMMAND,			    // GM ï¿½ï¿½ï¿½É¾ï¿½;
 		EMMESSAGE_RELOAD_AF,				// do script Reload agent -> field;
 		EMMESSAGE_RELOAD_FA,				// result script Reload field -> agent;
-        EMMESSAGE_NOTIFY_PLAYER_POSITION,	// playerÀÇ À§Ä¡ ¾Ë¸²;
-        EMMESSAGE_NOTIFY_INSTANCE_LOG,		// instance ÇöÈ²;
-        EMMESSAGE_NOTIFY_INSTANCE_LIST,		// instance ¸ñ·Ï;
-        EMMESSAGE_NOTIFY_CHILD_LAND,		// instance ³» Æ÷ÇÔµÈ land ID;
-        EMMESSAGE_NOTIFY_PLAYER_LIST,		// instance ³» player ¸ñ·Ï;
-		EMMESSAGE_NOTIFY_GLOBAL_FLOAT,		// field instance script ³» float global º¯¼ö °ª;
-		EMMESSAGE_NOTIFY_GLOBAL_INTEGER,	// field instance script ³» integer global º¯¼ö °ª;
-		EMMESSAGE_NOTIFY_GLOBAL_BOOLEAN,	// field instance script ³» boolean global º¯¼ö °ª;
-		EMMESSAGE_NOTIFY_GLOBAL_STRING,		// field instance script ³» string global º¯¼ö °ª;
-        EMMESSAGE_MOVE_MAP,				    // player Áö¿ª ÀÌµ¿;
-        EMMESSAGE_CREATE,					// instance »ý¼º;
-        EMMESSAGE_CREATE_COMPLETE,	        // instance »ý¼º ¿Ï·á;
-        EMMESSAGE_DESTROY,					// instance »èÁ¦;
-        EMMESSAGE_JOIN,						// (Àç)ÀÔÀå;
-        EMMESSAGE_REQUEST_JOIN_AF,		    // field server instance¿¡ ÀÔÀå °¡´É ¿©ºÎ ¹°¾îº½;
-        EMMESSAGE_ANSWER_JOIN_FA,		    // EMMESSAGE_REQUEST_JOIN_AF¿¡ ´ëÇÑ ´äÀå;
-        EMMESSAGE_UI_CHATMSG,			    // Ã¤ÆÃÃ¢¿¡ ¸Þ½ÃÁöÃâ·Â(µð¹ö±ë¿ë);
-		EMMESSAGE_UI_CHATXMLMSG,		    // Ã¤ÆÃÃ¢¿¡ XML ¸Þ¼¼Áö Ãâ·Â;
-        EMMESSAGE_UI_SIMPLE_MSG,		    // È­¸é Áß¾Ó¿¡ ¸Þ½ÃÁöÃâ·Â(µð¹ö±ë¿ë);
-        EMMESSAGE_UI_SIMPLE_XMLMSG,		    // È­¸é Áß¾Ó¿¡ XML ¸Þ¼¼Áö Ãâ·Â;
-        EMMESSAGE_UI_TEXT_DLG_MSG,		    // È­¸é Áß»ó´Ü¿¡ ÅØ½ºÆ® ´ÙÀÌ¾ó·Î±× ¸Þ¼¼Áö Ãâ·Â(µð¹ö±ë¿ë);
-        EMMESSAGE_UI_TEXT_DLG_XMLMSG,		    // È­¸é Áß»ó´Ü¿¡ ÅØ½ºÆ® ´ÙÀÌ¾ó·Î±× XML ¸Þ¼¼Áö Ãâ·Â;
-        EMMESSAGE_UI_TIMER_MSGBOX,          // È­¸é Áß¾Ó¿¡ Å¸ÀÌ¸Ó°¡ ÀÖ´Â Ok,Cancel ¸Þ½ÃÁö ¹Ú½º Ãâ·Â;
-		EMMESSAGE_EFFECT,				    // È­¸é¿¡ ÀÌÆåÆ®¸¦ Ãâ·Â;
-		EMMESSAGE_MATCHING_MAIL_AF,		    // ¸ÞÀÏ º¸³»±â
-        EMMESSAGE_SET_POSITION,			    // Æ¯Á¤ À§Ä¡·Î ÀÌµ¿(Áï½Ã ÀÌµ¿);
-        EMMESSAGE_SET_POSITION_FA,		    // °á°ú;
-        EMMESSAGE_DO_MOVE_TO,			    // Æ¯Á¤ À§Ä¡·Î ÀÌµ¿(°É¾î¼­ ÀÌµ¿);
-        EMMESSAGE_JOIN_LOCK_AF,			    // Á¢¼Ó Àá±Ý(agent -> field);
-        EMMESSAGE_JOIN_LOCK_FA,			    // Á¢¼Ó Àá±Ý(field -> agent);
-		EMMESSAGE_JOIN_SUSPEND_AF,		    // Á¢¼Ó Áö¿¬(agent -> field);
-		EMMESSAGE_JOIN_SUSPEND_FA,		    // Á¢¼Ó Áö¿¬(field -> agent);
-		EMMESSAGE_REQ_FACTOIN_SET_FACTION,	// Faction ¼³Á¤.				
-        EMMESSAGE_INFORMATION_CHANGE,	    // ÀÎ´ø¿¡ °üÇÑ Á¤º¸ º¯°æ»çÇ×;
-		EMMESSAGE_REQUEST_JOIN,			    // ÀÔÀå ½ÅÃ» µî·Ï;		
-		EMMESSAGE_REQUEST_OUT,			    // ÀÎ´ø¿¡¼­ ÂÑ¾Æ³¿;
-        EMMESSAGE_CLICK_TRIGGER,		    // ÀÎ´ø ½ºÅ©¸³Æ®¿ë Ä¿½ºÅÒ NPC Å¬¸¯ÀÌº¥Æ® ¹ß»ý½Ã ÇÊµå¿¡ ¿äÃ»;
-        EMMESSAGE_SET_MOTION_BRD,		    // Ä³¸¯ÅÍ »óÅÂ¸¦ Æ¯Á¤ ¸ð¼Ç»óÅÂ·Î º¯°æ (field -> ÇØ´ç pc¹× pcÁÖº¯À¸·Î BroadCast);
-        EMMESSAGE_SET_ACT_STATE_BRD,	    // ÄÉ¸¯ÅÍ ActState¸¦ Æ¯¼º »óÅÂ·Î º¯°æ (field -> Client);
-        EMMESSAGE_NEW_CUSTOM_MESSAGE,	    // ÀÎ´ø°£ ¹× ÀÎ´ø°ú À¯Àú°£ÀÇ Åë½ÅÀ» À§ÇÑ Ä¿½ºÅÛ ¸Þ½ÃÁö;
-		EMMESSAGE_MOVE_DONE,			    // ÀÌµ¿ÀÌ ¿Ï·á µÈ Á÷ÈÄ¿¡ field -> agent·Î º¸³»´Â ¸Þ¼¼Áö;
-        EMMESSAGE_JOIN_PARTY_FA,            // ÆÄÆ¼ »ý¼º ¹× ÆÄÆ¼¿ø Ãß°¡;
-        EMMESSAGE_OUT_PARTY_FA,             // ÆÄÆ¼ Å»Åð;
-        EMMESSAGE_CLEAR_PARTY_FA,           // ÆÄÆ¼ ÇØ»ê;
-		EMMESSAGE_REQUEST_OBSERVE,		// °üÀü ¿äÃ»;
-		EMMESSAGE_SET_AUTHORITY,			// ±ÇÇÑ ¼³Á¤(field -> agent);
-		EMMESSAGE_NOTIFY_COUNT_PACKET,	// subType¿¡ ´ëÇÑ ¼ö½ÅµÈ ÆÐÅ¶ ¼ö·® ¾Ë¸²;
+        EMMESSAGE_NOTIFY_PLAYER_POSITION,	// playerï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Ë¸ï¿½;
+        EMMESSAGE_NOTIFY_INSTANCE_LOG,		// instance ï¿½ï¿½È²;
+        EMMESSAGE_NOTIFY_INSTANCE_LIST,		// instance ï¿½ï¿½ï¿½;
+        EMMESSAGE_NOTIFY_CHILD_LAND,		// instance ï¿½ï¿½ ï¿½ï¿½ï¿½Ôµï¿½ land ID;
+        EMMESSAGE_NOTIFY_PLAYER_LIST,		// instance ï¿½ï¿½ player ï¿½ï¿½ï¿½;
+		EMMESSAGE_NOTIFY_GLOBAL_FLOAT,		// field instance script ï¿½ï¿½ float global ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½;
+		EMMESSAGE_NOTIFY_GLOBAL_INTEGER,	// field instance script ï¿½ï¿½ integer global ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½;
+		EMMESSAGE_NOTIFY_GLOBAL_BOOLEAN,	// field instance script ï¿½ï¿½ boolean global ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½;
+		EMMESSAGE_NOTIFY_GLOBAL_STRING,		// field instance script ï¿½ï¿½ string global ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½;
+        EMMESSAGE_MOVE_MAP,				    // player ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½;
+        EMMESSAGE_CREATE,					// instance ï¿½ï¿½ï¿½ï¿½;
+        EMMESSAGE_CREATE_COMPLETE,	        // instance ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½;
+        EMMESSAGE_DESTROY,					// instance ï¿½ï¿½ï¿½ï¿½;
+        EMMESSAGE_JOIN,						// (ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½;
+        EMMESSAGE_REQUEST_JOIN_AF,		    // field server instanceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½îº½;
+        EMMESSAGE_ANSWER_JOIN_FA,		    // EMMESSAGE_REQUEST_JOIN_AFï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+        EMMESSAGE_UI_CHATMSG,			    // Ã¤ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½);
+		EMMESSAGE_UI_CHATXMLMSG,		    // Ã¤ï¿½ï¿½Ã¢ï¿½ï¿½ XML ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½;
+        EMMESSAGE_UI_SIMPLE_MSG,		    // È­ï¿½ï¿½ ï¿½ß¾Ó¿ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½);
+        EMMESSAGE_UI_SIMPLE_XMLMSG,		    // È­ï¿½ï¿½ ï¿½ß¾Ó¿ï¿½ XML ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½;
+        EMMESSAGE_UI_TEXT_DLG_MSG,		    // È­ï¿½ï¿½ ï¿½ß»ï¿½Ü¿ï¿½ ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½);
+        EMMESSAGE_UI_TEXT_DLG_XMLMSG,		    // È­ï¿½ï¿½ ï¿½ß»ï¿½Ü¿ï¿½ ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½ XML ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½;
+        EMMESSAGE_UI_TIMER_MSGBOX,          // È­ï¿½ï¿½ ï¿½ß¾Ó¿ï¿½ Å¸ï¿½Ì¸Ó°ï¿½ ï¿½Ö´ï¿½ Ok,Cancel ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½;
+		EMMESSAGE_EFFECT,				    // È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½;
+		EMMESSAGE_MATCHING_MAIL_AF,		    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        EMMESSAGE_SET_POSITION,			    // Æ¯ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½(ï¿½ï¿½ï¿½ ï¿½Ìµï¿½);
+        EMMESSAGE_SET_POSITION_FA,		    // ï¿½ï¿½ï¿½;
+        EMMESSAGE_DO_MOVE_TO,			    // Æ¯ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½(ï¿½É¾î¼­ ï¿½Ìµï¿½);
+        EMMESSAGE_JOIN_LOCK_AF,			    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(agent -> field);
+        EMMESSAGE_JOIN_LOCK_FA,			    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(field -> agent);
+		EMMESSAGE_JOIN_SUSPEND_AF,		    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(agent -> field);
+		EMMESSAGE_JOIN_SUSPEND_FA,		    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(field -> agent);
+		EMMESSAGE_REQ_FACTOIN_SET_FACTION,	// Faction ï¿½ï¿½ï¿½ï¿½.				
+        EMMESSAGE_INFORMATION_CHANGE,	    // ï¿½Î´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
+		EMMESSAGE_REQUEST_JOIN,			    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½;		
+		EMMESSAGE_REQUEST_OUT,			    // ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾Æ³ï¿½;
+        EMMESSAGE_CLICK_TRIGGER,		    // ï¿½Î´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ NPC Å¬ï¿½ï¿½ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Êµå¿¡ ï¿½ï¿½Ã»;
+        EMMESSAGE_SET_MOTION_BRD,		    // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½Ç»ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½ (field -> ï¿½Ø´ï¿½ pcï¿½ï¿½ pcï¿½Öºï¿½ï¿½ï¿½ï¿½ï¿½ BroadCast);
+        EMMESSAGE_SET_ACT_STATE_BRD,	    // ï¿½É¸ï¿½ï¿½ï¿½ ActStateï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½ (field -> Client);
+        EMMESSAGE_NEW_CUSTOM_MESSAGE,	    // ï¿½Î´ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Î´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½;
+		EMMESSAGE_MOVE_DONE,			    // ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ field -> agentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½;
+        EMMESSAGE_JOIN_PARTY_FA,            // ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ß°ï¿½;
+        EMMESSAGE_OUT_PARTY_FA,             // ï¿½ï¿½Æ¼ Å»ï¿½ï¿½;
+        EMMESSAGE_CLEAR_PARTY_FA,           // ï¿½ï¿½Æ¼ ï¿½Ø»ï¿½;
+		EMMESSAGE_REQUEST_OBSERVE,		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»;
+		EMMESSAGE_SET_AUTHORITY,			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(field -> agent);
+		EMMESSAGE_NOTIFY_COUNT_PACKET,	// subTypeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Åµï¿½ ï¿½ï¿½Å¶ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½;
         EMMESSAGE_NSIZE,
     };
 
     enum EMCOMMAND_TYPE
-    { // GM ¸í·É¾î ¸ñ·Ï;
-        EMCOMMAND_WHO,					// player ¸ñ·Ï º¸±â;
-        EMCOMMAND_WHERE,				// player À§Ä¡ º¸±â;
-        EMCOMMAND_LAND,					// instance¿¡ ¼ÓÇÑ land ¸ñ·Ï º¸±â;
-		EMCOMMAND_DEBUG,				// agent/field ¿¡¼­ÀÇ mapID °ª È®ÀÎ;
-//        EMCOMMAND_FACTION,				// playerÀÇ Áø¿µ ID º¸±â;
-        EMCOMMAND_LIST,					// instance ¸ñ·Ï º¸±â;
-        EMCOMMAND_LOG,					// instance log º¸±â;
-        EMCOMMAND_DESTROY,			// Æ¯Á¤ instance »èÁ¦;
-        EMCOMMAND_DESTROY_TYPE,	// ÇØ´ç typeÀÇ instance ¸ðµÎ »èÁ¦;
-        EMCOMMAND_CREATE,				// instance »ý¼º;
-		EMCOMMAND_CREATE_TEST,		// instance »ý¼º x n(ºÎÇÏ Å×½ºÆ®);
-		EMCOMMAND_SET_GLOBAL,		// script º¯¼ö °ª Á¶Á¤;
-		EMCOMMAND_GET_GLOBAL,		// script º¯¼ö °ª ¾ò¾î ¿Å;		
-		EMCOMMAND_MOVE_TO_INSTANCE,	// instance -> instance ³» Æ¯Á¤ Àå¼Ò·Î ÀÌµ¿;
-		EMCOMMAND_MOVE_TO_GATE,			// instance -> instance ³» Æ¯Á¤ Gate·Î ÀÌµ¿;
-		EMCOMMAND_MOVE_TO_FIELD,			// instance -> field ³» Æ¯Á¤ Àå¼Ò·Î ÀÌµ¿;		
-		EMCOMMAND_ENTER_TO_INSTANCE,	// field -> instance ³» Æ¯Á¤ Àå¼Ò·Î ÀÌµ¿;
-		EMCOMMAND_MOVE_TO,					// instance ³»ºÎ¿¡¼­ ¿òÁ÷¿©¼­ Æ¯Á¤ À§Ä¡·Î ÀÌµ¿;
-		EMCOMMAND_DO_JOIN,				// Æ¯Á¤ player¸¦ ÀÎ´øÀ¸·Î Áý¾î ³ÖÀ½;
-		EMCOMMAND_DO_OUT,				// Æ¯Á¤ player¸¦ ÀÎ´ø¿¡¼­ ÂÑ¾Æ³¿;
-        EMCOMMAND_OFF,					// instance ²û;
-        EMCOMMAND_ON,						// instance ÄÔ;
-		EMCOMMAND_JOIN_SUSPEND,				// instance Á¢¼Ó Áö¿¬;
-		EMCOMMAND_JOIN_SUSPEND_TYPE,	// instance Á¢¼Ó Áö¿¬;
-        EMCOMMAND_JOIN_LOCK,			// instance Á¢¼Ó Àá±Ý;
-		EMCOMMAND_JOIN_LOCK_TYPE,	// ÇØ´ç Á¾·ù instnace Á¢¼Ó Àá±Ý;
-        EMCOMMAND_RELOAD,				// script ´Ù½Ã ºÒ·¯¿À±â;
-		EMCOMMAND_COUNT_PACKET,	// ¼ö½ÅµÈ ÆÐÅ¶·® º¸°í;
+    { // GM ï¿½ï¿½ï¿½É¾ï¿½ ï¿½ï¿½ï¿½;
+        EMCOMMAND_WHO,					// player ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+        EMCOMMAND_WHERE,				// player ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½;
+        EMCOMMAND_LAND,					// instanceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ land ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+		EMCOMMAND_DEBUG,				// agent/field ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ mapID ï¿½ï¿½ È®ï¿½ï¿½;
+//        EMCOMMAND_FACTION,				// playerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ID ï¿½ï¿½ï¿½ï¿½;
+        EMCOMMAND_LIST,					// instance ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+        EMCOMMAND_LOG,					// instance log ï¿½ï¿½ï¿½ï¿½;
+        EMCOMMAND_DESTROY,			// Æ¯ï¿½ï¿½ instance ï¿½ï¿½ï¿½ï¿½;
+        EMCOMMAND_DESTROY_TYPE,	// ï¿½Ø´ï¿½ typeï¿½ï¿½ instance ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+        EMCOMMAND_CREATE,				// instance ï¿½ï¿½ï¿½ï¿½;
+		EMCOMMAND_CREATE_TEST,		// instance ï¿½ï¿½ï¿½ï¿½ x n(ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®);
+		EMCOMMAND_SET_GLOBAL,		// script ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+		EMCOMMAND_GET_GLOBAL,		// script ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½;		
+		EMCOMMAND_MOVE_TO_INSTANCE,	// instance -> instance ï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½Ò·ï¿½ ï¿½Ìµï¿½;
+		EMCOMMAND_MOVE_TO_GATE,			// instance -> instance ï¿½ï¿½ Æ¯ï¿½ï¿½ Gateï¿½ï¿½ ï¿½Ìµï¿½;
+		EMCOMMAND_MOVE_TO_FIELD,			// instance -> field ï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½Ò·ï¿½ ï¿½Ìµï¿½;		
+		EMCOMMAND_ENTER_TO_INSTANCE,	// field -> instance ï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½Ò·ï¿½ ï¿½Ìµï¿½;
+		EMCOMMAND_MOVE_TO,					// instance ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½;
+		EMCOMMAND_DO_JOIN,				// Æ¯ï¿½ï¿½ playerï¿½ï¿½ ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+		EMCOMMAND_DO_OUT,				// Æ¯ï¿½ï¿½ playerï¿½ï¿½ ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾Æ³ï¿½;
+        EMCOMMAND_OFF,					// instance ï¿½ï¿½;
+        EMCOMMAND_ON,						// instance ï¿½ï¿½;
+		EMCOMMAND_JOIN_SUSPEND,				// instance ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+		EMCOMMAND_JOIN_SUSPEND_TYPE,	// instance ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+        EMCOMMAND_JOIN_LOCK,			// instance ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½;
+		EMCOMMAND_JOIN_LOCK_TYPE,	// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ instnace ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½;
+        EMCOMMAND_RELOAD,				// script ï¿½Ù½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½;
+		EMCOMMAND_COUNT_PACKET,	// ï¿½ï¿½ï¿½Åµï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+		
+		// Kill Animation Commands - TIAN0517 Implementation
+		EMCOMMAND_KILL_ANIM_SWORD,		// Play sword slash kill animation (12001);
+		EMCOMMAND_KILL_ANIM_PIERCE,		// Play pierce fatal kill animation (12002);
+		EMCOMMAND_KILL_ANIM_EXPLODE,	// Play explosion blast kill animation (12003);
+		EMCOMMAND_KILL_ANIM_ICE,		// Play ice shatter kill animation (12004);
+		EMCOMMAND_KILL_ANIM_FLAME,		// Play flame burn kill animation (12005);
+		EMCOMMAND_KILL_ANIM_LIGHTNING,	// Play lightning strike kill animation (12006);
+		EMCOMMAND_KILL_ANIM_TEST,		// Test all kill animations;
+		EMCOMMAND_KILL_ANIM_RANDOM,		// Play random kill animation;
+		
         EMCOMMAND_NSIZE,
     };
 
-	// ÀÎ½ºÅÏ½º ½Ã½ºÅÛ¿¡ °ü·Ã µÈ ¸ðµç ¿¡·¯ ÄÚµå´Â ÀÌ°÷¿¡;
+	// ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½Ã½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ ï¿½Ì°ï¿½ï¿½ï¿½;
 	enum EMERROR_TYPE
 	{
 		EMERROR_CANNOT_JOIN_INSTANCE,
@@ -120,7 +131,7 @@ namespace InstanceSystem
 
 namespace GLMSG
 {
-	// ÀÎ½ºÅÏ½º º£ÀÌ½º ¸Þ¼¼Áö;
+	// ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½;
 	struct NET_INSTANCE_MESSAGE : public NET_MSG_GENERIC
 	{
 		const InstanceSystem::EMMESSAGE_TYPE emType;
@@ -132,8 +143,8 @@ namespace GLMSG
 		}
 	};
 
-    //! ÁÖÀÇ : NET_INSTANCE_MSGPACK_MESSAGE¸¦ »ó¼Ó¹ÞÀº ¸ðµç ±¸Á¶Ã¼ÀÇ °æ¿ì
-    // MSGPACK_DEFINE ¼±¾ð½Ã emTypeÀ» ¸Ç Ã¹¹øÂ°·Î ³ÖÀº ÀÌÈÄ¿¡ ÀÚ½ÅÀÇ ÀÚ·áÇüÀ» ³Ö¾îÁà¾ßÇÑ´Ù.
+    //! ï¿½ï¿½ï¿½ï¿½ : NET_INSTANCE_MSGPACK_MESSAGEï¿½ï¿½ ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½
+    // MSGPACK_DEFINE ï¿½ï¿½ï¿½ï¿½ï¿½ emTypeï¿½ï¿½ ï¿½ï¿½ Ã¹ï¿½ï¿½Â°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
     struct NET_INSTANCE_MSGPACK_MESSAGE // : public NET_MSG_GENERIC
     {
         DWORD emType;
@@ -241,7 +252,7 @@ namespace GLMSG
 		const unsigned int nFieldServer;
 		const unsigned int nFieldChannel;
 		const bool bSuccess;
-		const DWORD dwGaeaID; // ¾Ë¸²¿ë gaeaID, ¾ø¾îµµ µ¿ÀÛÇÏ´Âµ¥ ÁöÀå ¾ø´Ù;
+		const DWORD dwGaeaID; // ï¿½Ë¸ï¿½ï¿½ï¿½ gaeaID, ï¿½ï¿½ï¿½îµµ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Âµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 
 		NET_INSTANCE_RELOAD_FA(const unsigned int _nFieldServer, const unsigned int _nFieldChannel, const bool _bSuccess, const DWORD _dwGaeaID = GAEAID_NULL)
 			: NET_INSTANCE_MESSAGE(sizeof(NET_INSTANCE_RELOAD_FA), InstanceSystem::EMMESSAGE_RELOAD_FA)
@@ -781,7 +792,7 @@ namespace GLMSG
 	};
 
 	struct NET_INSTANCE_MOVE_MAP : public NET_INSTANCE_MESSAGE
-	{ // ÀÌµ¿ Åëº¸ ¸Þ¼¼Áö;		
+	{ // ï¿½Ìµï¿½ ï¿½ëº¸ ï¿½Þ¼ï¿½ï¿½ï¿½;		
 		const InstanceSystem::DBNUM dbNum;
 		const MapID fromMapID;
 		const D3DXVECTOR3 fromMapPosition;
@@ -868,9 +879,9 @@ namespace GLMSG
         }
     };
     
-    // agent¿¡ ÀÔÀå °¡´É µî·ÏÀÌ µÆ´Ù°í ÇØµµ,
-    // ½ÇÁ¦ ÀÎ´øÃø »çÁ¤¿¡ µû¶ó Á¢¼Ó ºÒ°¡ È¤Àº ´ë±â »óÅÂ¿©¾ß ÇÒ ¼ö ÀÖÀ¸¹Ç·Î,
-    // ÀÎ´ø »ý¼ºÈÄ È¤Àº ÁøÇàÁßÀÌ¶ó ÇÏ´õ¶óµµ ¹Ù·Î ÀÔÀå ½ÃÅ°Áö ¾Ê°í field server´Ô²² ¿©ÂÞ¾î º»´Ù;
+    // agentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ù°ï¿½ ï¿½Øµï¿½,
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Î´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ È¤ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½,
+    // ï¿½Î´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ê°ï¿½ field serverï¿½Ô²ï¿½ ï¿½ï¿½ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½;
     struct NET_INSTANCE_REQUEST_JOIN_AF : public NET_INSTANCE_MESSAGE
     {	
         const InstanceSystem::InstanceMapID instanceMapID;
@@ -1007,7 +1018,7 @@ namespace GLMSG
 
     struct NET_INSTANCE_UI_TIMER_MSGBOX : public NET_INSTANCE_MSGPACK_MESSAGE
     {
-        DWORD dwDbNum;  // UI¸¦ Ãâ·ÂÇÒ UserÀÇ CharDbnum;
+        DWORD dwDbNum;  // UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Userï¿½ï¿½ CharDbnum;
 
         std::string _strContentText;
         std::string _strOkText;
@@ -1018,7 +1029,7 @@ namespace GLMSG
         DWORD dwResponseMsgParam1;
         DWORD dwResponseMsgParam2;
 
-        float fTimer;  // Å¸ÀÌ¸Ó ½Ã°£ ( 0ÀÏ°æ¿ì Å¸ÀÌ¸Ó »ç¿ë¾ÈÇÔ );
+        float fTimer;  // Å¸ï¿½Ì¸ï¿½ ï¿½Ã°ï¿½ ( 0ï¿½Ï°ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ );
 
         MSGPACK_DEFINE(emType, dwDbNum, _strContentText, _strOkText, _strCancelText, emResponseType, dwInstanceID, dwResponseMsgParam1, dwResponseMsgParam2, fTimer);
 
@@ -1034,17 +1045,17 @@ namespace GLMSG
         }
     };
 
-	// ÀÌÆåÆ® Ãâ·Â ¸Þ½ÃÁö
+	// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
 	struct NET_INSTANCE_EFFECT: public NET_INSTANCE_MSGPACK_MESSAGE
 	{
-		std::string _strEffectName;  // ÀÌÆåÆ® ÆÄÀÏ ÀÌ¸§;
-        float _fEffectZonePosX;     // ÀÌÆåÆ® Áö¿ª;
+		std::string _strEffectName;  // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½;
+        float _fEffectZonePosX;     // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½;
         float _fEffectZonePosY;
         float _fEffectZonePosZ;
 
-        DWORD _targetActorType;     // ÀÌÆåÆ® ´ë»ó;
+        DWORD _targetActorType;     // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½;
         DWORD _targetActorID;
-        //DWORD _targetPosX;          // ÀÌÆåÆ® ´ë»ó À§Ä¡;
+        //DWORD _targetPosX;          // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡;
         //DWORD _targetPosY;
         //DWORD _targetPosZ;
 
@@ -1061,7 +1072,7 @@ namespace GLMSG
 		}
 	};
 
-	// ¸ÞÄª ¿ìÆí ¸Þ½ÃÁö
+	// ï¿½ï¿½Äª ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
 	struct NET_INSTANCE_MAIL: public NET_INSTANCE_MSGPACK_MESSAGE
 	{
 		InstanceSystem::SystemMail Mail;
@@ -1086,7 +1097,7 @@ namespace GLMSG
             , instanceMapID(_instanceMapID)
             , informationSetPosition(_reserveSetPosition)
         {
-            // targetActorType/targetActorID °¡ GAEAID_NULLÀÌ³Ä ¾Æ´Ï³Ä¿¡ µû¶ó ÀÌµ¿ ÇüÅÂ°¡ ´Þ¶óÁü;
+            // targetActorType/targetActorID ï¿½ï¿½ GAEAID_NULLï¿½Ì³ï¿½ ï¿½Æ´Ï³Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Þ¶ï¿½ï¿½ï¿½;
             MIN_STATIC_ASSERT(sizeof(NET_INSTANCE_SET_POSITION) <= NET_DATA_BUFSIZE);
         }
     };
@@ -1251,7 +1262,7 @@ namespace GLMSG
 	};
 
 
-    // ÀÎ´ø ½ºÅ©¸³Æ®¿ë Ä¿½ºÅÒ NPC Å¬¸¯½Ã Client -> Field·Î ÀÌº¥Æ® ¸Þ½ÃÁö Àü¼Û;
+    // ï¿½Î´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ NPC Å¬ï¿½ï¿½ï¿½ï¿½ Client -> Fieldï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
     struct NET_INSTANCE_CLICK_TRIGGER : public NET_INSTANCE_MESSAGE
     {
         STARGETID sTarget;
@@ -1264,19 +1275,19 @@ namespace GLMSG
         }
     };
 
-    // ÀÎ´ø<->ÀÎ´ø È¤Àº ÀÎ´ø<->Å¬¶óÀÌ¾ðÆ®°£ ÀÇ Ä¿½ºÅÒ ¸Þ½ÃÁö¸¦ ÁÖ°í ¹ÞÀ½;
+    // ï¿½Î´ï¿½<->ï¿½Î´ï¿½ È¤ï¿½ï¿½ ï¿½Î´ï¿½<->Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½;
     struct NET_INSTANCE_NEW_CUSTOM_MESSAGE : public NET_INSTANCE_MESSAGE
     {
-        // ID°ªÀÇ ÀÇ¹Ì´Â Type¿¡ µû¶ó ´Ù¸£¸ç ¾Æ·¡¿Í °°À½;
-        // EM_USER : CharDbNum, EM_TO_MY_INSTANCE : CharDbNum,  Base±Þ : ÀÎ´ø ÄÁÅÙÃ÷ KeyMapID,  Level±Þ : ÀÎ´ø °´Ã¼ÀÇ InstanceMapID;
+        // IDï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹Ì´ï¿½ Typeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+        // EM_USER : CharDbNum, EM_TO_MY_INSTANCE : CharDbNum,  Baseï¿½ï¿½ : ï¿½Î´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ KeyMapID,  Levelï¿½ï¿½ : ï¿½Î´ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ InstanceMapID;
 
-        DWORD emDestType;   // º¸³¾ ¸ñÀûÁö Å¸ÀÔ;
-        DWORD dwDestID;     // º¸³¾ ¸ñÀûÁö Á¤º¸;
-        DWORD emSrcType;    // º¸³½ Ãâ¹ßÁö Å¸ÀÔ;
-        DWORD dwSrcID;      // º¸³½ Ãâ¹ßÁö Á¤º¸;
+        DWORD emDestType;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½;
+        DWORD dwDestID;     // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+        DWORD emSrcType;    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½;
+        DWORD dwSrcID;      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 
-        // Ä¿½ºÅÒ ¸Þ½ÃÁöÀÇ °ª;
-        // ÃßÈÄ StringÀÌ³ª floatµîÀÇ °ª Ãß°¡ ÇÊ¿ä½Ã ¿©±â¿¡ Ãß°¡;
+        // Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½;
+        // ï¿½ï¿½ï¿½ï¿½ Stringï¿½Ì³ï¿½ floatï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ê¿ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ß°ï¿½;
         DWORD param1;
         DWORD param2;
         DWORD param3;
@@ -1297,7 +1308,7 @@ namespace GLMSG
         }
     };
 
-    // Ä³¸¯ÅÍ »óÅÂ¸¦ Æ¯Á¤ ¸ð¼Ç»óÅÂ·Î º¯°æ (field -> ÇØ´ç pc¹× pcÁÖº¯À¸·Î BroadCast);
+    // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½Ç»ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½ (field -> ï¿½Ø´ï¿½ pcï¿½ï¿½ pcï¿½Öºï¿½ï¿½ï¿½ï¿½ï¿½ BroadCast);
     struct NET_INSTANCE_SET_MOTION_BRD : public NET_INSTANCE_MESSAGE
     {
         DWORD dwGaeaID;
@@ -1404,8 +1415,8 @@ namespace GLMSG
 		{			
 		}
 
-		// ¾Æ·¡ ¼Â Áß¿¡ ÇÏ³ª¸¸ ¼³Á¤ÇÏ¸é ÇØ´ç ÀÎ´ø¿¡ °üÀü ¿äÃ»À» º¸³½´Ù;
-		// Ã³¸® ¿ì¼± ¼øÀ§´Â : instanceMapID > dbNum > name ÀÌ´Ù;
+		// ï¿½Æ·ï¿½ ï¿½ï¿½ ï¿½ß¿ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ø´ï¿½ ï¿½Î´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
+		// Ã³ï¿½ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : instanceMapID > dbNum > name ï¿½Ì´ï¿½;
 		InstanceSystem::InstanceMapID instanceMapIDTargetObserve;
 		InstanceSystem::DBNUM dbNumTargetObserve;
 		char namePlayerTargetObserve[CHAR_SZNAME];
@@ -1467,11 +1478,11 @@ namespace GLMSG
 		PACKET_COUNT countPacket[NET_INSTANCE_NOTIFY_COUNT_PACKET::ARRAY_NSIZE];
 	};
 
-	/// ¿ø·¡ÀÇ ¶õ ½Ã½ºÅÛ¿¡ ¸ÂÃç¼­ ÆÐÅ¶¸ð´ÏÅÍ¸µ¿¡ ³ëÃâ½ÃÅ°±â À§ÇØ¼­;
-	/// »õ·Î¿î Çì´õ¸¦ Á¤ÀÇÇÑ´Ù;
+	/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ç¼­ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½;
+	/// ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½;
 
-	// Instance System ÀÇ ¸ðµç ÆÐÅ¶ÀÇ Çì´õ;
-	// »ç¿ëÇÒ ¼ö ÀÖ´Â ÆÐÅ¶ÀÌ ¾Æ´Ï´Ù;
+	// Instance System ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Æ´Ï´ï¿½;
 	struct NET_INSTANCE_MESSAGE_HEADER : public NET_MSG_GENERIC
 	{
 		InstanceSystem::InstanceMapID nInstanceID;
@@ -1491,8 +1502,8 @@ namespace GLMSG
 
 	struct NET_RETRY_FACTION_FB : public NET_INSTANCE_MESSAGE_HEADER
 	{
-		float fTime;				// ³ª°¡±â ½Ã°£;
-		DWORD dwMoney;				// »ç¿ëµÇ´Â µ·;
+		float fTime;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½;
+		DWORD dwMoney;				// ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½;
 		bool bShow;
 
 		NET_RETRY_FACTION_FB ( InstanceSystem::InstanceMapID _nInstanceID
@@ -1528,7 +1539,7 @@ namespace GLMSG
 	struct NET_SHOW_TIME_UI_FB : public NET_INSTANCE_MESSAGE_HEADER
 	{
 		bool bShow;
-		float fSec;					// ³ª°¡±â ½Ã°£;
+		float fSec;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½;
 
 		NET_SHOW_TIME_UI_FB ( InstanceSystem::InstanceMapID _nInstanceID
 			, SNATIVEID _sKeyMapID )
@@ -1548,7 +1559,7 @@ namespace GLMSG
 		DWORD dwCurCount;
 		DWORD dwMaxCount;
 		bool bShow;
-		float fSec;					// ³ª°¡±â ½Ã°£;
+		float fSec;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½;
 
 		NET_SHOW_ENTRANCE_STATE_UI_FB ( InstanceSystem::InstanceMapID _nInstanceID
 			, SNATIVEID _sKeyMapID )
