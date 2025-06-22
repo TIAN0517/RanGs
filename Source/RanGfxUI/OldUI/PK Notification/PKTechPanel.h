@@ -79,10 +79,6 @@ private:
     float m_fDataStreamOffset;           // Background scroll offset
     float m_fParticlePhase;              // Particle animation phase
     
-    // Performance Monitoring
-    float m_fFrameTime;
-    bool m_bPerformanceMode;             // Reduced effects for low performance
-    
 public:
     CPKTechPanel(GLGaeaClient* pGaeaClient, EngineDeviceMan* pEngineDevice);
     virtual ~CPKTechPanel();
@@ -104,7 +100,10 @@ public:
     // Configuration
     void SetTechConfig(const TECH_PANEL_CONFIG& config) { m_sConfig = config; }
     const TECH_PANEL_CONFIG& GetTechConfig() const { return m_sConfig; }
-    void SetPerformanceMode(bool bEnabled) { m_bPerformanceMode = bEnabled; }
+    
+    // Performance Management (now handled by TechPanelPerformanceManager)
+    bool IsPerformanceMode() const;
+    bool IsCriticalMode() const;
     
 private:
     // Animation Methods
@@ -131,9 +130,11 @@ private:
     D3DXVECTOR3 CalculateEaseOutBack(const D3DXVECTOR3& start, const D3DXVECTOR3& end, float t);
     DWORD InterpolateColor(DWORD color1, DWORD color2, float t);
     D3DXCOLOR GetNeonColor(float phase);
-    bool IsLowPerformance() const;
+    void UpdateComponentVisibility();
     
     // Tech Card Detection
     bool HasTechCardItem() const;
+    
+    // Legacy compatibility
     void MonitorPerformance(float fElapsedTime);
 };

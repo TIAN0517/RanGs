@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "PKTechPanel.h"
+#include "TechPanelPerformanceManager.h"
+#include "../../../enginelib/Common/TechPanelCoreOptimization.h"
 #include "../../enginelib/DxTools/D3DFont.h"
 #include "../../../enginelib/GUInterface/UITextControl.h"
 #include "../../../enginelib/GUInterface/GameTextControl.h"
@@ -35,15 +37,18 @@ CPKTechPanel::CPKTechPanel(GLGaeaClient* pGaeaClient, EngineDeviceMan* pEngineDe
     , m_fGearRotation(0.0f)
     , m_fDataStreamOffset(0.0f)
     , m_fParticlePhase(0.0f)
-    , m_fFrameTime(0.0f)
-    , m_bPerformanceMode(false)
 {
     m_vStartPos = D3DXVECTOR3(-400.0f, 0.0f, 0.0f);  // Off-screen left
     m_vTargetPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);    // Center screen
+    
+    // Initialize core optimizations for tech panel
+    TechPanelCore::InitializeCoreOptimizations();
 }
 
 CPKTechPanel::~CPKTechPanel()
 {
+    // Shutdown core optimizations
+    TechPanelCore::ShutdownCoreOptimizations();
 }
 
 void CPKTechPanel::CreateSubControl()
@@ -133,45 +138,71 @@ void CPKTechPanel::Update(int x, int y, BYTE LB, BYTE MB, BYTE RB, int nScroll, 
 
     CUIGroup::Update(x, y, LB, MB, RB, nScroll, fElapsedTime, bFirstControl);
     
-    // Monitor performance
-    MonitorPerformance(fElapsedTime);
+    // Update core optimizations
+    TechPanelCore::UpdateCoreOptimizations(fElapsedTime);
+    
+    // Update performance monitoring system
+    TECH_PERF_MGR.Update();
     
     // Update animations based on current state
     UpdateAnimations(fElapsedTime);
     
-    // Update visual effects
-    if (!m_bPerformanceMode)
+    // Update visual effects based on performance manager settings
+    if (TECH_PERF_MGR.IsNeonTextEnabled())
     {
         UpdateNeonTextEffect(fElapsedTime);
+    }
+    
+    if (TECH_PERF_MGR.Is3DFloatingEnabled())
+    {
         Update3DFloatingEffect(fElapsedTime);
+    }
+    
+    if (TECH_PERF_MGR.IsDataStreamEnabled())
+    {
         UpdateDataStreamBackground(fElapsedTime);
+    }
+    
+    if (TECH_PERF_MGR.AreParticleEffectsEnabled())
+    {
         UpdateParticleBackground(fElapsedTime);
     }
     
     UpdateGearRotation(fElapsedTime);
+    
+    // Update component visibility based on performance settings
+    UpdateComponentVisibility();
 }
 
 void CPKTechPanel::Render(LPDIRECT3DDEVICEQ pd3dDevice)
 {
     if (!IsVisible() || m_eCurrentState == TECH_PANEL_HIDDEN) return;
     
-    // Render holographic panel with transparency
-    RenderHolographicPanel(pd3dDevice);
+    // Render holographic panel with transparency (always enabled)
+    if (TECH_PERF_MGR.IsHolographicEnabled())
+    {
+        RenderHolographicPanel(pd3dDevice);
+    }
     
-    // Render blue glow edge
+    // Render blue glow edge (minimal performance impact)
     RenderBlueGlowEdge(pd3dDevice);
     
-    if (!m_bPerformanceMode)
+    // Render performance-sensitive effects
+    if (TECH_PERF_MGR.IsDataStreamEnabled())
     {
-        // Render data stream background
         RenderDataStreamBackground(pd3dDevice);
-        
-        // Render particle background
+    }
+    
+    if (TECH_PERF_MGR.AreParticleEffectsEnabled())
+    {
         RenderParticleBackground(pd3dDevice);
     }
     
     // Render neon text
-    RenderNeonText(pd3dDevice);
+    if (TECH_PERF_MGR.IsNeonTextEnabled())
+    {
+        RenderNeonText(pd3dDevice);
+    }
     
     // Render base UI components
     CUIGroup::Render(pd3dDevice);
@@ -215,15 +246,15 @@ void CPKTechPanel::ShowTechKillNotification(const SPK_HISTORY& sHistory)
         m_pTechKillText->SetVisibleSingle(TRUE);
     }
     
-    // Show all visual components
+    // Show all visual components based on performance settings
     if (m_pHologramPanel) m_pHologramPanel->SetVisibleSingle(TRUE);
     if (m_pBlueGlowEdge) m_pBlueGlowEdge->SetVisibleSingle(TRUE);
     
-    if (!m_bPerformanceMode)
-    {
-        if (m_pDataStreamBG) m_pDataStreamBG->SetVisibleSingle(TRUE);
-        if (m_pParticleEffect) m_pParticleEffect->SetVisibleSingle(TRUE);
-    }
+    if (TECH_PERF_MGR.IsDataStreamEnabled() && m_pDataStreamBG) 
+        m_pDataStreamBG->SetVisibleSingle(TRUE);
+    
+    if (TECH_PERF_MGR.AreParticleEffectsEnabled() && m_pParticleEffect) 
+        m_pParticleEffect->SetVisibleSingle(TRUE);
     
     if (m_pKillerAvatar) m_pKillerAvatar->SetVisibleSingle(TRUE);
     if (m_pEnergyShield) m_pEnergyShield->SetVisibleSingle(TRUE);
@@ -232,6 +263,9 @@ void CPKTechPanel::ShowTechKillNotification(const SPK_HISTORY& sHistory)
     // Start fly-in animation
     m_eCurrentState = TECH_PANEL_FLYING_IN;
     m_fAnimationTimer = 0.0f;
+    
+    // Register tech panel with core system for optimizations
+    TECH_CORE_MGR.RegisterTechPanel();
     
     // Play tech sound effect
     DxSoundLib::GetInstance()->PlaySound("TECH_KILL_NOTIFICATION");
@@ -245,6 +279,9 @@ void CPKTechPanel::HideTechPanel()
     {
         m_eCurrentState = TECH_PANEL_FADING_OUT;
         m_fAnimationTimer = 0.0f;
+        
+        // Unregister tech panel from core system
+        TECH_CORE_MGR.UnregisterTechPanel();
     }
 }
 
@@ -415,36 +452,39 @@ D3DXCOLOR CPKTechPanel::GetNeonColor(float phase)
     return D3DXCOLOR(r, g, b, 1.0f);
 }
 
+void CPKTechPanel::UpdateComponentVisibility()
+{
+    // Update component visibility based on current performance settings
+    if (m_pDataStreamBG)
+    {
+        m_pDataStreamBG->SetVisibleSingle(TECH_PERF_MGR.IsDataStreamEnabled() ? TRUE : FALSE);
+    }
+    
+    if (m_pParticleEffect)
+    {
+        m_pParticleEffect->SetVisibleSingle(TECH_PERF_MGR.AreParticleEffectsEnabled() ? TRUE : FALSE);
+    }
+}
+
 void CPKTechPanel::MonitorPerformance(float fElapsedTime)
 {
-    m_fFrameTime = fElapsedTime;
-    
-    // Enable performance mode if frame rate drops below threshold
-    const float PERFORMANCE_THRESHOLD = 1.0f / 30.0f; // 30 FPS
-    
-    if (m_fFrameTime > PERFORMANCE_THRESHOLD && !m_bPerformanceMode)
-    {
-        m_bPerformanceMode = true;
-        
-        // Disable heavy visual effects
-        if (m_pDataStreamBG) m_pDataStreamBG->SetVisibleSingle(FALSE);
-        if (m_pParticleEffect) m_pParticleEffect->SetVisibleSingle(FALSE);
-    }
-    else if (m_fFrameTime <= PERFORMANCE_THRESHOLD * 0.8f && m_bPerformanceMode)
-    {
-        m_bPerformanceMode = false;
-        
-        // Re-enable visual effects
-        if (m_pDataStreamBG && m_sConfig.bDataStreamEnabled) 
-            m_pDataStreamBG->SetVisibleSingle(TRUE);
-        if (m_pParticleEffect && m_sConfig.bParticleEnabled) 
-            m_pParticleEffect->SetVisibleSingle(TRUE);
-    }
+    // Legacy performance monitoring - now handled by TechPanelPerformanceManager
+    // This method is kept for compatibility but functionality moved to performance manager
 }
 
 bool CPKTechPanel::IsLowPerformance() const
 {
-    return m_bPerformanceMode;
+    return TECH_PERF_MGR.IsPerformanceMode() || TECH_PERF_MGR.IsCriticalMode();
+}
+
+bool CPKTechPanel::IsPerformanceMode() const
+{
+    return TECH_PERF_MGR.IsPerformanceMode();
+}
+
+bool CPKTechPanel::IsCriticalMode() const
+{
+    return TECH_PERF_MGR.IsCriticalMode();
 }
 
 bool CPKTechPanel::HasTechCardItem() const
