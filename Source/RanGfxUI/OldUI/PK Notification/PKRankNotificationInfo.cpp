@@ -22,7 +22,11 @@ CPKRankNotificationInfo::CPKRankNotificationInfo ( GLGaeaClient* pGaeaClient, En
 	m_pNameKiller( NULL ),
 	m_pNameKilled( NULL ),
 	m_pLineBox( NULL ),
-	m_pKillIcon( NULL )
+	m_pKillIcon( NULL ),
+	m_fAnimationTime( 0.0f ),
+	m_fGlowIntensity( 1.0f ),
+	m_bAnimationActive( FALSE ),
+	m_dwTechStyle( 0 )
 {
 	for( int i = 0; i < RANK_INFO_ICON_SCHOOL; ++i )
 	{
@@ -42,7 +46,7 @@ void CPKRankNotificationInfo::CreateSubControl()
 
 	m_pLineBox = new CBasicLineBox(m_pEngineDevice);
 	m_pLineBox->CreateSub ( this, "BASIC_LINE_BOX_QUEST_LIST", UI_FLAG_XSIZE | UI_FLAG_YSIZE );
-	m_pLineBox->CreateBaseBoxQuestList ( "PK_RANK_NOTIFICATION_LINEBOX" );
+	m_pLineBox->CreateBaseBoxTech4D ( "PK_RANK_NOTIFICATION_LINEBOX" );  // 使用4D科技感樣式
 	RegisterControl ( m_pLineBox );
 
 	std::string strSchoolKiller[RANK_INFO_ICON_SCHOOL] = 
@@ -147,6 +151,36 @@ void CPKRankNotificationInfo::Update ( int x, int y, BYTE LB, BYTE MB, BYTE RB, 
 {
 	if ( !IsVisible () ) return ;
 
+	// 4D科技感動畫更新
+	if ( m_bAnimationActive )
+	{
+		m_fAnimationTime += fElapsedTime;
+		
+		// 計算光暈強度（呼吸效果）
+		m_fGlowIntensity = 0.8f + 0.2f * sinf( m_fAnimationTime * 3.0f );
+		
+		// 更新光效顏色
+		if ( m_pLineBox )
+		{
+			DWORD dwCurrentColor = 0;
+			
+			switch ( m_dwTechStyle )
+			{
+			case 1: // 擊殺者 - 金色光暈
+				dwCurrentColor = D3DCOLOR_ARGB( (DWORD)(255 * m_fGlowIntensity), 0xFF, 0xD7, 0x00 );
+				break;
+			case 2: // 被擊殺者 - 紅色警告
+				dwCurrentColor = D3DCOLOR_ARGB( (DWORD)(255 * m_fGlowIntensity), 0xFF, 0x30, 0x30 );
+				break;
+			default: // 觀戰者 - 藍色透明
+				dwCurrentColor = D3DCOLOR_ARGB( (DWORD)(128 * m_fGlowIntensity), 0xE0, 0xFF, 0xFF );
+				break;
+			}
+			
+			m_pLineBox->SetDiffuse( dwCurrentColor );
+		}
+	}
+
 	CUIGroup::Update ( x, y, LB, MB, RB, nScroll, fElapsedTime, bFirstControl );
 }
 
@@ -170,6 +204,12 @@ void CPKRankNotificationInfo::SetVisibleSingle ( BOOL bVisible )
 
 		m_pNameKiller->ClearText();
 		m_pNameKilled->ClearText();
+		
+		// 重置動畫狀態
+		m_bAnimationActive = FALSE;
+		m_fAnimationTime = 0.0f;
+		m_fGlowIntensity = 1.0f;
+		m_dwTechStyle = 0;
 	}
 }
 
@@ -192,18 +232,41 @@ void CPKRankNotificationInfo::SetData( SPK_HISTORY sHistory )
 
 	DWORD dwCharID = m_pGaeaClient->GetCharacter()->GetCharID();
 
+	// 4D科技感動態顏色系統
+	m_bAnimationActive = TRUE;
+	m_fAnimationTime = 0.0f;
+	
 	if ( dwCharID == sHistory.dwKilled )
 	{
+		// 被擊殺：紅色警告 + 震動效果
 		m_pLineBox->SetUseRender ( TRUE );
-		m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::DISABLE );
+		m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::TECH_RED_WARNING );
+		m_dwTechStyle = 2;  // 被擊殺者樣式
+		
+		// 設置玻璃質感半透明效果
+		m_pNameKilled->SetTextColor( 0, NS_UITEXTCOLOR::TECH_RED_WARNING );
+		m_pNameKiller->SetTextColor( 0, NS_UITEXTCOLOR::TECH_GOLD_VICTORY );
 	}
 	else if ( dwCharID == sHistory.dwKiller )
 	{
+		// 擊殺者：金色光暈 + 勝利粒子效果
 		m_pLineBox->SetUseRender ( TRUE );
-		m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::GREENYELLOW );
+		m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::TECH_GOLD_VICTORY );
+		m_dwTechStyle = 1;  // 擊殺者樣式
+		
+		// 設置勝利者光效
+		m_pNameKiller->SetTextColor( 0, NS_UITEXTCOLOR::TECH_GOLD_VICTORY );
+		m_pNameKilled->SetTextColor( 0, NS_UITEXTCOLOR::TECH_GLASS_ALPHA );
 	}
 	else
 	{
-		m_pLineBox->SetUseRender ( FALSE );
+		// 觀戰者：藍色透明 + 流動光效
+		m_pLineBox->SetUseRender ( TRUE );
+		m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::TECH_GLASS_ALPHA );
+		m_dwTechStyle = 0;  // 觀戰者樣式
+		
+		// 設置觀戰者科技感顏色
+		m_pNameKiller->SetTextColor( 0, NS_UITEXTCOLOR::TECH_CYAN_GLOW );
+		m_pNameKilled->SetTextColor( 0, NS_UITEXTCOLOR::TECH_BLUE_BRIGHT );
 	}
 }

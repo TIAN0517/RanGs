@@ -43,6 +43,12 @@ public:
 
 private:
 	GLGaeaClient*		m_pGaeaClient;
+	
+	// 4D科技感動畫系統
+	float				m_fAnimationTime;		// 動畫時間
+	float				m_fGlowIntensity;		// 光暈強度
+	BOOL				m_bAnimationActive;		// 動畫激活狀態
+	DWORD				m_dwTechStyle;			// 科技樣式類型
 
 public:
 	void SetData( SPK_HISTORY sHistory );

@@ -1,10 +1,10 @@
-//	¶óÀÎ ¹Ú½º 4Á¶°¢
+//	ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ 4ï¿½ï¿½ï¿½ï¿½
 //
-//	ÃÖÃÊ ÀÛ¼ºÀÚ : ¼º±â¿±
-//	ÀÌÈÄ ¼öÁ¤ÀÚ : 
-//	·Î±×
+//	ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½â¿±
+//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : 
+//	ï¿½Î±ï¿½
 //		[2003.11.31]
-//			@ ÀÛ¼º
+//			@ ï¿½Û¼ï¿½
 //
 
 #pragma	once
@@ -50,6 +50,7 @@ public: // MEMO
 	void	CreateBaseBoxSystemMessageUp ( char* szBoxControl );
 	void	CreateBaseBoxStatsReset ( char* szBoxControl );
 	void	CreateBaseBoxPostBoxSendInput ( char* szBoxControl );
+	void	CreateBaseBoxTech4D ( char* szBoxControl );		// 4Dç§‘æŠ€æ„Ÿç„¡é‚Šæ¡†æ¨£å¼
 
 public:
 	void	SetUseRenderLine ( int nLine, BOOL bUseRender );

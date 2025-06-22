@@ -4,15 +4,15 @@
 #include "./UITextUtil.h"
 
 //	NOTE
-//		¾Æ·¡ÀÇ ÀÌ¸§Àº 'color_chart.html'À» µû¸¨´Ï´Ù.
+//		ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ 'color_chart.html'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 //		/=document/color_chart.html
 
 //	CAUTION
-//		¾ËÆÄ°ªÀº ¹Ù²ÙÁö ¸¶½Ê½Ã¿À.
+//		ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê½Ã¿ï¿½.
 
 namespace NS_UITEXTCOLOR
 {
-	//	±âº»»ö Á¤ÀÇ
+	//	ï¿½âº»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	//
 	const DWORD WHITESMOKE		= D3DCOLOR_ARGB(0xFF,0xF5,0xF5,0xF5);
 	const DWORD WHITE			= D3DCOLOR_ARGB(0xFF,0xFF,0xFF,0xFF);
@@ -52,20 +52,29 @@ namespace NS_UITEXTCOLOR
 	const DWORD FORESTGREEN		= D3DCOLOR_ARGB(0xFF,0x22,0x8B,0x22);
 	const DWORD HOTPINK			= D3DCOLOR_ARGB(0xFF,0xFF,0x69,0xB4);
 	const DWORD MAROON			= D3DCOLOR_ARGB(0xFF,0x80,0x00,0x00);
-	const DWORD NAVY			= D3DCOLOR_ARGB(0xFF,0x00,0x00,0x80); // Â£Àº°ËÀººûÀ»¶í³²ºû
+	const DWORD NAVY			= D3DCOLOR_ARGB(0xFF,0x00,0x00,0x80); // Â£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	const DWORD BLACK			= D3DCOLOR_ARGB(0xFF,0x00,0x00,0x00);
-	const DWORD OLIVE			= D3DCOLOR_ARGB(0xFF,0xD3,0xEB,0x2E); // ¿Ã¸®ºê
-	const DWORD WARMPINK		= D3DCOLOR_ARGB(0xFF,0xF9,0xB6,0xB0); // ¾à°£ ¾îµÎ¿î ÇÎÅ©
+	const DWORD OLIVE			= D3DCOLOR_ARGB(0xFF,0xD3,0xEB,0x2E); // ï¿½Ã¸ï¿½ï¿½ï¿½
+	const DWORD WARMPINK		= D3DCOLOR_ARGB(0xFF,0xF9,0xB6,0xB0); // ï¿½à°£ ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½Å©
 	
-	// clubBattle »ç¿ëÇÒ·Á°í Ãß°¡ ( »ö»ó°ª Á¶±İ¾¿ Æ²¸² ) 
+	// clubBattle ï¿½ï¿½ï¿½ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ( ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½İ¾ï¿½ Æ²ï¿½ï¿½ ) 
 	const DWORD AQUABLUE		= D3DCOLOR_ARGB(0xFF,0x00,0x26,0xFF);
 	const DWORD DARKVIOLET		= D3DCOLOR_ARGB(0xFF,0xB2,0x00,0xFF);
 	const DWORD FUCHSIA			= D3DCOLOR_ARGB(0xFF,0xFF,0x00,0xDC);
 	const DWORD PURPLE			= D3DCOLOR_ARGB(0xFF,0x7F,0x00,0x6E);
 	const DWORD LIGHTYELLOW		= D3DCOLOR_ARGB(0xFF,0xFF,0xE9,0x7F);
 
+	// 4D Tech Style Colors - ç§‘æŠ€æ„Ÿé¡è‰²ç³»çµ±
+	const DWORD TECH_CYAN_GLOW		= D3DCOLOR_ARGB(0xFF,0x00,0xFF,0xFF); // é’è‰²å…‰æšˆ
+	const DWORD TECH_BLUE_DEEP		= D3DCOLOR_ARGB(0xFF,0x00,0x7F,0xFF); // æ·±è—ç§‘æŠ€è‰²
+	const DWORD TECH_BLUE_BRIGHT	= D3DCOLOR_ARGB(0xFF,0x40,0xC0,0xFF); // äº®è—ç§‘æŠ€è‰²
+	const DWORD TECH_GOLD_VICTORY	= D3DCOLOR_ARGB(0xFF,0xFF,0xD7,0x00); // å‹åˆ©é‡‘è‰²
+	const DWORD TECH_RED_WARNING	= D3DCOLOR_ARGB(0xFF,0xFF,0x30,0x30); // è­¦å‘Šç´…è‰²
+	const DWORD TECH_GLASS_ALPHA	= D3DCOLOR_ARGB(0x80,0xE0,0xFF,0xFF); // ç»ç’ƒè³ªæ„ŸåŠé€æ˜
+	const DWORD TECH_HOLOGRAM		= D3DCOLOR_ARGB(0xCC,0x00,0xFF,0xCC); // å…¨æ¯æŠ•å½±è‰²
 
-	//	»ç¿ëÃ³
+
+	//	ï¿½ï¿½ï¿½Ã³
 	const DWORD ENABLE			= LIGHTGREY;	
 	const DWORD DISABLE			= RED;
 
@@ -90,7 +99,7 @@ namespace NS_UITEXTCOLOR
 		FUCHSIA, PURPLE, LIGHTYELLOW, GOLD };
 
 
-	//	Ã¤ÆÃ Å¸ÀÔ »ö±ò ±¸ºĞ
+	//	Ã¤ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	const DWORD CHAT_NORMAL = ENABLE;
 	const DWORD CHAT_PRIVATE = PRIVATE;
 	const DWORD CHAT_PARTY = AQUAMARINE;
@@ -122,7 +131,7 @@ namespace NS_UITEXTCOLOR
     const DWORD ATTENDANCE_DAYLIST_COMPLETE      = D3DCOLOR_ARGB(0xFF,0x8A,0x90,0xC0);
     const DWORD ATTENDANCE_DAYLIST_TODAY         = D3DCOLOR_ARGB(0xFF,0xEA,0xED,0xFC);
 
-	// ½ºÅ³ÅøÆÁ;
+	// ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½;
 	const DWORD LINK_SKILL_TOOLTIP = D3DCOLOR_ARGB(0xFF,0xFF,0xC9,0x0E);
 }
 
@@ -135,143 +144,143 @@ namespace	NS_UITEXTCONTROL
 }
 
 /*
-778899 lightslategray ¹àÀºÇª¸¥ºûÈ¸»ö 
-696969 dimgray Ä¢Ä¢ÇÑÈ¸»ö 
-808080 gray È¸»ö 
-a9a9a9 darkgray ¾îµÎ¿îÈ¸»ö 
-c0c0c0 silver Àº»ö 
-d3d3d3 lightgrey ¹àÀºÈ¸»ö 
+778899 lightslategray ï¿½ï¿½ï¿½ï¿½Çªï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ 
+696969 dimgray Ä¢Ä¢ï¿½ï¿½È¸ï¿½ï¿½ 
+808080 gray È¸ï¿½ï¿½ 
+a9a9a9 darkgray ï¿½ï¿½Î¿ï¿½È¸ï¿½ï¿½ 
+c0c0c0 silver ï¿½ï¿½ï¿½ï¿½ 
+d3d3d3 lightgrey ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ 
 dcdcdc gainsboro 
-ffffff white ¹é»ö 
-fff5ee seashell ¹Ù´ÙÁ¶°¡ºñ 
-fffafa snow ¼³¹é 
-f8f8ff ghostwhite Çã±úºñ¹é»ö 
-fffaf0 floralwhite ²ÉÀÇ¹é»ö 
-f5f5f5 whitesmoke ¹é»ö¿¬±â 
-f0f8ff aliceblue ¿¯ÀºÀíºû¹ÙÅÁ¿¡Çª¸¥ºû 
-f0ffff azure ÇÏ´Ã»ö 
-fdf5e6 oldlace ³°Àº²ö 
-f5fffa mintcream ¹ÚÇÏÅ©¸² 
-ffefd5 papayawhip ¿­´ë¾Æ¸Ş¸®Ä«»ê°ú¼ö¸ÅÁú 
-ffdab9 peachpuff º¹¼ş¾ÆºûºÒ±â 
-faf0e6 linen ¸®³Ù 
-eee8aa palegoldenrod ¿¶Àº±¹È­°úÀÇ´Ù³âÃÊ 
-ffe4e1 mistyrose Â£ÀºÀå¹Ìºû 
-ffe4b5 moccasin »ç½¿°¡Á×ÀÇ±¸µÎ 
-ffdead navajowhite ³ª¹ÙÈ£Á·¹é»ö 
-d2b48c tan ºµ¿¡Åººû±ò 
-f5deb3 wheat ¹Ğ 
-fafad2 lightgoldenrodyellow ¹àÀº±¹È­°ú´Ù³âÃÊ³ë¶û 
-ffffe0 lightyellow ¹àÀº³ë¶û 
-fff8dc cornsilk ¿Á¼ö¼ö¸íÁÖ½Ç 
-faebd7 antiquewhite ¿¾³¯ÀÇ¹é»ö 
-f5f5dc beige ¿¯Àº°¥»ö 
-fffacd lemonchiffon ·¹¸óºû°¡º±°í¾ãÀºÁ÷¹° 
-fffff0 ivory »ó¾Ñºû 
-f0e68c khaki ´©¸¥ºû¿¡¿¯Àº´Ù»öÀÌ¼¯ÀÎºû±ò 
-e6e6fa lavender ¿¬ÇÑÀÚÁÖ»ö 
-fff0f5 lavenderblush ¿¬ÇÑÀÚÁÖºûºÓ±â 
-ffe4c4 bisque ºĞÈ«ºûÀÌµµ´Â°ËÀººûÀ»¶í´©¸¥ºû 
-ffebcd blanchedalmond Èñ¾îÁø¿¯ÀºÈ²°¥»ö 
-deb887 burlywood Æ°Æ°ÇÑ¸ñÀç 
-cd853f peru ³²¹Ì¼­ºÎÀÇ°øÈ­±¹ 
-00ced1 darkturquoise ¾îµÎ¿îÇª¸¥ºû³ì»ö 
-00bfff deepskyblue Â£ÀºÇÏ´ÃÆÄ¶û 
-7fffd4 aquamarine ¿¯ÀºÇª¸¥ºû³ì»ö 
-1e90ff dodgerblue¿Á¼ö¼ö»§ÆÄ¶û 
-00ffff cyan Çª¸¥Á¤µµ 
-f0fff0 honeydew ½Ä¹°ÀÇÀÙ¿¡¼­³ª´Â´Ü¹° 
-87cefa lightskyblue ¹àÀºÇÏ´ÃÆÄ¶û 
-afeeee paleturquoise ¿¶ÀºÇª¸¥ºû³ì»ö 
-e0ffff lightcyan ¹àÀºÇª¸¥Á¤µµ 
-add8e6 lightblue ¹àÀºÆÄ¶û 
-b0c4de lightsteelblue ¹àÀºÃ¶°­ºûÆÄ¶û 
-40e0d0 turquoise Çª¸¥ºû³ì»ö 
-48d1cc mediumturquoise Áß°£ÀÇÇª¸¥ºû³ì»ö 
-00ffff aqua ¿¯ÀºÇª¸¥ºû³ì»ö 
-7b68ee mediumslateblue ÁßÇª¸¥ºûÈ¸»öÆÄ¶û 
-191970 midnightblue ±ô±ôÇÑÆÄ¶û 
-6495ed cornflowerblue ¿Á¼ö¼ö²ÉÆÄ¶û 
-0000cd mediumblue Áß°£ÀÇÆÄ¶û 
-6a5acd slateblue Çª¸¥ºûÈ¸»öÆÄ¶û 
-4682b4 steelblue Ã¶°­ºûÆÄ¶û 
-0000ff blue ÆÄ¶û 
-483d8b darkslateblue ¾îµÎ¿îÇª¸¥ºûÈ¸»öÆÄ¶û 
-5f9ea0 cadetblue ÀÌÇÏÀÇÆÄ¶û 
-87ceeb skyblue ÇÏ´ÃÆÄ¶û 
-4169e1 royalblue È²½ÇÀÇÆÄ¶û 
-b0e0e6 powderblue °¡·çÆÄ¶û 
-000080 navy Â£Àº°ËÀººûÀ»¶í³²ºû 
-00008b darkblue ¾îµÎ¿îÆÄ¶û 
-8a2be2 blueviolet ÆÄ¶õÁ¦ºñ²É»ö 
-8b008b darkmagenta ¾îµÎ¿îÂ£ÀººĞÈ«»ö 
-9932cc darkorchid ¾îµÎ¿î¿¬º¸¶ó»ö 
-9400d3 darkviolet ¾îµÎ¿îÁ¦ºñ²É»ö 
-ff00ff magenta Â£ÀººĞÈ«»ö 
-ff00ff fuchsia ºÓÀººû±òÀÌ³ª´ÂÀÚÁŞºû 
-c71585 mediumvioletred ÁßÁ¦ºñ²É»¡°­ 
-ba55d3 mediumorchid Áß°£ÀÇ¿¬º¸¶ó»ö 
-9370db mediumpurple Áß°£ÀÇÀÚÁŞºû 
-dc143c crimson Â£°ÔºÓÀº»ö±ò 
-ff1493 deeppink Â£Àº¿¬ºĞÈ«»ö 
-ffb6c1 lightpink ¹àÀº¿¬ºĞÈ«»ö 
-ff69b4 hotpink °­·ÄÇÑ¿¬ºĞÈ«»ö 
-ffc0cb pink ¿¬ºĞÈ«»ö 
-dda0dd plum Â£Àº º¸¶ó»ö 
-800080 purple ÀÚÁŞºû 
-ee82ee violet Á¦ºñ²É»ö 
-d8bfd8 thistle ¾û°ÏÄû 
-da70d6 orchid ¿¬º¸¶ó»ö 
-4b0082 indigo ³²»ö 
-a52a2a brown °¥»ö 
-e9967a darksalmon ¾îµÎ¿îÁÖÈ²»ö 
-f08080 lightcoral ¹àÀº»êÈ£ºû 
-cd5c5c indianred ÀÎµğ¾ğ»¡°­ 
-ffa07a lightsalmon ¹àÀºÁÖÈ²»ö 
-db7093 palevioletred ¿¶ÀºÁ¦ºñ²É»¡°­ 
-f4a460 sandybrown ¿¯Àº°¥»ö 
-fa8072 salmon ÁÖÈ²»ö 
-ff6347 tomato Åä¸¶Åä»ö 
+ffffff white ï¿½ï¿½ï¿½ 
+fff5ee seashell ï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+fffafa snow ï¿½ï¿½ï¿½ï¿½ 
+f8f8ff ghostwhite ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+fffaf0 floralwhite ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ 
+f5f5f5 whitesmoke ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+f0f8ff aliceblue ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çªï¿½ï¿½ï¿½ï¿½ 
+f0ffff azure ï¿½Ï´Ã»ï¿½ 
+fdf5e6 oldlace ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+f5fffa mintcream ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ 
+ffefd5 papayawhip ï¿½ï¿½ï¿½ï¿½Æ¸Ş¸ï¿½Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+ffdab9 peachpuff ï¿½ï¿½ï¿½ï¿½ï¿½Æºï¿½ï¿½Ò±ï¿½ 
+faf0e6 linen ï¿½ï¿½ï¿½ï¿½ 
+eee8aa palegoldenrod ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ï¿½Ç´Ù³ï¿½ï¿½ï¿½ 
+ffe4e1 mistyrose Â£ï¿½ï¿½ï¿½ï¿½Ìºï¿½ 
+ffe4b5 moccasin ï¿½ç½¿ï¿½ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ 
+ffdead navajowhite ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ 
+d2b48c tan ï¿½ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ 
+f5deb3 wheat ï¿½ï¿½ 
+fafad2 lightgoldenrodyellow ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ï¿½Ù³ï¿½ï¿½Ê³ï¿½ï¿½ 
+ffffe0 lightyellow ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+fff8dc cornsilk ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ 
+faebd7 antiquewhite ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ 
+f5f5dc beige ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+fffacd lemonchiffon ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+fffff0 ivory ï¿½ï¿½Ñºï¿½ 
+f0e68c khaki ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù»ï¿½ï¿½Ì¼ï¿½ï¿½Îºï¿½ï¿½ï¿½ 
+e6e6fa lavender ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ 
+fff0f5 lavenderblush ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öºï¿½ï¿½Ó±ï¿½ 
+ffe4c4 bisque ï¿½ï¿½È«ï¿½ï¿½ï¿½Ìµï¿½ï¿½Â°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+ffebcd blanchedalmond ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ï¿½ï¿½ 
+deb887 burlywood Æ°Æ°ï¿½Ñ¸ï¿½ï¿½ï¿½ 
+cd853f peru ï¿½ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ï¿½Ç°ï¿½È­ï¿½ï¿½ 
+00ced1 darkturquoise ï¿½ï¿½Î¿ï¿½Çªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+00bfff deepskyblue Â£ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Ä¶ï¿½ 
+7fffd4 aquamarine ï¿½ï¿½ï¿½ï¿½Çªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+1e90ff dodgerblueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ 
+00ffff cyan Çªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+f0fff0 honeydew ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½Ù¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â´Ü¹ï¿½ 
+87cefa lightskyblue ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Ä¶ï¿½ 
+afeeee paleturquoise ï¿½ï¿½ï¿½ï¿½Çªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+e0ffff lightcyan ï¿½ï¿½ï¿½ï¿½Çªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+add8e6 lightblue ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ 
+b0c4de lightsteelblue ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ 
+40e0d0 turquoise Çªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+48d1cc mediumturquoise ï¿½ß°ï¿½ï¿½ï¿½Çªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+00ffff aqua ï¿½ï¿½ï¿½ï¿½Çªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+7b68ee mediumslateblue ï¿½ï¿½Çªï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½Ä¶ï¿½ 
+191970 midnightblue ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ 
+6495ed cornflowerblue ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ 
+0000cd mediumblue ï¿½ß°ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ 
+6a5acd slateblue Çªï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½Ä¶ï¿½ 
+4682b4 steelblue Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ 
+0000ff blue ï¿½Ä¶ï¿½ 
+483d8b darkslateblue ï¿½ï¿½Î¿ï¿½Çªï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½Ä¶ï¿½ 
+5f9ea0 cadetblue ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ 
+87ceeb skyblue ï¿½Ï´ï¿½ï¿½Ä¶ï¿½ 
+4169e1 royalblue È²ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ 
+b0e0e6 powderblue ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ 
+000080 navy Â£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+00008b darkblue ï¿½ï¿½Î¿ï¿½ï¿½Ä¶ï¿½ 
+8a2be2 blueviolet ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½É»ï¿½ 
+8b008b darkmagenta ï¿½ï¿½Î¿ï¿½Â£ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ 
+9932cc darkorchid ï¿½ï¿½Î¿î¿¬ï¿½ï¿½ï¿½ï¿½ï¿½ 
+9400d3 darkviolet ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½É»ï¿½ 
+ff00ff magenta Â£ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ 
+ff00ff fuchsia ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Şºï¿½ 
+c71585 mediumvioletred ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É»ï¿½ï¿½ï¿½ 
+ba55d3 mediumorchid ï¿½ß°ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+9370db mediumpurple ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Şºï¿½ 
+dc143c crimson Â£ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+ff1493 deeppink Â£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ 
+ffb6c1 lightpink ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ 
+ff69b4 hotpink ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¿ï¿½ï¿½ï¿½È«ï¿½ï¿½ 
+ffc0cb pink ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ 
+dda0dd plum Â£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 
+800080 purple ï¿½ï¿½ï¿½Şºï¿½ 
+ee82ee violet ï¿½ï¿½ï¿½ï¿½É»ï¿½ 
+d8bfd8 thistle ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+da70d6 orchid ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+4b0082 indigo ï¿½ï¿½ï¿½ï¿½ 
+a52a2a brown ï¿½ï¿½ï¿½ï¿½ 
+e9967a darksalmon ï¿½ï¿½Î¿ï¿½ï¿½ï¿½È²ï¿½ï¿½ 
+f08080 lightcoral ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ 
+cd5c5c indianred ï¿½Îµï¿½ğ»¡°ï¿½ 
+ffa07a lightsalmon ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ 
+db7093 palevioletred ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É»ï¿½ï¿½ï¿½ 
+f4a460 sandybrown ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+fa8072 salmon ï¿½ï¿½È²ï¿½ï¿½ 
+ff6347 tomato ï¿½ä¸¶ï¿½ï¿½ï¿½ 
 ff4500 ornagered 
-ff0000 red »¡°­ 
-800000 maroon ºÓÀººûÀ»¶í°¥»ö 
-8b0000 darkred ¾îµÎ¿î»¡°­ 
-b22222 firebrick ³»È­ 
-d2691e chocolate °¥»ö 
-8b4513 saddlebrown ¾ÈÀå°¥»ö 
-a0522d sienna ºÓÀººûÀ»¶í°¥»ö 
-bc8f8f rosybrown Àå¹Ìºû°¥»ö 
-ff7f50 coral »êÈ£ºû 
-ff8c00 darkorange ¾îµÎ¿îºÓÀººûÀ»¶í´©¸¥»ö 
-ffa500 orange ºÓÀººûÀ»¶í´©¸¥»ö 
-b8860b darkgoldenrod ¾îµĞ¿î±¹È­°úÀÇ´Ù³âÃÊ 
-ffd700 gold ±İºû 
-ffff00 yellow ³ë¶û 
-7fff00 chartreuse ¿¬µÎ»ö 
-7cfc00 lawngreen ÀÜµğ³ì»ö 
-00ff00 lime ¿­´ë»êÀÇ·¹¸óºñ½ÁÇÑ°úÀÏ 
-32cd32 limegreen ¶óÀÓ³ì»ö 
-00ff7f springgreen º½³ì»ö 
-3cb371 mediumseagreen Áß°£ÀÇ¹Ù´Ù³ì»ö 
-adff2f greenyellow ³ì»öÀÇ³ë¶û 
-8fbc8f darkseagreen ¾îµÎ¿î¹Ù´Ù³ì»ö 
-90ee90 lightgreen ¹àÀº³ì»ö 
-98fb98 palegreen ¿¶Àº³ì»ö 
+ff0000 red ï¿½ï¿½ï¿½ï¿½ 
+800000 maroon ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+8b0000 darkred ï¿½ï¿½Î¿î»¡ï¿½ï¿½ 
+b22222 firebrick ï¿½ï¿½È­ 
+d2691e chocolate ï¿½ï¿½ï¿½ï¿½ 
+8b4513 saddlebrown ï¿½ï¿½ï¿½å°¥ï¿½ï¿½ 
+a0522d sienna ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+bc8f8f rosybrown ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ 
+ff7f50 coral ï¿½ï¿½È£ï¿½ï¿½ 
+ff8c00 darkorange ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+ffa500 orange ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+b8860b darkgoldenrod ï¿½ï¿½Ğ¿î±¹È­ï¿½ï¿½ï¿½Ç´Ù³ï¿½ï¿½ï¿½ 
+ffd700 gold ï¿½İºï¿½ 
+ffff00 yellow ï¿½ï¿½ï¿½ 
+7fff00 chartreuse ï¿½ï¿½ï¿½Î»ï¿½ 
+7cfc00 lawngreen ï¿½Üµï¿½ï¿½ï¿½ 
+00ff00 lime ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ 
+32cd32 limegreen ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ 
+00ff7f springgreen ï¿½ï¿½ï¿½ï¿½ï¿½ 
+3cb371 mediumseagreen ï¿½ß°ï¿½ï¿½Ç¹Ù´Ù³ï¿½ï¿½ 
+adff2f greenyellow ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ 
+8fbc8f darkseagreen ï¿½ï¿½Î¿ï¿½Ù´Ù³ï¿½ï¿½ 
+90ee90 lightgreen ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+98fb98 palegreen ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 9acd32 yello: wgree: n 
-2e8b57 seagreen ¹Ù´Ù³ì»ö 
-00fa9a mediumspringgreen Áßº½³ì»ö 
-20b2aa lightseagreen ¹àÀº¹Ù´Ù³ì»ö 
-66cdaa mediumaquamarine Áß¿¯ÀºÃ»·Ï»ö 
-228b22 forestgreen ½£³ì»ö 
-008b8b darkcyan ¾îµÎ¿îÇª¸¥Á¤µµ 
-008080 teal ¾Ï·Ï»öÀ»¶íÃ»»ö 
-006400 darkgreen ¾îµÎ¿î³ì»ö 
-556b2f darkolivegreen ¾îµÎ¿î¿Ã¸®ºê³ì»ö 
-008000 green ³ì»ö 
-808000 olive ¹°Çª·¹³ª¹µ°úÀÇ»ó·Ï±³¸ñ 
-6b8e23 olivedrab ¿Ã¸®ºê¿¯Àº°¥»ö 
-bdb76b darkkhaki ¾îµÎ¿î´©¸¥ºû¿¡¿¯Àº´Ù»ö 
-daa520 goldenrod ±¹È­°úÀÇ´Ù³âÃÊ 
+2e8b57 seagreen ï¿½Ù´Ù³ï¿½ï¿½ 
+00fa9a mediumspringgreen ï¿½ßºï¿½ï¿½ï¿½ï¿½ 
+20b2aa lightseagreen ï¿½ï¿½ï¿½ï¿½ï¿½Ù´Ù³ï¿½ï¿½ 
+66cdaa mediumaquamarine ï¿½ß¿ï¿½ï¿½ï¿½Ã»ï¿½Ï»ï¿½ 
+228b22 forestgreen ï¿½ï¿½ï¿½ï¿½ï¿½ 
+008b8b darkcyan ï¿½ï¿½Î¿ï¿½Çªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+008080 teal ï¿½Ï·Ï»ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ 
+006400 darkgreen ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ 
+556b2f darkolivegreen ï¿½ï¿½Î¿ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ 
+008000 green ï¿½ï¿½ï¿½ 
+808000 olive ï¿½ï¿½Çªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç»ï¿½Ï±ï¿½ï¿½ï¿½ 
+6b8e23 olivedrab ï¿½Ã¸ï¿½ï¿½ê¿¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+bdb76b darkkhaki ï¿½ï¿½Î¿î´©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù»ï¿½ 
+daa520 goldenrod ï¿½ï¿½È­ï¿½ï¿½ï¿½Ç´Ù³ï¿½ï¿½ï¿½ 
 */
 
 

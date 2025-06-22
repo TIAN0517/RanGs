@@ -326,3 +326,11 @@ void CBasicLineBox::ResizeWindow(const UIRECT& rcNew)
 		if( m_pBottom ) m_pBottom->SetLocalPos(rcChange);
 	}
 }
+
+void CBasicLineBox::CreateBaseBoxTech4D ( char* szBoxControl )
+{
+	// 4D科技感無邊框樣式 - 使用科技感漸變背景和光效
+	CreateBodyImage ( "BASIC_LINE_BOX_BODY_TECH4D" );
+	CreateLineImage ( "BASIC_LINE_BOX_LEFT_TECH4D", "BASIC_LINE_BOX_RIGHT_TECH4D", "BASIC_LINE_BOX_TOP_TECH4D", "BASIC_LINE_BOX_BOTTOM_TECH4D" );
+	ResizeControl ( szBoxControl );
+}
