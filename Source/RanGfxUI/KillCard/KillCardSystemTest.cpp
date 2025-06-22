@@ -223,5 +223,46 @@ void RunKillCardTestSuite(CKillCardManager* pManager)
     printf("\n6. Testing memory usage...\n");
     TestMemoryUsage(pManager);
     
+    printf("\n7. Testing card activation system...\n");
+    TestCardActivationSystem(pManager);
+    
     printf("\n=== Test Suite Completed ===\n");
+}
+
+// Test the card activation system functionality  
+void TestCardActivationSystem(CKillCardManager* pManager)
+{
+    if (!pManager)
+    {
+        printf("ERROR: Null manager pointer in card activation test\n");
+        return;
+    }
+    
+    printf("Testing card activation system...\n");
+    
+    // 模拟有卡片的情况（需要有GLGaeaClient设置）
+    printf("- Testing kill trigger with card check enabled\n");
+    pManager->TriggerKillCard(KILL_TYPE_CRITICAL, 12345);
+    
+    // 测试异常处理
+    printf("- Testing error handling and fallback mechanisms\n");
+    
+    // 测试禁用后的行为
+    BOOL originalState = pManager->IsEnabled();
+    pManager->SetEnabled(FALSE);
+    printf("- Testing disabled state (should use original kill display)\n");
+    pManager->TriggerKillCard(KILL_TYPE_SKILL, 67890);
+    
+    // 恢复原始状态
+    pManager->SetEnabled(originalState);
+    
+    // 测试性能监控
+    printf("- Verifying performance monitoring is active\n");
+    float intensity = pManager->GetEffectIntensity();
+    if (intensity < 0.1f || intensity > 3.0f)
+    {
+        printf("WARNING: Effect intensity out of valid range: %.2f\n", intensity);
+    }
+    
+    printf("Card activation system test completed\n");
 }

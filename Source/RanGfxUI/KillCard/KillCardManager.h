@@ -1,10 +1,12 @@
 #pragma once
 
 #include "../../../enginelib/GUInterface/UIGroup.h"
+#include "../../RanLogic/Item/GLItemDef.h"
 
 class CKillCardAnimation;
 class CKillCardRenderer;
 class CKillCardEffects;
+class GLGaeaClient;
 
 // 击杀卡片类型枚举
 enum EKILL_CARD_TYPE
@@ -30,6 +32,13 @@ enum EKILL_TYPE
     KILL_TYPE_HEADSHOT = 0x20     // 爆头
 };
 
+// 科技显示卡常量定义
+namespace TECH_DISPLAY_CARD
+{
+    const SNATIVEID CARD_ID(9999, 0);  // 科技显示卡ID (MID=9999, SID=0)
+    const char* CARD_NAME = "科技显示卡"; // 卡片名称
+}
+
 /**
  * 击杀卡片管理器
  * 负责管理和触发6种科技感击杀动画效果
@@ -44,6 +53,9 @@ private:
 public:
     CKillCardManager(EngineDeviceMan* pEngineDevice);
     virtual ~CKillCardManager();
+    
+    // 设置GLGaeaClient引用用于访问玩家数据
+    void SetGaeaClient(GLGaeaClient* pGaeaClient) { m_pGaeaClient = pGaeaClient; }
 
 public:
     void CreateSubControl();
@@ -70,6 +82,10 @@ private:
     void ShowKillCard(EKILL_CARD_TYPE cardType);
     void UpdateConsecutiveKills();
     void ResetConsecutiveKills();
+    
+    // 卡片激活检查方法
+    BOOL CheckTechDisplayCard();
+    void TriggerOriginalKillDisplay(EKILL_TYPE killType, DWORD targetID);
 
 private:
     // 动画和渲染组件
@@ -93,4 +109,7 @@ private:
     // 性能统计
     DWORD m_dwFrameCount;
     float m_fPerformanceTimer;
+    
+    // GLGaeaClient引用用于访问玩家数据
+    GLGaeaClient* m_pGaeaClient;
 };

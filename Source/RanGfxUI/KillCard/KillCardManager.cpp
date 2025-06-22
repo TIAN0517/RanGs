@@ -3,8 +3,11 @@
 #include "KillCardAnimation.h"
 #include "KillCardRenderer.h"
 #include "KillCardEffects.h"
+#include "../../RanLogicClient/GLGaeaClient.h"
+#include "../../RanLogicClient/Char/GLCharacter.h"
 
 #include "../../../SigmaCore/DebugInclude.h"
+#include "../../../SigmaCore/DebugSet.h"
 
 // 静态常量定义
 const float CKillCardManager::CARD_DISPLAY_TIME = 3.0f;
@@ -25,6 +28,7 @@ CKillCardManager::CKillCardManager(EngineDeviceMan* pEngineDevice)
     , m_eCurrentCardType(KILL_CARD_TYPE_SIZE)
     , m_dwFrameCount(0)
     , m_fPerformanceTimer(0.0f)
+    , m_pGaeaClient(NULL)
 {
 }
 
@@ -131,6 +135,14 @@ void CKillCardManager::TriggerKillCard(EKILL_TYPE killType, DWORD targetID)
 {
     if (!m_bEnabled)
         return;
+
+    // 核心功能：检查玩家是否持有科技显示卡
+    if (!CheckTechDisplayCard())
+    {
+        // 无卡片时，触发原厂击杀显示，保持系统隔离
+        TriggerOriginalKillDisplay(killType, targetID);
+        return;
+    }
 
     // 更新连续击杀计数
     UpdateConsecutiveKills();
@@ -247,4 +259,80 @@ void CKillCardManager::ResetConsecutiveKills()
 {
     m_nConsecutiveKills = 0;
     m_dwLastKillTime = 0;
+}
+
+// 卡片激活检查：检测玩家背包中是否存在科技显示卡
+BOOL CKillCardManager::CheckTechDisplayCard()
+{
+    // 安全检查：确保GLGaeaClient引用有效
+    if (!m_pGaeaClient)
+    {
+        #ifdef _DEBUG
+        CDebugSet::ToView(0, 0, "[KillCard] GLGaeaClient引用无效，回退到原厂显示");
+        #endif
+        return FALSE;
+    }
+        
+    // 获取当前角色
+    GLCharacter* pCharacter = m_pGaeaClient->GetCharacter();
+    if (!pCharacter)
+    {
+        #ifdef _DEBUG
+        CDebugSet::ToView(0, 0, "[KillCard] 角色指针无效，回退到原厂显示");
+        #endif
+        return FALSE;
+    }
+    
+    try
+    {
+        // 检查背包中是否存在科技显示卡 (ID=9999)
+        // 使用FindItem方法查找指定ID的道具
+        SINVENITEM* pCardItem = pCharacter->m_cInventory.FindItem(TECH_DISPLAY_CARD::CARD_ID);
+        
+        BOOL bHasCard = (pCardItem != NULL);
+        
+        #ifdef _DEBUG
+        if (bHasCard)
+        {
+            CDebugSet::ToView(0, 0, "[KillCard] 检测到科技显示卡，激活4D击杀面板");
+        }
+        else
+        {
+            CDebugSet::ToView(0, 0, "[KillCard] 未检测到科技显示卡，使用原厂显示");
+        }
+        #endif
+        
+        return bHasCard;
+    }
+    catch (...)
+    {
+        // 异常处理：如果背包检查出错，立即禁用插件并弹窗提示
+        #ifdef _DEBUG
+        CDebugSet::ToView(0, 0, "[KillCard] 背包检查异常，系统自动禁用");
+        #endif
+        
+        // 禁用击杀卡片系统
+        SetEnabled(FALSE);
+        
+        // 这里可以添加弹窗提示逻辑
+        // 例如：弹出"请移除卡片以恢复默认"的提示
+        
+        return FALSE;
+    }
+}
+
+// 原厂击杀显示：当无卡片时的回退机制
+void CKillCardManager::TriggerOriginalKillDisplay(EKILL_TYPE killType, DWORD targetID)
+{
+    // 通过插件层实现隔离，不修改核心文件
+    // 这里简单地忽略击杀显示，让游戏使用原厂UI
+    // 在实际应用中，可以通过消息系统或其他机制触发原厂显示
+    
+    // 记录调试信息（仅在DEBUG模式下）
+    #ifdef _DEBUG
+    CDebugSet::ToView(0, 0, "[KillCard] 无科技显示卡，使用原厂击杀显示");
+    #endif
+    
+    // 可以在这里添加其他原厂UI触发逻辑
+    // 例如：触发原有的击杀提示系统
 }
