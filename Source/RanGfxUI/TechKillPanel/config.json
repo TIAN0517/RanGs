@@ -1,0 +1,110 @@
+{
+  "TechKillPanel": {
+    "General": {
+      "enabled": true,
+      "techCardID": 9999,
+      "displayTime": 2.5,
+      "fadeTime": 0.3,
+      "panelWidth": 280,
+      "panelHeight": 120
+    },
+    "Effects": {
+      "neonTransitionFrequency": 0.5,
+      "textWaveAmplitude": 5.0,
+      "textWavePeriod": 1.0,
+      "gearRotationSpeed": 360.0,
+      "matrixScrollSpeed": 2.0
+    },
+    "QualityTiers": {
+      "Performance": {
+        "maxParticles": 50,
+        "gradientFrequency": 1.0,
+        "parallaxEnabled": false,
+        "sortParticles": false,
+        "description": "Optimized for team fights and lower-end hardware"
+      },
+      "Standard": {
+        "maxParticles": 80,
+        "gradientFrequency": 0.5,
+        "parallaxEnabled": true,
+        "parallaxType": "Pseudo3D",
+        "sortParticles": false,
+        "description": "Balanced quality for regular combat scenarios"
+      },
+      "Ultimate": {
+        "maxParticles": 120,
+        "gradientFrequency": 0.3,
+        "parallaxEnabled": true,
+        "parallaxType": "RealTime",
+        "sortParticles": true,
+        "description": "Maximum quality for solo showcase moments"
+      }
+    },
+    "PerformanceMonitoring": {
+      "enabled": true,
+      "autoAdjustQuality": true,
+      "targetFPS": 60.0,
+      "minAcceptableFPS": 30.0,
+      "optimalFrameTime": 10.0,
+      "maxTargetFrameTime": 16.67,
+      "smoothingFrames": 30,
+      "stabilityCheckFrames": 60,
+      "stabilityThreshold": 5.0,
+      "recommendationCooldown": 3000
+    },
+    "ParticleSystem": {
+      "useGPUInstancing": true,
+      "usePointSprites": true,
+      "emissionRate": 30.0,
+      "particleSpeed": 50.0,
+      "particleLifetime": 3.0,
+      "particleSize": 4.0,
+      "startColor": [0.0, 1.0, 1.0, 1.0],
+      "endColor": [0.0, 0.5, 1.0, 0.0],
+      "followMouse": true,
+      "parallaxIntensity": 0.3
+    },
+    "Rendering": {
+      "useBackgroundTexture": true,
+      "enableDPIScaling": true,
+      "worldSpaceRender": true,
+      "cameraDepthIsolation": true,
+      "mainUIDepth": 0,
+      "panelDepth": 1,
+      "useIndependentCanvas": true
+    },
+    "Animation": {
+      "flyInDuration": 0.5,
+      "flyInEasing": "easeOutBack",
+      "fadeOutTrail": true,
+      "energyShieldRadius": 30.0,
+      "energyShieldIntensity": 1.0
+    },
+    "AssetBundles": {
+      "preloadEnabled": true,
+      "cacheEnabled": true,
+      "autoCleanup": true,
+      "texturePaths": {
+        "panelBackground": "UI/TechPanel/panel_background.dds",
+        "avatarFrame": "UI/TechPanel/avatar_frame.dds",
+        "gearIcon": "UI/TechPanel/gear_icon.dds",
+        "particleTexture": "UI/TechPanel/particle.dds"
+      }
+    },
+    "Integration": {
+      "useHookLayer": true,
+      "isolateFromCore": true,
+      "fallbackToOriginal": true,
+      "smoothTransition": true,
+      "transitionDuration": 0.3,
+      "enableErrorDetection": true
+    },
+    "Debug": {
+      "enablePerformanceOverlay": false,
+      "showParticleCount": false,
+      "showFrameTime": false,
+      "enableLogging": false,
+      "logLevel": "Warning"
+    }
+  }
+}
