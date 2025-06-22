@@ -11,24 +11,14 @@ class CCreateCharacterClass : public CUIGroup
     {
         EXTREME,
         SWORDMAN,
-        ARCHER,         // Gunner (槍手) - ClassID: 4
+        ARCHER,
         BRAWLER,
         SHAMAN,
         SCIENTIST,
-        ASSASSIN,       // Ninja (忍者) - ClassID: 5
+        ASSASSIN,
 		TRICKER,
         ETC,
     };
-
-    // Job Unlocking System - Jy技術團隊
-    enum EMJOB_UNLOCK_STATE
-    {
-        JOB_LOCKED = 0,
-        JOB_UNLOCKED = 1,
-    };
-
-    static bool s_bGunnerUnlocked;  // 槍手解鎖狀態
-    static bool s_bNinjaUnlocked;   // 忍者解鎖狀態
 
 public:
     CCreateCharacterClass(EngineDeviceMan* pEngineDevice);
@@ -41,14 +31,6 @@ public:
 
     void ResetData();
     void SetClassData( INT nSex, INT nClass );
-
-    // Job Unlocking Functions - Jy技術團隊
-    static void UnlockGunner(bool bUnlock = true) { s_bGunnerUnlocked = bUnlock; }
-    static void UnlockNinja(bool bUnlock = true) { s_bNinjaUnlocked = bUnlock; }
-    static bool IsGunnerUnlocked() { return s_bGunnerUnlocked; }
-    static bool IsNinjaUnlocked() { return s_bNinjaUnlocked; }
-    static void UnlockAllJobs() { s_bGunnerUnlocked = true; s_bNinjaUnlocked = true; }
-    bool IsJobAvailable(INT nClass);
 
 public:
     virtual void Update ( int x, int y, BYTE LB, BYTE MB, BYTE RB, int nScroll, float fElapsedTime, BOOL bFirstControl );

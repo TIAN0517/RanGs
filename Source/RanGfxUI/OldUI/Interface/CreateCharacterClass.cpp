@@ -13,15 +13,6 @@
 #include "../../../SigmaCore/DebugInclude.h"
 // ----------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------------------------//
-// Job Unlocking System - Jy技術團隊
-// 開發者：TIAN0517 - Jy技術團隊
-//-----------------------------------------------------------------------------------------------//
-
-// Initialize static unlock states - 槍手忍者職業解鎖狀態
-bool CCreateCharacterClass::s_bGunnerUnlocked = false;
-bool CCreateCharacterClass::s_bNinjaUnlocked = false;
-
 CCreateCharacterClass::CCreateCharacterClass(EngineDeviceMan* pEngineDevice)
     : CUIGroup(pEngineDevice)
 {
@@ -94,15 +85,6 @@ void CCreateCharacterClass::ResetData()
 void CCreateCharacterClass::SetClassData( INT nSex, INT nClass )
 {
     ResetData();
-
-    // Check job availability - Jy技術團隊
-    if (!IsJobAvailable(nClass))
-    {
-        // If job is locked, show locked message
-        m_pNameTextBox->SetText("職業未解鎖 (Job Locked)");
-        m_pInfoTextBox->SetText("此職業需要透過GM指令解鎖 (This job requires GM unlock)", NS_UITEXTCOLOR::RED);
-        return;
-    }
 
     if( nSex == 0 )
     {
@@ -285,22 +267,6 @@ CBasicTextBox* CCreateCharacterClass::CreateStaticControl (const char* szControl
     pStaticText->SetTextAlign ( nAlign );
     RegisterControl ( pStaticText );
     return pStaticText;
-}
-
-//-----------------------------------------------------------------------------------------------//
-// Job Availability Check - Jy技術團隊
-//-----------------------------------------------------------------------------------------------//
-bool CCreateCharacterClass::IsJobAvailable(INT nClass)
-{
-    switch (nClass)
-    {
-    case ARCHER:    // 槍手 (Gunner)
-        return s_bGunnerUnlocked;
-    case ASSASSIN:  // 忍者 (Ninja)
-        return s_bNinjaUnlocked;
-    default:
-        return true; // All other classes are always available
-    }
 }
 
 void CCreateCharacterClass::Update ( int x, int y, BYTE LB, BYTE MB, BYTE RB, int nScroll, float fElapsedTime, BOOL bFirstControl )
