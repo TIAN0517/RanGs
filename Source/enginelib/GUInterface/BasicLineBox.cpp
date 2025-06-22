@@ -329,7 +329,12 @@ void CBasicLineBox::ResizeWindow(const UIRECT& rcNew)
 
 void CBasicLineBox::CreateBaseBoxTech4D ( char* szBoxControl )
 {
-	// 4D科技感無邊框樣式 - 使用科技感漸變背景和光效
+	// 4D科技感無邊框樣式 - Tech 4D Borderless Style
+	// 特點：
+	// - 無傳統邊框線條
+	// - 科技感漸變背景
+	// - 支持動態光效和半透明效果
+	// - 專為PK通知系統設計
 	CreateBodyImage ( "BASIC_LINE_BOX_BODY_TECH4D" );
 	CreateLineImage ( "BASIC_LINE_BOX_LEFT_TECH4D", "BASIC_LINE_BOX_RIGHT_TECH4D", "BASIC_LINE_BOX_TOP_TECH4D", "BASIC_LINE_BOX_BOTTOM_TECH4D" );
 	ResizeControl ( szBoxControl );
