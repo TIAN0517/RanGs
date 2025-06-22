@@ -86,6 +86,14 @@ private:
     // 卡片激活检查方法
     BOOL CheckTechDisplayCard();
     void TriggerOriginalKillDisplay(EKILL_TYPE killType, DWORD targetID);
+    
+    // 平滑过渡方法 (0.3秒过渡，避免闪屏)
+    void StartTransitionToOriginal(EKILL_TYPE killType, DWORD targetID);
+    void StartTransitionToTechPanel(EKILL_TYPE killType, DWORD targetID);
+    void UpdateTransition(float fElapsedTime);
+    
+    // 系统健康检查
+    BOOL IsSystemHealthy() const;
 
 private:
     // 动画和渲染组件
@@ -109,6 +117,11 @@ private:
     // 性能统计
     DWORD m_dwFrameCount;
     float m_fPerformanceTimer;
+    
+    // 平滑过渡控制（避免闪屏和逻辑冲突）
+    BOOL m_bInTransition;           // 是否处于过渡状态
+    float m_fTransitionTime;        // 过渡时间计时器
+    static const float TRANSITION_DURATION; // 过渡持续时间 (0.3秒)
     
     // GLGaeaClient引用用于访问玩家数据
     GLGaeaClient* m_pGaeaClient;
