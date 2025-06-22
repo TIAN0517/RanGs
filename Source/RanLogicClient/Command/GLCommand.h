@@ -35,25 +35,71 @@ private :
 	MAP_COMMAND m_mapCommand;
 
 private :
-	// °ø¹é ´ÜÀ§·Î ¸í·É¾î¿Í ÆÄ¶ó¹ÌÅÍ ºĞ¸® (¸í·É¾î ¸®ÅÏ)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¾ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¸ï¿½ (ï¿½ï¿½ï¿½É¾ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	std::string ParseCommand( const char* strCommand, VEC_STRING& vecParam );
 
 public :
-	// ¸í·É ½ÇÇà (ÄÜ¼Ö¿¡ ¶ç¿ï ·Î±× ¸®ÅÏ)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ü¼Ö¿ï¿½ ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	std::string DoCommand( const char* strCommand );
 
-	// ·ç¾Æ ¸í·É ½ÇÇà
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	std::string Excute( const VEC_STRING& vecParam );
-	// ½ºÅ©¸³Æ®, ½ºÄÉÀÏÆû ¸®·Îµå
+	// ï¿½ï¿½Å©ï¿½ï¿½Æ®, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
 	std::string ReloadWidget( const VEC_STRING& vecParam );
-	// UI ¿­±â
+	// UI ï¿½ï¿½ï¿½ï¿½
 	std::string OpenWidget( const VEC_STRING& vecParam );
-	// UI ´İ±â
+	// UI ï¿½İ±ï¿½
 	std::string CloseWidget( const VEC_STRING& vecParam );
-	// UI ¾ğ·Îµå
+	// UI ï¿½ï¿½Îµï¿½
 	std::string UnloadWidget( const VEC_STRING& vecParam );
-	// ÀÌ¸§ µğ½ºÇÃ·¹ÀÌ È°¼º/ºñÈ°¼º
+	// ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ È°ï¿½ï¿½/ï¿½ï¿½È°ï¿½ï¿½
 	std::string DisplayName( const VEC_STRING& vecParam );
-	// UI ÇÁ·ÎÆÛÆ¼ ÀúÀå/·Îµå
+	// UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½/ï¿½Îµï¿½
 	std::string SaveProp( const VEC_STRING& vecParam );
+
+	// Complete Chinese GM Commands System - JyæŠ€è¡“åœ˜éšŠ
+	void InitializeChineseCommands();  // åˆå§‹åŒ–å®Œæ•´ä¸­æ–‡æŒ‡ä»¤ç³»çµ±
+	
+	// Job Unlocking Commands
+	std::string UnlockGunner( const VEC_STRING& vecParam );      // é–‹å•Ÿæ§æ‰‹
+	std::string UnlockNinja( const VEC_STRING& vecParam );       // é–‹å•Ÿå¿è€…
+	std::string UnlockAllJobs( const VEC_STRING& vecParam );     // è§£é–æ‰€æœ‰è·æ¥­
+	
+	// Kill Animation Commands
+	std::string AddKillCard( const VEC_STRING& vecParam );       // æ·»åŠ æ“Šæ®ºå¡ç‰‡
+	
+	// Item System Commands
+	std::string AddItem( const VEC_STRING& vecParam );           // æ·»åŠ é“å…·
+	std::string DelItem( const VEC_STRING& vecParam );           // åˆªé™¤é“å…·
+	std::string GiveItem( const VEC_STRING& vecParam );          // è´ˆé€é“å…·
+	
+	// Character Attribute Commands
+	std::string GiveExp( const VEC_STRING& vecParam );           // çµ¦ç¶“é©—
+	std::string SetLevel( const VEC_STRING& vecParam );          // è¨­å®šç­‰ç´š
+	std::string SetHP( const VEC_STRING& vecParam );             // è¨­å®šè¡€é‡
+	std::string SetMP( const VEC_STRING& vecParam );             // è¨­å®šé­”åŠ›
+	
+	// Teleport Commands
+	std::string Goto( const VEC_STRING& vecParam );              // å‚³é€
+	std::string Summon( const VEC_STRING& vecParam );            // å¬å–š
+	std::string Teleport( const VEC_STRING& vecParam );          // å‚³é€ç©å®¶
+	
+	// Management Commands
+	std::string Kick( const VEC_STRING& vecParam );              // è¸¢å‡º
+	std::string Ban( const VEC_STRING& vecParam );               // å°è™Ÿ
+	std::string Mute( const VEC_STRING& vecParam );              // ç¦è¨€
+	
+	// System Commands
+	std::string Notice( const VEC_STRING& vecParam );            // å…¬å‘Š
+	std::string Broadcast( const VEC_STRING& vecParam );         // å»£æ’­
+	std::string Shutdown( const VEC_STRING& vecParam );          // é—œæ©Ÿ
+	
+	// Monster Commands
+	std::string SummonMob( const VEC_STRING& vecParam );         // å¬å–šæ€ªç‰©
+	std::string KillAll( const VEC_STRING& vecParam );           // æ¸…æ€ª
+	
+	// Information Commands
+	std::string ViewUser( const VEC_STRING& vecParam );          // æŸ¥çœ‹ç©å®¶
+	std::string Online( const VEC_STRING& vecParam );            // ç·šä¸Šäººæ•¸
+	std::string Help( const VEC_STRING& vecParam );              // å¹«åŠ©
 };
