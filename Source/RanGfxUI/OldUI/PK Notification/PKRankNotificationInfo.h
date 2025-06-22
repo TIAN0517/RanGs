@@ -3,6 +3,7 @@
 #include "../../../EngineLib/GUInterface/UIGroup.h"
 #include "../RanLogic/Character/GLCharDefine.h"
 #include "../RanLogic/Msg/PKRankData.h"
+#include "../../../enginelib/DxEffect/Single/KillAnimationManager.h"
 
 class CBasicTextBoxEx;
 class CBasicLineBox;
@@ -43,7 +44,24 @@ public:
 
 private:
 	GLGaeaClient*		m_pGaeaClient;
+	
+	// Kill animation system integration
+	bool m_bAnimationsEnabled;
+	KILL_ANIMATION_TYPE m_eLastAnimationType;
+	float m_fAnimationDelay;
 
 public:
 	void SetData( SPK_HISTORY sHistory );
+	
+	// Animation control functions
+	void SetAnimationsEnabled(bool bEnabled) { m_bAnimationsEnabled = bEnabled; }
+	bool IsAnimationsEnabled() const { return m_bAnimationsEnabled; }
+	void TriggerKillAnimation(const D3DXVECTOR3& vKillerPos, const D3DXVECTOR3& vKilledPos, KILL_ANIMATION_TYPE eType = KILL_ANIM_SLASH);
+	KILL_ANIMATION_TYPE SelectAnimationByClass(EMCHARCLASS eKillerClass, EMCHARCLASS eKilledClass);
+	
+private:
+	// Helper functions for animation integration
+	void PlayRandomKillAnimation(const D3DXVECTOR3& vPosition, const D3DXVECTOR3& vDirection);
+	D3DXVECTOR3 CalculateAnimationPosition(const SPK_HISTORY& sHistory);
+	D3DXVECTOR3 CalculateAnimationDirection(const SPK_HISTORY& sHistory);
 };
