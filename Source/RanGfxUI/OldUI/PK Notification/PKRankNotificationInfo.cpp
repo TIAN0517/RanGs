@@ -230,7 +230,10 @@ void CPKRankNotificationInfo::SetData( SPK_HISTORY sHistory )
 	m_pNameKilled->SetText( sHistory.szCharKilled );
 
 	DWORD dwCharID = m_pGaeaClient->GetCharacter()->GetCharID();
-
+	
+	// Check for active PK effect card and apply visual effects
+	EMPK_EFFECT_CARD_TYPE emActiveCard = m_pGaeaClient->GetCharacter()->GetActivePKCard();
+	
 	if ( dwCharID == sHistory.dwKilled )
 	{
 		m_pLineBox->SetUseRender ( TRUE );
@@ -238,8 +241,16 @@ void CPKRankNotificationInfo::SetData( SPK_HISTORY sHistory )
 	}
 	else if ( dwCharID == sHistory.dwKiller )
 	{
-		m_pLineBox->SetUseRender ( TRUE );
-		m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::GREENYELLOW );
+		// Apply PK card effect if killer has active card
+		if (emActiveCard != PK_CARD_NONE)
+		{
+			SetPKEffectCardType(emActiveCard);
+		}
+		else
+		{
+			m_pLineBox->SetUseRender ( TRUE );
+			m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::GREENYELLOW );
+		}
 	}
 	else
 	{

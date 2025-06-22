@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "PKCardManager.h"
-#include "../../SigmaCore/Util/SystemInfo.h"
+#include "../../SigmaCore/File/BaseStream.h"
+#include <ctime>
 
 CPKCardManager::CPKCardManager()
     : m_emCurrentActiveCard(PK_CARD_NONE)
@@ -41,7 +42,7 @@ BOOL CPKCardManager::UsePKEffectCard(EMPK_EFFECT_CARD_TYPE emType, DWORD dwDays)
     
     // 激活新卡片
     SPK_EFFECT_CARD& card = it->second;
-    card.tStartTime = CTime::GetCurrentTime();
+    _time64(&card.tStartTime);
     card.dwDuration = (dwDays > 0) ? dwDays : SPK_EFFECT_CARD::GetDefaultDuration(emType);
     card.bActive = TRUE;
     
@@ -116,7 +117,7 @@ void CPKCardManager::SaveToStream(sc::BaseStream& stream)
     {
         stream << static_cast<DWORD>(pair.first);
         stream << static_cast<DWORD>(pair.second.emType);
-        stream << pair.second.tStartTime.GetTime();
+        stream << pair.second.tStartTime;
         stream << pair.second.dwDuration;
         stream << pair.second.bActive;
     }
@@ -145,7 +146,7 @@ void CPKCardManager::LoadFromStream(sc::BaseStream& stream)
         
         __time64_t tTime = 0;
         stream >> tTime;
-        card.tStartTime = CTime(tTime);
+        card.tStartTime = tTime;
         
         stream >> card.dwDuration;
         stream >> card.bActive;

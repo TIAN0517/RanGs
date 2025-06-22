@@ -1,12 +1,18 @@
 #pragma once
 
 #include "PKEffectCards.h"
+#include "../../SigmaCore/File/BaseStream.h"
 #include <map>
+
+namespace sc
+{
+    class BaseStream;
+}
 
 // PK卡片管理器
 class CPKCardManager : public CPKCardManagerBase
 {
-private:
+protected:
     std::map<EMPK_EFFECT_CARD_TYPE, SPK_EFFECT_CARD> m_mapPKCards;
     EMPK_EFFECT_CARD_TYPE m_emCurrentActiveCard;
 

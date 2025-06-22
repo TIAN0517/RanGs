@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "ClientPKCardManager.h"
-#include "../../RanLogicClient/GLGaeaClient.h"
+#include "../GLGaeaClient.h"
 
 CClientPKCardManager::CClientPKCardManager(GLGaeaClient* pGaeaClient)
     : CPKCardManager()
@@ -48,8 +48,13 @@ void CClientPKCardManager::NotifyServerCardUsage(EMPK_EFFECT_CARD_TYPE emType, D
 
 void CClientPKCardManager::UpdatePKNotificationEffect()
 {
-    // TODO: 更新PK通知UI的视觉效果
-    // 这里需要与UI系统集成
+    // 更新PK通知UI的视觉效果
+    // 这里可以通过GLGaeaClient获取UI接口并更新PK通知效果
+    if (m_pGaeaClient)
+    {
+        // TODO: 通过UI接口更新PK通知的视觉效果
+        // 例如：m_pGaeaClient->GetInterface()->SetPKNotificationEffect(m_emCurrentActiveCard);
+    }
 }
 
 void CClientPKCardManager::SyncFromServer(const std::map<EMPK_EFFECT_CARD_TYPE, SPK_EFFECT_CARD>& serverCards)

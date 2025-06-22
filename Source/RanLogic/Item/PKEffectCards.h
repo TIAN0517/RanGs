@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../EngineLib/G-Logic/GLDefine.h"
-#include "../Util/CTime.h"
+#include <ctime>
 
 // PK Effect Card Types
 enum EMPK_EFFECT_CARD_TYPE
@@ -19,12 +19,13 @@ enum EMPK_EFFECT_CARD_TYPE
 struct SPK_EFFECT_CARD
 {
     EMPK_EFFECT_CARD_TYPE   emType;         // 卡片类型
-    CTime                   tStartTime;     // 开始时间
+    __time64_t              tStartTime;     // 开始时间
     DWORD                   dwDuration;     // 持续天数
     BOOL                    bActive;        // 是否激活
     
     SPK_EFFECT_CARD()
         : emType(PK_CARD_NONE)
+        , tStartTime(0)
         , dwDuration(0)
         , bActive(FALSE)
     {
@@ -35,9 +36,10 @@ struct SPK_EFFECT_CARD
     {
         if (!bActive) return TRUE;
         
-        CTime tCurrent = CTime::GetCurrentTime();
-        CTimeSpan tSpan = tCurrent - tStartTime;
-        return (tSpan.GetDays() >= (LONG)dwDuration);
+        __time64_t tCurrent = 0;
+        _time64(&tCurrent);
+        __time64_t tElapsed = tCurrent - tStartTime;
+        return (tElapsed >= (dwDuration * 24 * 60 * 60));  // 转换为秒
     }
     
     // 获取剩余时间(秒)
@@ -45,14 +47,14 @@ struct SPK_EFFECT_CARD
     {
         if (!bActive) return 0;
         
-        CTime tCurrent = CTime::GetCurrentTime();
-        CTimeSpan tSpan = tCurrent - tStartTime;
-        LONG lDaysUsed = tSpan.GetDays();
+        __time64_t tCurrent = 0;
+        _time64(&tCurrent);
+        __time64_t tElapsed = tCurrent - tStartTime;
+        __time64_t tDurationSecs = dwDuration * 24 * 60 * 60;
         
-        if (lDaysUsed >= (LONG)dwDuration) return 0;
+        if (tElapsed >= tDurationSecs) return 0;
         
-        LONG lDaysLeft = (LONG)dwDuration - lDaysUsed;
-        return (DWORD)(lDaysLeft * 24 * 60 * 60 - tSpan.GetHours() * 60 * 60 - tSpan.GetMinutes() * 60 - tSpan.GetSeconds());
+        return (DWORD)(tDurationSecs - tElapsed);
     }
     
     // 获取默认持续时间
