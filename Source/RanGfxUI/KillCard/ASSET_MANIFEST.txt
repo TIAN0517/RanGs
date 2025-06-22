@@ -1,0 +1,141 @@
+// DDS纹理资源清单
+// 为6种击杀卡片效果提供BC7压缩格式的高质量纹理资源
+
+// 量子裂变卡片纹理
+KillCardAssets/Textures/Quantum/
+├── quantum_particle_base.dds        // 基础粒子纹理 (1024x1024, BC7)
+├── quantum_energy_wave.dds          // 能量波纹序列 (2048x512, 4帧动画)
+├── quantum_fission_core.dds         // 裂变核心光效 (512x512, BC7)
+├── quantum_background_noise.dds     // 背景噪声纹理 (1024x1024, BC1)
+├── quantum_particle_glow.dds        // 粒子辉光效果 (256x256, BC3)
+└── quantum_distortion_mask.dds      // 扭曲遮罩 (512x512, BC3)
+
+// 全息干扰卡片纹理
+KillCardAssets/Textures/Hologram/
+├── hologram_scanlines.dds           // 扫描线纹理 (1024x64, BC1)
+├── hologram_glitch_noise.dds        // 故障噪声 (512x512, BC1)
+├── hologram_data_stream.dds         // 数据流动画 (1024x256, 8帧序列)
+├── hologram_rgb_separation.dds      // RGB通道分离 (1024x1024, BC7)
+├── hologram_interference.dds        // 干扰条纹 (256x256, BC3)
+└── hologram_projection_mask.dds     // 投影遮罩 (1024x1024, BC3)
+
+// 时空扭曲卡片纹理
+KillCardAssets/Textures/SpaceTime/
+├── spacetime_ripple_01.dds          // 时空涟漪1 (1024x1024, BC7)
+├── spacetime_ripple_02.dds          // 时空涟漪2 (1024x1024, BC7)
+├── spacetime_warp_field.dds         // 扭曲力场 (2048x2048, BC7)
+├── spacetime_energy_ring.dds        // 能量环 (512x512, BC3)
+├── spacetime_distortion_map.dds     // 扭曲贴图 (1024x1024, BC7)
+└── spacetime_time_particles.dds     // 时间粒子 (256x256, BC3)
+
+// 等离子爆破卡片纹理
+KillCardAssets/Textures/Plasma/
+├── plasma_sphere_core.dds           // 等离子球核心 (512x512, BC7)
+├── plasma_electric_arcs.dds         // 电弧纹理 (1024x512, BC3)
+├── plasma_explosion_sequence.dds    // 爆炸序列 (2048x2048, 16帧动画)
+├── plasma_energy_discharge.dds      // 能量释放 (1024x1024, BC7)
+├── plasma_ionization_glow.dds       // 离子化辉光 (512x512, BC3)
+└── plasma_lightning_branch.dds      // 闪电分支 (256x1024, BC3)
+
+// 纳米溶解卡片纹理
+KillCardAssets/Textures/Nano/
+├── nano_dissolve_pattern.dds        // 溶解图案 (1024x1024, BC7)
+├── nano_metallic_surface.dds        // 金属表面 (1024x1024, BC7)
+├── nano_particle_swarm.dds          // 纳米粒子群 (512x512, BC3)
+├── nano_corrosion_mask.dds          // 腐蚀遮罩 (1024x1024, BC1)
+├── nano_edge_dissolution.dds        // 边缘溶解 (256x256, BC3)
+└── nano_silver_sparkles.dds         // 银色闪烁 (128x128, BC3)
+
+// 虚拟重构卡片纹理
+KillCardAssets/Textures/Virtual/
+├── virtual_wireframe_01.dds         // 线框模型1 (1024x1024, BC1)
+├── virtual_wireframe_02.dds         // 线框模型2 (1024x1024, BC1)
+├── virtual_scan_beam.dds            // 扫描光束 (64x1024, BC3)
+├── virtual_reconstruction.dds       // 重构序列 (1024x1024, 12帧动画)
+├── virtual_color_bands.dds          // 彩色光带 (512x64, BC7)
+├── virtual_grid_overlay.dds         // 网格覆盖 (1024x1024, BC1)
+└── virtual_data_points.dds          // 数据点 (256x256, BC3)
+
+// 通用纹理资源
+KillCardAssets/Textures/Common/
+├── noise_perlin_3d.dds              // 3D柏林噪声 (256x256x256, BC1)
+├── gradient_radial.dds              // 径向渐变 (512x512, BC1)
+├── gradient_linear.dds              // 线性渐变 (1024x64, BC1)
+├── sparkle_atlas.dds                // 闪光图集 (1024x1024, BC3)
+├── smoke_sequence.dds               // 烟雾序列 (512x512, 32帧动画)
+├── explosion_atlas.dds              // 爆炸图集 (2048x2048, BC7)
+├── energy_beams.dds                 // 能量光束 (1024x256, BC3)
+├── particle_shapes.dds              // 粒子形状 (512x512, BC3)
+├── lens_flare_elements.dds          // 镜头光斑 (1024x1024, BC3)
+└── ui_elements.dds                  // UI元素 (1024x1024, BC3)
+
+// 纹理规格要求：
+// - 分辨率：1920×1080适配，支持多分辨率缩放
+// - 格式：BC7压缩确保质量和性能平衡
+// - 透明通道：使用BC3格式保证alpha混合效果
+// - 文件大小：单个纹理不超过2MB
+// - 帧率：动画序列60fps流畅播放
+
+// 声音资源清单
+KillCardAssets/Sounds/
+├── quantum_fission.wav              // 量子裂变音效 (44.1kHz, 16bit, 2.5s)
+├── hologram_glitch.wav              // 全息故障音效 (44.1kHz, 16bit, 1.8s)
+├── spacetime_warp.wav               // 时空扭曲音效 (44.1kHz, 16bit, 3.0s)
+├── plasma_explosion.wav             // 等离子爆炸音效 (44.1kHz, 16bit, 2.2s)
+├── nano_dissolution.wav             // 纳米溶解音效 (44.1kHz, 16bit, 2.8s)
+├── virtual_reconstruction.wav       // 虚拟重构音效 (44.1kHz, 16bit, 2.0s)
+├── energy_charge.wav                // 通用能量充能音效
+├── digital_beep.wav                 // 数字提示音
+├── tech_ambient.wav                 // 科技环境音
+└── ui_feedback.wav                  // UI反馈音效
+
+// 着色器资源清单
+KillCardAssets/Shaders/
+├── QuantumEffect.hlsl               // 量子裂变着色器
+├── HologramGlitch.hlsl              // 全息干扰着色器
+├── SpaceTimeWarp.hlsl               // 时空扭曲着色器
+├── PlasmaExplosion.hlsl             // 等离子爆炸着色器
+├── NanoDissolution.hlsl             // 纳米溶解着色器
+├── VirtualRecon.hlsl                // 虚拟重构着色器
+├── PostProcessCommon.hlsl           // 通用后处理函数
+├── ParticleSystem.hlsl              // 粒子系统着色器
+├── DistortionEffect.hlsl            // 扭曲效果着色器
+└── GlowComposite.hlsl               // 辉光合成着色器
+
+// 配置文件
+KillCardAssets/Config/
+├── kill_card_config.xml             // 主配置文件
+├── performance_profiles.xml         // 性能配置档案
+├── asset_presets.xml                // 资源预设配置
+├── effects_parameters.xml           // 效果参数配置
+├── security_settings.xml            // 安全设置配置
+└── localization.xml                 // 本地化配置
+
+// 插件DLL
+KillCardAssets/Plugins/
+├── KillCardPlugin.dll               // 主插件DLL
+├── KillCardPlugin.pdb               // 调试符号文件
+├── KillCardPlugin_x64.dll           // 64位版本（如需要）
+└── plugin_manifest.xml              // 插件清单文件
+
+// 文档和工具
+KillCardAssets/Documentation/
+├── INSTALLATION.md                  // 安装说明
+├── CONFIGURATION.md                 // 配置指南
+├── TROUBLESHOOTING.md               // 故障排除
+├── API_REFERENCE.md                 // API参考文档
+└── PERFORMANCE_GUIDE.md             // 性能优化指南
+
+KillCardAssets/Tools/
+├── AssetValidator.exe               // 资源验证工具
+├── PerformanceBenchmark.exe         // 性能基准测试
+├── ConfigEditor.exe                 // 配置编辑器
+└── EffectPreview.exe                // 效果预览工具
+
+// 总体要求：
+// 1. 所有纹理文件使用BC7/BC3/BC1压缩格式
+// 2. 音频文件使用WAV格式，44.1kHz采样率
+// 3. 着色器兼容DirectX 9.0c Shader Model 3.0
+// 4. 总资源包大小控制在100MB以内
+// 5. 支持热重载和动态加载
+// 6. 所有文件包含完整性校验信息

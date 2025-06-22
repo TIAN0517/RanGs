@@ -1,9 +1,16 @@
-// 量子裂变效果 Shader
+// Quantum Fission Effect Shader - 量子裂变特效着色器
 // 实现粒子分解和蓝白色能量波纹效果
 
-float4x4 WorldViewProj : WORLDVIEWPROJECTION;
-float Time : TIME;
-float Intensity : INTENSITY;
+float4x4 g_mWorldViewProjection : WorldViewProjection;
+float4x4 g_mWorld : World;
+float4x4 g_mView : View;
+float4x4 g_mProjection : Projection;
+
+// 时间和动画参数
+float g_fTime : Time;
+float g_fDeltaTime : DeltaTime;
+float g_fAnimationPhase : AnimationPhase = 0.0f;
+float g_fEffectIntensity : EffectIntensity = 1.0f;
 
 texture ParticleTexture;
 sampler ParticleSampler = sampler_state
