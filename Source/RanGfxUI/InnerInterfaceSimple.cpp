@@ -5735,6 +5735,7 @@ HRESULT CInnerInterface::InitDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 	// Kill Card System
 	{
 		m_pKillCardManager = new CKillCardManager(m_pEngineDevice);
+		m_pKillCardManager->SetGaeaClient(m_pGaeaClient); // 设置GLGaeaClient引用用于卡片检查
 		m_pKillCardManager->Create ( KILL_CARD_DISPLAY, "KILL_CARD_DISPLAY", UI_FLAG_CENTER_X | UI_FLAG_CENTER_Y );
 		m_pKillCardManager->CreateSubControl ();
 		UiRegisterControl ( m_pKillCardManager, true );
