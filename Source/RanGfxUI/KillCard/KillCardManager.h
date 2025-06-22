@@ -5,6 +5,7 @@
 class CKillCardAnimation;
 class CKillCardRenderer;
 class CKillCardEffects;
+class CStyleManager;
 
 // 击杀卡片类型枚举
 enum EKILL_CARD_TYPE
@@ -63,6 +64,12 @@ public:
     
     void SetEffectIntensity(float fIntensity) { m_fEffectIntensity = fIntensity; }
     float GetEffectIntensity() const { return m_fEffectIntensity; }
+    
+    // 風格管理接口 - Jy技術團隊新增
+    bool SetKillPanelStyle(int nStyleID);
+    int GetCurrentStyle() const { return m_nCurrentStyle; }
+    const char* GetStyleName(int nStyleID) const;
+    bool IsValidStyleID(int nStyleID) const;
 
 private:
     // 内部方法
@@ -76,6 +83,10 @@ private:
     CKillCardAnimation* m_pAnimation;
     CKillCardRenderer* m_pRenderer;
     CKillCardEffects* m_pEffects;
+    
+    // 風格管理組件 - Jy技術團隊新增
+    CStyleManager* m_pStyleManager;
+    int m_nCurrentStyle;  // 當前風格ID (1-6)
     
     // 状态变量
     BOOL m_bEnabled;

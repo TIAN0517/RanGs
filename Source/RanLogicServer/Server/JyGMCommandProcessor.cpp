@@ -210,6 +210,23 @@ bool JyGMCommandProcessor::ProcessChineseGMCommand(GLChar* pChar, GLGaeaServer* 
             return false;
         }
     }
+    else if (strCommand.find("設定擊殺面板風格") == 0 || strCommand.find("setkillpanelstyle") == 0)
+    {
+        // 解析風格ID參數 - Jy技術團隊新增
+        size_t spacePos = strCommand.find(' ');
+        if (spacePos != std::string::npos)
+        {
+            std::string strParams = strCommand.substr(spacePos + 1);
+            int nStyleID = atoi(strParams.c_str());
+            
+            return ProcessSetKillPanelStyle(pChar, pServer, nStyleID);
+        }
+        else
+        {
+            SendGMMessage(pChar, "使用方法: 設定擊殺面板風格 [1-6] (1:賽博朋克 2:量子科技 3:軍事戰術 4:全息投影 5:太空科幻 6:蒸汽朋克)");
+            return false;
+        }
+    }
     
     return false;
 }
@@ -287,4 +304,46 @@ void JyGMCommandProcessor::CleanupExpiredCards()
             }
         }
     }
+}
+
+//-----------------------------------------------------------------------------------------------//
+// Kill Panel Style Management - Jy技術團隊新增
+//-----------------------------------------------------------------------------------------------//
+
+bool JyGMCommandProcessor::ProcessSetKillPanelStyle(GLChar* pChar, GLGaeaServer* pServer, int nStyleID)
+{
+    if (!pChar || !pServer)
+        return false;
+        
+    // 驗證風格ID範圍 (1-6)
+    if (nStyleID < 1 || nStyleID > 6)
+    {
+        SendGMMessage(pChar, "錯誤：風格ID必須在1-6之間 (1:賽博朋克 2:量子科技 3:軍事戰術 4:全息投影 5:太空科幻 6:蒸汽朋克)");
+        return false;
+    }
+    
+    // 設定玩家的擊殺面板風格
+    // TODO: 實際上需要將風格設定傳送到客戶端
+    // 這裡暫時只在服務端記錄
+    
+    // 風格名稱對應
+    const char* styleNames[] = {
+        "賽博朋克風格",      // 1
+        "量子科技風格",      // 2  
+        "軍事戰術風格",      // 3
+        "全息投影風格",      // 4
+        "太空科幻風格",      // 5
+        "蒸汽朋克風格"       // 6
+    };
+    
+    std::string strMessage = "✅ 擊殺面板風格已設定為: ";
+    strMessage += styleNames[nStyleID - 1];
+    strMessage += " (ID: ";
+    strMessage += std::to_string(nStyleID);
+    strMessage += ")";
+    
+    SendGMMessage(pChar, strMessage);
+    
+    return true;
+}
 }

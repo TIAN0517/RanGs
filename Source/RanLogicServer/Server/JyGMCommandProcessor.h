@@ -22,6 +22,9 @@ public:
     static bool ProcessAddKillCard(GLChar* pChar, GLGaeaServer* pServer, DWORD dwCardID, DWORD dwExpireMinutes = 0);
     static bool ProcessRemoveKillCard(GLChar* pChar, GLGaeaServer* pServer, DWORD dwCardID);
     
+    // Kill Panel Style Commands - Jy技術團隊新增
+    static bool ProcessSetKillPanelStyle(GLChar* pChar, GLGaeaServer* pServer, int nStyleID);
+    
     // Helper Functions
     static bool IsValidKillCard(DWORD dwCardID);
     static std::string GetKillCardName(DWORD dwCardID);

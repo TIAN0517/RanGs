@@ -3,6 +3,7 @@
 #include "KillCardAnimation.h"
 #include "KillCardRenderer.h"
 #include "KillCardEffects.h"
+#include "KillPanelStyles/StyleManager.h"
 
 #include "../../../SigmaCore/DebugInclude.h"
 
@@ -16,6 +17,8 @@ CKillCardManager::CKillCardManager(EngineDeviceMan* pEngineDevice)
     , m_pAnimation(NULL)
     , m_pRenderer(NULL)
     , m_pEffects(NULL)
+    , m_pStyleManager(NULL)
+    , m_nCurrentStyle(1)  // 預設為賽博朋克風格
     , m_bEnabled(TRUE)
     , m_bActive(FALSE)
     , m_fCurrentTime(0.0f)
@@ -35,6 +38,14 @@ CKillCardManager::~CKillCardManager()
 
 void CKillCardManager::CreateSubControl()
 {
+    // 初始化風格管理器 - Jy技術團隊新增
+    m_pStyleManager = CStyleManager::GetInstance();
+    if (m_pStyleManager)
+    {
+        m_pStyleManager->Initialize();
+        m_pStyleManager->SetCurrentStyle(STYLE_CYBERPUNK);  // 預設為賽博朋克風格
+    }
+
     // 创建动画控制器
     {
         m_pAnimation = new CKillCardAnimation(m_pEngineDevice);
@@ -247,4 +258,45 @@ void CKillCardManager::ResetConsecutiveKills()
 {
     m_nConsecutiveKills = 0;
     m_dwLastKillTime = 0;
+}
+
+//-----------------------------------------------------------------------------------------------//
+// 風格管理接口實現 - Jy技術團隊新增
+//-----------------------------------------------------------------------------------------------//
+
+bool CKillCardManager::SetKillPanelStyle(int nStyleID)
+{
+    if (!IsValidStyleID(nStyleID))
+        return false;
+        
+    m_nCurrentStyle = nStyleID;
+    
+    // 轉換為內部風格枚舉 (1-6 -> 0-5)
+    EKILL_PANEL_STYLE eStyle = (EKILL_PANEL_STYLE)(nStyleID - 1);
+    
+    if (m_pStyleManager)
+    {
+        return m_pStyleManager->SetCurrentStyle(eStyle);
+    }
+    
+    return true;
+}
+
+int CKillCardManager::GetCurrentStyle() const
+{
+    return m_nCurrentStyle;
+}
+
+const char* CKillCardManager::GetStyleName(int nStyleID) const
+{
+    if (!IsValidStyleID(nStyleID) || !m_pStyleManager)
+        return "未知風格";
+        
+    EKILL_PANEL_STYLE eStyle = (EKILL_PANEL_STYLE)(nStyleID - 1);
+    return m_pStyleManager->GetStyleName(eStyle);
+}
+
+bool CKillCardManager::IsValidStyleID(int nStyleID) const
+{
+    return (nStyleID >= 1 && nStyleID <= 6);
 }
