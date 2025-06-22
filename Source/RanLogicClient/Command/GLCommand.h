@@ -35,25 +35,31 @@ private :
 	MAP_COMMAND m_mapCommand;
 
 private :
-	// °ø¹é ´ÜÀ§·Î ¸í·É¾î¿Í ÆÄ¶ó¹ÌÅÍ ºĞ¸® (¸í·É¾î ¸®ÅÏ)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¾ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¸ï¿½ (ï¿½ï¿½ï¿½É¾ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	std::string ParseCommand( const char* strCommand, VEC_STRING& vecParam );
 
 public :
-	// ¸í·É ½ÇÇà (ÄÜ¼Ö¿¡ ¶ç¿ï ·Î±× ¸®ÅÏ)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ü¼Ö¿ï¿½ ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	std::string DoCommand( const char* strCommand );
 
-	// ·ç¾Æ ¸í·É ½ÇÇà
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	std::string Excute( const VEC_STRING& vecParam );
-	// ½ºÅ©¸³Æ®, ½ºÄÉÀÏÆû ¸®·Îµå
+	// ï¿½ï¿½Å©ï¿½ï¿½Æ®, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
 	std::string ReloadWidget( const VEC_STRING& vecParam );
-	// UI ¿­±â
+	// UI ï¿½ï¿½ï¿½ï¿½
 	std::string OpenWidget( const VEC_STRING& vecParam );
-	// UI ´İ±â
+	// UI ï¿½İ±ï¿½
 	std::string CloseWidget( const VEC_STRING& vecParam );
-	// UI ¾ğ·Îµå
+	// UI ï¿½ï¿½Îµï¿½
 	std::string UnloadWidget( const VEC_STRING& vecParam );
-	// ÀÌ¸§ µğ½ºÇÃ·¹ÀÌ È°¼º/ºñÈ°¼º
+	// ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ È°ï¿½ï¿½/ï¿½ï¿½È°ï¿½ï¿½
 	std::string DisplayName( const VEC_STRING& vecParam );
-	// UI ÇÁ·ÎÆÛÆ¼ ÀúÀå/·Îµå
+	// UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½/ï¿½Îµï¿½
 	std::string SaveProp( const VEC_STRING& vecParam );
+
+	// Chinese GM Commands - JyæŠ€è¡“åœ˜éšŠ
+	std::string UnlockGunner( const VEC_STRING& vecParam );      // é–‹å•Ÿæ§æ‰‹
+	std::string UnlockNinja( const VEC_STRING& vecParam );       // é–‹å•Ÿå¿è€…
+	std::string AddKillCard( const VEC_STRING& vecParam );       // æ·»åŠ æ“Šæ®ºå¡ç‰‡
+	std::string UnlockAllJobs( const VEC_STRING& vecParam );     // è§£é–æ‰€æœ‰è·æ¥­
 };

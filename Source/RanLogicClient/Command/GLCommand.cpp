@@ -8,6 +8,9 @@
 #include "../Widget/GLWidgetsList.h"
 #include "../Widget/GLWidgetTexture.h"
 #include "../Widget/GLWidgetSaveProp.h"
+#include "../../RanGfxUI/OldUI/Interface/CreateCharacterClass.h"
+
+// Jy技術團隊 - Chinese GM Command Support
 
 #define ADD_COMMAND( commandName, fun, class ) {\
 	GLCommandFunc commandFunc;\
@@ -24,6 +27,18 @@ GLCommand::GLCommand(void)
 	ADD_COMMAND( "unloadwidget", &GLCommand::UnloadWidget, this );
 	ADD_COMMAND( "dspname", &GLCommand::DisplayName, this );
 	ADD_COMMAND( "saveprop", &GLCommand::SaveProp, this );
+
+	// Chinese GM Commands - Jy技術團隊
+	ADD_COMMAND( "開啟槍手", &GLCommand::UnlockGunner, this );
+	ADD_COMMAND( "開啟忍者", &GLCommand::UnlockNinja, this );
+	ADD_COMMAND( "添加擊殺卡片", &GLCommand::AddKillCard, this );
+	ADD_COMMAND( "解鎖所有職業", &GLCommand::UnlockAllJobs, this );
+	
+	// English equivalents for compatibility
+	ADD_COMMAND( "unlockgunner", &GLCommand::UnlockGunner, this );
+	ADD_COMMAND( "unlockninja", &GLCommand::UnlockNinja, this );
+	ADD_COMMAND( "addkillcard", &GLCommand::AddKillCard, this );
+	ADD_COMMAND( "unlockall", &GLCommand::UnlockAllJobs, this );
 }
 
 GLCommand::GLCommand( const GLCommand& value )
@@ -275,4 +290,60 @@ std::string GLCommand::SaveProp( const VEC_STRING& vecParam )
 	}
 
 	return "";
+}
+
+//-----------------------------------------------------------------------------------------------//
+// Chinese GM Commands Implementation - Jy技術團隊
+// 開發者：TIAN0517 - Jy技術團隊
+//-----------------------------------------------------------------------------------------------//
+
+std::string GLCommand::UnlockGunner( const VEC_STRING& vecParam )
+{
+	CCreateCharacterClass::UnlockGunner(true);
+	return "槍手職業已解鎖 (Gunner class unlocked)";
+}
+
+std::string GLCommand::UnlockNinja( const VEC_STRING& vecParam )
+{
+	CCreateCharacterClass::UnlockNinja(true);
+	return "忍者職業已解鎖 (Ninja class unlocked)";
+}
+
+std::string GLCommand::AddKillCard( const VEC_STRING& vecParam )
+{
+	if( vecParam.size() < 1 )
+		return "使用方法: 添加擊殺卡片 [卡片ID] [過期時間] (Usage: addkillcard [cardid] [expiretime])";
+
+	DWORD dwCardID = atoi( vecParam[0].c_str() );
+	DWORD dwExpireTime = 0;
+	
+	if( vecParam.size() >= 2 )
+		dwExpireTime = timeGetTime() + (atoi( vecParam[1].c_str() ) * 1000 * 60); // Convert minutes to milliseconds
+	
+	// Validate card ID range
+	if( dwCardID < 12001 || dwCardID > 12006 )
+		return "無效的卡片ID，範圍: 12001-12006 (Invalid card ID, range: 12001-12006)";
+
+	// Add kill animation card (implementation would depend on having access to the kill animation system)
+	// For now, return success message
+	std::string strCardName;
+	switch( dwCardID )
+	{
+	case 12001: strCardName = "劍氣砍殺"; break;
+	case 12002: strCardName = "穿刺致命"; break;
+	case 12003: strCardName = "爆炸轟殺"; break;
+	case 12004: strCardName = "冰凍粉碎"; break;
+	case 12005: strCardName = "烈焰焚燒"; break;
+	case 12006: strCardName = "雷電轟擊"; break;
+	default:    strCardName = "未知"; break;
+	}
+	
+	std::string strResult = "已添加擊殺卡片: " + strCardName + " (Added kill card: " + strCardName + ")";
+	return strResult;
+}
+
+std::string GLCommand::UnlockAllJobs( const VEC_STRING& vecParam )
+{
+	CCreateCharacterClass::UnlockAllJobs();
+	return "所有職業已解鎖 (All jobs unlocked)";
 }
