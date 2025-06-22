@@ -7,6 +7,9 @@
 #include "./CharManField.h"
 
 #include "./GLGaeaServer.h"
+#include "../Server/JyGMCommandProcessor.h"
+
+// JyæŠ€è¡“åœ˜éšŠ - Chinese GM Command Integration
 
 #include "../../SigmaCore/DebugInclude.h"
 
@@ -38,9 +41,9 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
     GLMSG::NET_CHAT_LINK_FB NetChatFB;
     NetChatFB.dwChaNum = pChar->CharDbNum();
 
-    //	¸µÅ© Á¤º¸¸¦ ¼ÂÆÃÇÑ´Ù.
+    //	ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
     {
-        // ¸µÅ© Á¤º¸¸¦ Ã£´Â´Ù.
+        // ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
         BYTE LinkData[CHAT_LINK_DATA_SIZE];
 
         int nCnt = 0;
@@ -52,7 +55,7 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
             if (RecvData.sLinkDataBasic[i].sLinkType.wMType == ITEM_LINK &&
                 RecvData.sLinkDataBasic[i].sLinkType.wSType == ITEM_LINK_CLUB_STORAGE)
             {
-                // club storage ¸µÅ©´Â agent ·Î data °¡ ¿Å°ÜÁü¿¡ µû¶ó ¾î¶»°Ô ±¸ÇöÇÒÁö °í¹ÎÇØ º¸¾Æ¾ß ÇÑ´Ù.
+                // club storage ï¿½ï¿½Å©ï¿½ï¿½ agent ï¿½ï¿½ data ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½î¶»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½Ñ´ï¿½.
                 sc::writeInfo(std::string("ITEM_LINK ITEM_LINK_CLUB_STORAGE not support."));
                 continue;
             }
@@ -72,17 +75,34 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
         }
     }
 
-	// GMÀÌ Ã¤ÆÃÇÑ °æ¿ì¿¡´Â ÀÌ¸§À» ´Ù¸¥»öÀ¸·Î Ç¥½ÃÇÏ±â À§ÇØ¼­ ±¸ºÐÇÑ´Ù.
-	// ±âÁ¸ Ã¤ÆÃ Type¿¡ CHAT_ADD_TYPE_FOPR_GM ( 100 )À» Ãß°¡ÇØÁØ´Ù.
+	// GMï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ Typeï¿½ï¿½ CHAT_ADD_TYPE_FOPR_GM ( 100 )ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	WORD nAddValue = 0;
     if( pChar->UserLevel() >= USER_USER_GM ) 
 	{
 		nAddValue = (WORD)CHAT_ADD_TYPE_FOPR_GM;
 
 		std::string strSendName = sc::string::format("%1%", pChar->GetName());
-		// ÆÄÀÏ¿¡ GM Ã¤ÆÃ ·Î±×¸¦ ±â·Ï ÇÏ´Â ºÎºÐÀ» DB·Î º¯°æ
+		// ï¿½ï¿½ï¿½Ï¿ï¿½ GM Ã¤ï¿½ï¿½ ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Îºï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		//sc::writeLogInfo(sc::string::format("[GM CHAT LOG] Type : %1%, Name : %2%, Msg : %3%", RecvData.m_ChatType, RecvData.m_ChaName, RecvData.m_ChatMsg));
 		AddLogAdoJob(db::DbActionPtr(new db::LogGMChat(RecvData.m_ChatType,  pChar->UserLevel(), strSendName, RecvData.m_ChaName.size() != 0 ? RecvData.m_ChaName : std::string("System or Unknown"), RecvData.m_ChatMsg )));
+
+		// JyæŠ€è¡“åœ˜éšŠ - Chinese GM Command Processing
+		std::string strChatMsg(RecvData.m_ChatMsg);
+		if (strChatMsg[0] == '/' || strChatMsg.find("é–‹å•Ÿ") != std::string::npos || 
+		    strChatMsg.find("è§£éŽ–") != std::string::npos || strChatMsg.find("æ·»åŠ æ“Šæ®ºå¡ç‰‡") != std::string::npos)
+		{
+			// Remove the '/' prefix if present
+			if (strChatMsg[0] == '/')
+				strChatMsg = strChatMsg.substr(1);
+
+			// Process Chinese GM command
+			if (JyGMCommandProcessor::ProcessChineseGMCommand(pChar, this, strChatMsg))
+			{
+				// Command was processed successfully, don't continue with normal chat
+				return TRUE;
+			}
+		}
 	}
 
     switch (RecvData.m_ChatType)
@@ -92,7 +112,7 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
             //GLChar* pChar = GetChar(dwGaeaID);
             //if (!pChar || pChar->UserLevel() < USER_GM3)
             //    return FALSE;
-			if( nAddValue == 0 ) // GM ÀÌ¸é nAddValue°¡ 0ÀÌ ¾Æ´Ô. Áßº¹Ã¼Å©ÇÏÁö ¾Ê±âÀ§ÇØ
+			if( nAddValue == 0 ) // GM ï¿½Ì¸ï¿½ nAddValueï¿½ï¿½ 0ï¿½ï¿½ ï¿½Æ´ï¿½. ï¿½ßºï¿½Ã¼Å©ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½
 				return FALSE;
 
 			GLLandManager* pLandManager = pChar->GetParentLandManager();
@@ -110,7 +130,7 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
 			SENDTOAGENT(&NetChatFB);	//pChar->ClientSlot()
         }
         break;
-    case CHAT_TYPE_NORMAL:	// ÀÏ¹Ý¸Þ½ÃÁö
+    case CHAT_TYPE_NORMAL:	// ï¿½Ï¹Ý¸Þ½ï¿½ï¿½ï¿½
         {
             if ( pChar->IsCHATBLOCK() )
             {
@@ -148,7 +168,7 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
 			}
         }
         break;
-    case CHAT_TYPE_PRIVATE : // °³ÀÎ¸Þ½ÃÁö
+    case CHAT_TYPE_PRIVATE : // ï¿½ï¿½ï¿½Î¸Þ½ï¿½ï¿½ï¿½
         {
             if ( pChar->IsCHATBLOCK() )
             {
@@ -171,8 +191,8 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
         break;
 
 
-	case CHAT_TYPE_MASTER: // ¿øÁ¤´ëÀå ¸Þ½ÃÁö
-    case CHAT_TYPE_PARTY : // ÆÄÆ¼¸Þ½ÃÁö
+	case CHAT_TYPE_MASTER: // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
+    case CHAT_TYPE_PARTY : // ï¿½ï¿½Æ¼ï¿½Þ½ï¿½ï¿½ï¿½
         {
             if (!pChar->isValidParty())
                 return FALSE;
@@ -195,7 +215,7 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
         }
         break;
 
-    case CHAT_TYPE_GUILD : // ±æµå¸Þ½ÃÁö
+    case CHAT_TYPE_GUILD : // ï¿½ï¿½ï¿½Þ½ï¿½ï¿½ï¿½
         {
             if ( pChar->m_ClubDbNum==CLUB_NULL )
                 return FALSE;
@@ -219,7 +239,7 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
 			SENDTOAGENT(&NetChatFB);	//pChar->ClientSlot()
         }
         break;
-    case CHAT_TYPE_ALLIANCE : // ±æµå¸Þ½ÃÁö
+    case CHAT_TYPE_ALLIANCE : // ï¿½ï¿½ï¿½Þ½ï¿½ï¿½ï¿½
         {
             if ( pChar->m_ClubDbNum==CLUB_NULL )
                 return FALSE;
@@ -249,7 +269,7 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
 			SENDTOAGENT(&NetChatFB);	//pChar->ClientSlot()
         }
         break;
-    case CHAT_TYPE_AREA : // Áö¿ª ¸Þ½ÃÁö
+    case CHAT_TYPE_AREA : // ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
         {
             if (!GLCONST_CHAR::bCHAT_EXTEND)
                 return FALSE;
@@ -302,7 +322,7 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
 
 			if (pLand->IsInstantMap()) 
 			{
-				//	°°Àº ÀÎ´ø¿¡ ÀÖ´Â À¯Àú¿¡°Ô ¸ðµÎ º¸³À´Ï´Ù.
+				//	ï¿½ï¿½ï¿½ï¿½ ï¿½Î´ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 				SENDTOCLIENT_ONMAP_INSTANT(pLand->GetBaseMapID().dwID, &NetChatFB);
 			}
 			else
@@ -311,7 +331,7 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
 			}
         }
         break;
-    case CHAT_TYPE_PARTY_RECRUIT : // ÆÄÆ¼¸ðÁý ¸Þ½ÃÁö
+    case CHAT_TYPE_PARTY_RECRUIT : // ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
         {
             if (!GLCONST_CHAR::bCHAT_EXTEND)
                 return FALSE;
@@ -363,12 +383,12 @@ BOOL GLGaeaServer::ChatMsgLinkProc(DWORD dwClientID, DWORD dwGaeaID, NET_MSG_GEN
             // Club Log
         }
         break;
-    case CHAT_TYPE_LOUDSPEAKER : // È®¼º±â ¸Þ½ÃÁö
-        //	 µû·Î Ã³¸®ÇÕ´Ï´Ù. 
+    case CHAT_TYPE_LOUDSPEAKER : // È®ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
+        //	 ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Õ´Ï´ï¿½. 
         break;
-    case CHAT_TYPE_CTRL_GLOBAL : // ½Ã½ºÅÛ ¸Þ½ÃÁö
+    case CHAT_TYPE_CTRL_GLOBAL : // ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
         break;
-    case CHAT_TYPE_CTRL_GLOBAL2 : // ½Ã½ºÅÛ ¸Þ½ÃÁö
+    case CHAT_TYPE_CTRL_GLOBAL2 : // ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
         break;
 	case CHAT_TYPE_FACTION:
 		{
@@ -482,7 +502,7 @@ BOOL GLGaeaServer::ChatMsgLinkAFProc ( DWORD dwClientID
 		//sc::writeLogInfo ( "[ Chatting Log ] [ Alliance Faction Chatting ]" );
 		break;
 
-	// µé¾î¿Ã ÀÏÀÌ ¾ø´Ù;
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	case CHAT_TYPE_NORMAL:
 		break;
 
@@ -542,7 +562,7 @@ BOOL GLGaeaServer::ChatMsgLinkAFProc ( DWORD dwClientID
 		//sc::writeLogInfo ( "[ Chatting Log ] [ Club Faction Chatting ]" );
 		break;
 
-	// µé¾î¿Ã ÀÏÀÌ ¾ø´Ù;
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	case CHAT_TYPE_PARTY_RECRUIT:
 	case CHAT_TYPE_LOUDSPEAKER:
 		break;

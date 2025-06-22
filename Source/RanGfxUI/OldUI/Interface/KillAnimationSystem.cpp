@@ -10,6 +10,13 @@
 #include "../../../RanLogicClient/GLGaeaClient.h"
 #include "../../../RanLogic/GLogicDataMan.h"
 
+#include <windows.h>
+#include <mmsystem.h>
+
+#ifndef SAFE_DELETE
+#define SAFE_DELETE(p) { if(p) { delete (p); (p) = NULL; } }
+#endif
+
 // ----------------------------------------------------------------------------
 #include "../../../SigmaCore/DebugInclude.h"
 // ----------------------------------------------------------------------------
