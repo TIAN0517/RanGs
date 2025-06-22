@@ -4,6 +4,7 @@
 #include "../../../RanLogic/Msg/GLContrlInstanceMsg.h"
 #include "../../Character/GLChar.h"
 #include "../../FieldServer/GLGaeaServer.h"
+#include "../../KillAnimation/GLKillAnimation.h"
 #include "InstanceSystemField.h"
 
 #define notifyField(_format, ...) { \
@@ -410,6 +411,56 @@ namespace InstanceSystem
 					}					
 				}				
 				gpGaeaServer->SENDTOCLIENT(_nClientSlot, &_notifyGlobalMessage);						
+			}
+			break;
+		
+		// Kill Animation Commands - TIAN0517 Implementation
+		case InstanceSystem::EMCOMMAND_KILL_ANIM_SWORD:
+			{
+				GLKillAnimation::GetInstance().GMCommand_PlayKillAnimation(_pGM, EMKILL_SWORD_SLASH);
+			}
+			break;
+			
+		case InstanceSystem::EMCOMMAND_KILL_ANIM_PIERCE:
+			{
+				GLKillAnimation::GetInstance().GMCommand_PlayKillAnimation(_pGM, EMKILL_PIERCE_FATAL);
+			}
+			break;
+			
+		case InstanceSystem::EMCOMMAND_KILL_ANIM_EXPLODE:
+			{
+				GLKillAnimation::GetInstance().GMCommand_PlayKillAnimation(_pGM, EMKILL_EXPLOSION_BLAST);
+			}
+			break;
+			
+		case InstanceSystem::EMCOMMAND_KILL_ANIM_ICE:
+			{
+				GLKillAnimation::GetInstance().GMCommand_PlayKillAnimation(_pGM, EMKILL_ICE_SHATTER);
+			}
+			break;
+			
+		case InstanceSystem::EMCOMMAND_KILL_ANIM_FLAME:
+			{
+				GLKillAnimation::GetInstance().GMCommand_PlayKillAnimation(_pGM, EMKILL_FLAME_BURN);
+			}
+			break;
+			
+		case InstanceSystem::EMCOMMAND_KILL_ANIM_LIGHTNING:
+			{
+				GLKillAnimation::GetInstance().GMCommand_PlayKillAnimation(_pGM, EMKILL_LIGHTNING_STRIKE);
+			}
+			break;
+			
+		case InstanceSystem::EMCOMMAND_KILL_ANIM_TEST:
+			{
+				GLKillAnimation::GetInstance().GMCommand_TestAllAnimations(_pGM);
+			}
+			break;
+			
+		case InstanceSystem::EMCOMMAND_KILL_ANIM_RANDOM:
+			{
+				EMKILL_ANIMATION_TYPE emType = GLKillAnimation::GetInstance().GetRandomKillAnimation();
+				GLKillAnimation::GetInstance().GMCommand_PlayKillAnimation(_pGM, emType);
 			}
 			break;
 		}			

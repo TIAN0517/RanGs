@@ -1,0 +1,15 @@
+# Kill Animation System - Temporary Files to Ignore
+
+# Test executables
+test_kill_anim
+test_kill_anim.exe
+
+# Temporary effect files (replace with actual assets)
+*.tmp
+*_temp.*
+
+# Build artifacts
+*.obj
+*.pdb
+*.idb
+*.pch
