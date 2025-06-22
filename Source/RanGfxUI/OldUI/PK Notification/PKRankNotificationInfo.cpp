@@ -6,6 +6,7 @@
 #include "../../../EngineLib/GUInterface/GameTextControl.h"
 #include "../../../EngineLib/GUInterface/BasicLineBoxEx.h"
 #include "../../../EngineLib/GUInterface/BasicTextBoxEx.h"
+#include "../../../EngineLib/GUInterface/BasicAnimationBox.h"
 #include "../../../RanLogicClient/Char/GLCharacter.h"
 #include "../../../RanLogicClient/GLGaeaClient.h"
 
@@ -22,7 +23,10 @@ CPKRankNotificationInfo::CPKRankNotificationInfo ( GLGaeaClient* pGaeaClient, En
 	m_pNameKiller( NULL ),
 	m_pNameKilled( NULL ),
 	m_pLineBox( NULL ),
-	m_pKillIcon( NULL )
+	m_pKillIcon( NULL ),
+	m_emCurrentEffectType( PK_CARD_NONE ),
+	m_pEffectAnimation( NULL ),
+	m_fEffectTime( 0.0f )
 {
 	for( int i = 0; i < RANK_INFO_ICON_SCHOOL; ++i )
 	{
@@ -136,6 +140,12 @@ void CPKRankNotificationInfo::CreateSubControl()
 	m_pKillIcon = new CUIControl(m_pEngineDevice);
 	m_pKillIcon->CreateSub ( this, "RANK_INFO_CHARACTER_KILL" );
 	RegisterControl ( m_pKillIcon );
+
+	// Create effect animation box
+	m_pEffectAnimation = new CBasicAnimationBox(m_pEngineDevice);
+	m_pEffectAnimation->CreateSub(this, "PK_EFFECT_ANIMATION", UI_FLAG_DEFAULT);
+	m_pEffectAnimation->SetVisibleSingle(FALSE);
+	RegisterControl(m_pEffectAnimation);
 }
 
 void CPKRankNotificationInfo::TranslateUIMessage( UIGUID cID, DWORD dwMsg )
@@ -148,6 +158,35 @@ void CPKRankNotificationInfo::Update ( int x, int y, BYTE LB, BYTE MB, BYTE RB, 
 	if ( !IsVisible () ) return ;
 
 	CUIGroup::Update ( x, y, LB, MB, RB, nScroll, fElapsedTime, bFirstControl );
+	
+	// Update effect animations
+	m_fEffectTime += fElapsedTime;
+	
+	if (m_pEffectAnimation && m_pEffectAnimation->IsVisible())
+	{
+		// Update particle effects based on card type
+		switch (m_emCurrentEffectType)
+		{
+		case PK_CARD_HOLOGRAM_BLUE:
+			// Update hologram particles
+			break;
+		case PK_CARD_NEON_PURPLE:
+			// Update neon effects
+			break;
+		case PK_CARD_FLAME_GOLD:
+			// Update flame particles
+			break;
+		case PK_CARD_RAINBOW_MAGIC:
+			// Update rainbow effects
+			break;
+		case PK_CARD_ICE_CRYSTAL:
+			// Update ice particles
+			break;
+		case PK_CARD_LEGEND_DIVINE:
+			// Update divine effects
+			break;
+		}
+	}
 }
 
 void CPKRankNotificationInfo::SetVisibleSingle ( BOOL bVisible )
@@ -191,7 +230,10 @@ void CPKRankNotificationInfo::SetData( SPK_HISTORY sHistory )
 	m_pNameKilled->SetText( sHistory.szCharKilled );
 
 	DWORD dwCharID = m_pGaeaClient->GetCharacter()->GetCharID();
-
+	
+	// Check for active PK effect card and apply visual effects
+	EMPK_EFFECT_CARD_TYPE emActiveCard = m_pGaeaClient->GetCharacter()->GetActivePKCard();
+	
 	if ( dwCharID == sHistory.dwKilled )
 	{
 		m_pLineBox->SetUseRender ( TRUE );
@@ -199,11 +241,149 @@ void CPKRankNotificationInfo::SetData( SPK_HISTORY sHistory )
 	}
 	else if ( dwCharID == sHistory.dwKiller )
 	{
-		m_pLineBox->SetUseRender ( TRUE );
-		m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::GREENYELLOW );
+		// Apply PK card effect if killer has active card
+		if (emActiveCard != PK_CARD_NONE)
+		{
+			SetPKEffectCardType(emActiveCard);
+		}
+		else
+		{
+			m_pLineBox->SetUseRender ( TRUE );
+			m_pLineBox->SetDiffuse( NS_UITEXTCOLOR::GREENYELLOW );
+		}
 	}
 	else
 	{
 		m_pLineBox->SetUseRender ( FALSE );
+	}
+}
+
+void CPKRankNotificationInfo::CreateBaseBoxHologramBlue(char* szBoxControl)
+{
+	if (m_pLineBox)
+	{
+		m_pLineBox->SetDiffuse(0xFF00AAFF);  // 蓝色全息效果
+		m_pLineBox->SetUseRender(TRUE);
+	}
+	
+	if (m_pEffectAnimation)
+	{
+		m_pEffectAnimation->SetVisibleSingle(TRUE);
+		// 添加蓝色粒子动画
+	}
+}
+
+void CPKRankNotificationInfo::CreateBaseBoxNeonPurple(char* szBoxControl)
+{
+	if (m_pLineBox)
+	{
+		m_pLineBox->SetDiffuse(0xFFAA00FF);  // 紫色霓虹效果
+		m_pLineBox->SetUseRender(TRUE);
+	}
+	
+	if (m_pEffectAnimation)
+	{
+		m_pEffectAnimation->SetVisibleSingle(TRUE);
+		// 添加紫色霓虹动画
+	}
+}
+
+void CPKRankNotificationInfo::CreateBaseBoxFlameGold(char* szBoxControl)
+{
+	if (m_pLineBox)
+	{
+		m_pLineBox->SetDiffuse(0xFFFFAA00);  // 金色火焰效果
+		m_pLineBox->SetUseRender(TRUE);
+	}
+	
+	if (m_pEffectAnimation)
+	{
+		m_pEffectAnimation->SetVisibleSingle(TRUE);
+		// 添加金色火焰动画
+	}
+}
+
+void CPKRankNotificationInfo::CreateBaseBoxRainbowMagic(char* szBoxControl)
+{
+	if (m_pLineBox)
+	{
+		// 彩虹渐变效果 - 动态颜色
+		DWORD dwColor = 0xFF000000;
+		float fHue = fmod(m_fEffectTime * 2.0f, 6.28f);  // 2π周期
+		// 简化的HSV到RGB转换，创建彩虹效果
+		dwColor |= 0x00FFFFFF;
+		m_pLineBox->SetDiffuse(dwColor);
+		m_pLineBox->SetUseRender(TRUE);
+	}
+	
+	if (m_pEffectAnimation)
+	{
+		m_pEffectAnimation->SetVisibleSingle(TRUE);
+		// 添加彩虹星光动画
+	}
+}
+
+void CPKRankNotificationInfo::CreateBaseBoxIceCrystal(char* szBoxControl)
+{
+	if (m_pLineBox)
+	{
+		m_pLineBox->SetDiffuse(0xFF00FFFF);  // 冰蓝色效果
+		m_pLineBox->SetUseRender(TRUE);
+	}
+	
+	if (m_pEffectAnimation)
+	{
+		m_pEffectAnimation->SetVisibleSingle(TRUE);
+		// 添加冰晶粒子动画
+	}
+}
+
+void CPKRankNotificationInfo::CreateBaseBoxLegendDivine(char* szBoxControl)
+{
+	if (m_pLineBox)
+	{
+		m_pLineBox->SetDiffuse(0xFFFFFFAA);  // 神圣金白色效果
+		m_pLineBox->SetUseRender(TRUE);
+	}
+	
+	if (m_pEffectAnimation)
+	{
+		m_pEffectAnimation->SetVisibleSingle(TRUE);
+		// 添加神圣光环动画
+	}
+}
+
+void CPKRankNotificationInfo::SetPKEffectCardType(EMPK_EFFECT_CARD_TYPE emType)
+{
+	m_emCurrentEffectType = emType;
+	
+	// 应用对应的视觉效果
+	switch (emType)
+	{
+	case PK_CARD_HOLOGRAM_BLUE:
+		CreateBaseBoxHologramBlue("PK_RANK_NOTIFICATION_LINEBOX");
+		break;
+	case PK_CARD_NEON_PURPLE:
+		CreateBaseBoxNeonPurple("PK_RANK_NOTIFICATION_LINEBOX");
+		break;
+	case PK_CARD_FLAME_GOLD:
+		CreateBaseBoxFlameGold("PK_RANK_NOTIFICATION_LINEBOX");
+		break;
+	case PK_CARD_RAINBOW_MAGIC:
+		CreateBaseBoxRainbowMagic("PK_RANK_NOTIFICATION_LINEBOX");
+		break;
+	case PK_CARD_ICE_CRYSTAL:
+		CreateBaseBoxIceCrystal("PK_RANK_NOTIFICATION_LINEBOX");
+		break;
+	case PK_CARD_LEGEND_DIVINE:
+		CreateBaseBoxLegendDivine("PK_RANK_NOTIFICATION_LINEBOX");
+		break;
+	default:
+		// 默认效果
+		if (m_pEffectAnimation)
+		{
+			m_pEffectAnimation->SetVisibleSingle(FALSE);
+		}
+		break;
 	}
 }

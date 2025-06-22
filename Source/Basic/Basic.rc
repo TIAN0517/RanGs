@@ -44,10 +44,10 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "FileDescription", "Game"
-            VALUE "CompanyName", "MIN COMMUNICATIONS, INC."
+            VALUE "CompanyName", "Jy기술팀"
             VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "Game"
-            VALUE "LegalCopyright", "Copyright (C) MIN COMMUNICATIONS, INC."
+            VALUE "LegalCopyright", "Copyright (C) Jy기술팀"
             VALUE "OriginalFilename", "Game.exe"
             VALUE "ProductName", "Game"
             VALUE "ProductVersion", "Version 1.0.0"

@@ -3,10 +3,12 @@
 #include "../../../EngineLib/GUInterface/UIGroup.h"
 #include "../RanLogic/Character/GLCharDefine.h"
 #include "../RanLogic/Msg/PKRankData.h"
+#include "../RanLogic/Item/PKEffectCards.h"
 
 class CBasicTextBoxEx;
 class CBasicLineBox;
 class GLGaeaClient;
+class CBasicAnimationBox;
 
 class CPKRankNotificationInfo : public CUIGroup
 {
@@ -46,4 +48,19 @@ private:
 
 public:
 	void SetData( SPK_HISTORY sHistory );
+	
+	// PK Effect Card visual effects
+	void CreateBaseBoxHologramBlue(char* szBoxControl);    // 全息蓝光
+	void CreateBaseBoxNeonPurple(char* szBoxControl);      // 霓虹紫光
+	void CreateBaseBoxFlameGold(char* szBoxControl);       // 烈焰金光  
+	void CreateBaseBoxRainbowMagic(char* szBoxControl);    // 彩虹幻光
+	void CreateBaseBoxIceCrystal(char* szBoxControl);      // 冰晶寒光
+	void CreateBaseBoxLegendDivine(char* szBoxControl);    // 传说神光
+	
+	void SetPKEffectCardType(EMPK_EFFECT_CARD_TYPE emType);
+	
+private:
+	EMPK_EFFECT_CARD_TYPE m_emCurrentEffectType;
+	CBasicAnimationBox* m_pEffectAnimation;
+	float m_fEffectTime;
 };

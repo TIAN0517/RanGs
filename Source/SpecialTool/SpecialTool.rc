@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// ÇÑ±¹¾î resources
+// ï¿½Ñ±ï¿½ï¿½ï¿½ resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 #ifdef _WIN32
@@ -29,11 +29,11 @@ LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
 IDD_ABOUTBOX DIALOGEX 0, 0, 235, 55
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "SpecialTool ( Korean )"
-FONT 9, "±¼¸²", 400, 0, 0x0
+FONT 9, "ï¿½ï¿½ï¿½ï¿½", 400, 0, 0x0
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,18,21
     LTEXT           "SpecialTool Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2009",IDC_STATIC,40,25,119,8
+    LTEXT           "Copyright (C) Jyê¸°ìˆ íŒ€",IDC_STATIC,40,25,119,8
     DEFPUSHBUTTON   "OK",IDOK,178,7,50,16,WS_GROUP
 END
 
@@ -42,7 +42,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSME
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "SpecialTool ( Korean )"
 MENU IDR_MAIN_MENU
-FONT 9, "±¼¸²", 400, 0, 0x0
+FONT 9, "ï¿½ï¿½ï¿½ï¿½", 400, 0, 0x0
 BEGIN
     EDITTEXT        IDC_EDIT_TOOLTEXT,557,7,164,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
     GROUPBOX        "",IDC_STATIC_CONTROL,7,28,715,439
@@ -58,7 +58,7 @@ END
 IDD_ITEMMIXPAGE DIALOGEX 0, 0, 743, 420
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "ItemMixPage ( Korean )"
-FONT 9, "±¼¸²", 400, 0, 0x0
+FONT 9, "ï¿½ï¿½ï¿½ï¿½", 400, 0, 0x0
 BEGIN
     CONTROL         "",IDC_LIST_ITEMMIX,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_SORTASCENDING | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,679,343
     PUSHBUTTON      "ADD",IDC_BUTTON_ADD,221,361,61,14
@@ -75,7 +75,7 @@ END
 IDD_ITEMDIALOG DIALOGEX 0, 0, 187, 246
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Item ( Korean )"
-FONT 9, "±¼¸²", 400, 0, 0x0
+FONT 9, "ï¿½ï¿½ï¿½ï¿½", 400, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,64,212,50,16
     PUSHBUTTON      "Cancel",IDCANCEL,123,212,50,16
@@ -88,7 +88,7 @@ END
 IDD_ITEMMIXDATA DIALOGEX 0, 0, 187, 301
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "ItemMixData ( Korean )"
-FONT 9, "±¼¸²", 400, 0, 0x0
+FONT 9, "ï¿½ï¿½ï¿½ï¿½", 400, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,7,280,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,130,280,50,14
@@ -144,7 +144,7 @@ END
 IDD_TAXISTATIONPAGE DIALOGEX 0, 0, 743, 422
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Taxi Station Page ( Korean )"
-FONT 9, "±¼¸²", 400, 0, 0x0
+FONT 9, "ï¿½ï¿½ï¿½ï¿½", 400, 0, 0x0
 BEGIN
     CONTROL         "",IDC_LIST_TAXISTATION,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_SORTASCENDING | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,31,679,319
     PUSHBUTTON      "UP",IDC_BUTTON_UP,695,102,14,91
@@ -163,7 +163,7 @@ END
 IDD_TAXIDATA DIALOGEX 0, 0, 214, 192
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "TaxiStation ( Korean )"
-FONT 9, "±¼¸²", 400, 0, 0x0
+FONT 9, "ï¿½ï¿½ï¿½ï¿½", 400, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,31,156,50,16
     PUSHBUTTON      "Cancel",IDCANCEL,114,156,50,16
@@ -191,7 +191,7 @@ END
 IDD_NPCDIALOG DIALOGEX 0, 0, 187, 246
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Crow Select ( Korean )"
-FONT 9, "±¼¸²", 400, 0, 0x0
+FONT 9, "ï¿½ï¿½ï¿½ï¿½", 400, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,64,214,50,16
     PUSHBUTTON      "Cancel",IDCANCEL,123,214,50,16
@@ -204,7 +204,7 @@ END
 IDD_MAPDIALOG DIALOGEX 0, 0, 187, 248
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Map ( Korean )"
-FONT 9, "±¼¸²", 400, 0, 0x0
+FONT 9, "ï¿½ï¿½ï¿½ï¿½", 400, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,64,214,50,16
     PUSHBUTTON      "Cancel",IDCANCEL,123,214,50,16
@@ -234,7 +234,7 @@ END
 IDD_AUTOLEVELPAGE DIALOGEX 0, 0, 747, 356
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "AutoLevelPage"
-FONT 9, "±¼¸²", 400, 0, 0x0
+FONT 9, "ï¿½ï¿½ï¿½ï¿½", 400, 0, 0x0
 BEGIN
     LISTBOX         IDC_LIST_AUTO_LEVEL,13,30,161,141,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "ADD",IDC_BUTTON_AUTOLEVEL_ADD,181,30,42,12
@@ -455,8 +455,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
     "LANGUAGE 18, 1\r\n"
     "#pragma code_page(949)\r\n"
-    "#include ""res\\SpecialTool.rc2""  // Microsoft Visual C++¿¡¼­ ÆíÁýµÇÁö ¾ÊÀº ¸®¼Ò½º\r\n"
-    "#include ""afxres.rc""         // Ç¥ÁØ ±¸¼º ¿ä¼Ò\r\n"
+    "#include ""res\\SpecialTool.rc2""  // Microsoft Visual C++ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½\r\n"
+    "#include ""afxres.rc""         // Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -495,19 +495,19 @@ BEGIN
     BEGIN
         BLOCK "041203b5"
         BEGIN
-            VALUE "CompanyName", "TODO: <È¸»ç ÀÌ¸§>"
-            VALUE "FileDescription", "TODO: <ÆÄÀÏ ¼³¸í>"
+            VALUE "CompanyName", "Jyê¸°ìˆ íŒ€"
+            VALUE "FileDescription", "Special Tool"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "SpecialTool.exe"
-            VALUE "LegalCopyright", "TODO: (c) <È¸»ç ÀÌ¸§>.  All rights reserved."
+            VALUE "LegalCopyright", "(c) Jyê¸°ìˆ íŒ€.  All rights reserved."
             VALUE "OriginalFilename", "SpecialTool.exe"
-            VALUE "ProductName", "TODO: <Á¦Ç° ÀÌ¸§>"
+            VALUE "ProductName", "SpecialTool"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
     BLOCK "VarFileInfo"
     BEGIN
-        VALUE "º¯È¯", 0x412, 949
+        VALUE "ï¿½ï¿½È¯", 0x412, 949
     END
 END
 
@@ -561,16 +561,16 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_ABOUTBOX            "SpecialTool Á¤º¸(&A)..."
+    IDS_ABOUTBOX            "SpecialTool ï¿½ï¿½ï¿½ï¿½(&A)..."
     IDS_PROPSHT_CAPTION     "Sheet"
 END
 
-#endif    // ÇÑ±¹¾î resources
+#endif    // ï¿½Ñ±ï¿½ï¿½ï¿½ resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// ¿µ¾î(Áß¸³) resources
+// ï¿½ï¿½ï¿½ï¿½(ï¿½ß¸ï¿½) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -655,7 +655,7 @@ FONT 9, "MS Shell Dlg", 400, 0, 0x0
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,18,18
     LTEXT           "SpecialTool Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2009",IDC_STATIC,40,25,119,8
+    LTEXT           "Copyright (C) Jyê¸°ìˆ íŒ€",IDC_STATIC,40,25,119,8
     DEFPUSHBUTTON   "OK",IDOK,178,7,50,16,WS_GROUP
 END
 
@@ -1005,7 +1005,7 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
-#endif    // ¿µ¾î(Áß¸³) resources
+#endif    // ï¿½ï¿½ï¿½ï¿½(ï¿½ß¸ï¿½) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -1023,8 +1023,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 LANGUAGE 18, 1
 #pragma code_page(949)
-#include "res\SpecialTool.rc2"  // Microsoft Visual C++¿¡¼­ ÆíÁýµÇÁö ¾ÊÀº ¸®¼Ò½º
-#include "afxres.rc"         // Ç¥ÁØ ±¸¼º ¿ä¼Ò
+#include "res\SpecialTool.rc2"  // Microsoft Visual C++ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½
+#include "afxres.rc"         // Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

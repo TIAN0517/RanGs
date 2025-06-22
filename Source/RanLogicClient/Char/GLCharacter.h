@@ -32,6 +32,7 @@ using namespace NSSKILL_EFFSET;
 
 class GLClubClient;
 struct SKILLID;
+class CClientPKCardManager;
 
 enum EMFIND_TAR
 {
@@ -51,7 +52,7 @@ enum EMFIND_OPTION
 	EMFIND_OPTION_P2PMENU	= 0x0002,
 };
 
-// È®ÀÎ ÈÄ »èÁ¦ ÇØµµ µÇ´Â Data
+// È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Øµï¿½ ï¿½Ç´ï¿½ Data
 enum DoActWait_TYPE
 {
 	DoActWait_Zero,
@@ -64,7 +65,7 @@ enum DoActWait_TYPE
 	DoActWait_TeleportFB,
 };
 
-// ¾ÆÀÌÅÛ »ç¿ë ÈÄ È¦µå À¯Áö »óÅÂ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ È¦ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 enum ESlotHold
 {
 	Release = 0,
@@ -152,8 +153,8 @@ protected:
 	LPDIRECT3DDEVICEQ	m_pd3dDevice;
 	DxSkinChar*	m_pSkinChar;
 	SkinCharMulti* m_pSkinCharMulti;
-	GLTransformSet*	m_pTransformSet; // È¯µ¶µî ½ºÅ³·Î ÀÎÇÑ º¯½Å;
-	GLWorkingSkill* m_pWorkingSkill; //  ÇöÀçÁøÇà ÁßÀÎ ½ºÅ³
+	GLTransformSet*	m_pTransformSet; // È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+	GLWorkingSkill* m_pWorkingSkill; //  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³
 
 	CSkillSThrow	m_SkillSTrow;
 	CSkillCameraHit m_SkillCHit;
@@ -165,12 +166,15 @@ protected:
     EMSERVICE_PROVIDER m_ServiceProvider;
 
 public:
-	SUMMONIDLIST            m_dwSummonGUIDList; // ¼ÒÈ¯¼ö GUID ¸®½ºÆ®
+	SUMMONIDLIST            m_dwSummonGUIDList; // ï¿½ï¿½È¯ï¿½ï¿½ GUID ï¿½ï¿½ï¿½ï¿½Æ®
+	
+	// PK Effect Cards Manager
+	CClientPKCardManager*	m_pPKCardManager;
 
-	//! Çàµ¿.
+	//! ï¿½àµ¿.
 	//
 protected:
-	EMACTIONTYPE		m_Action;				//	ÇöÁ¦ ¾×¼Ç.
+	EMACTIONTYPE		m_Action;				//	ï¿½ï¿½ï¿½ï¿½ ï¿½×¼ï¿½.
 	
 	STARGETID			m_sActionID;
 	STARGETID			m_sSelectID;
@@ -178,20 +182,20 @@ protected:
 	
 	SKILLTARGETDATA		m_sSkillTargetData;
 
-	TARIDRC_SET			m_setTAR_SELECTED;			// Å¸°Ù ¼¿·ºÆ®¿ë ÂüÁ¶ Ä«¿îÅÍ
+	TARIDRC_SET			m_setTAR_SELECTED;			// Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ï¿½ï¿½
 
-	SNATIVEID			m_sRunSkill;				// ¼±ÅÃÇÑ ½ºÅ³
-	SNATIVEID			m_sActiveSkill;				// ¹ßµ¿ÁßÀÎ ½ºÅ³
-	SKILLID				m_sScopeSkill;				// ¹üÀ§ ÁöÁ¤ ½ºÅ³
+	SNATIVEID			m_sRunSkill;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³
+	SNATIVEID			m_sActiveSkill;				// ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³
+	SKILLID				m_sScopeSkill;				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³
 
 	DWORD				m_dwANISUBCOUNT;
 	DWORD				m_dwANISUBSELECT;
 
 	DWORD				m_dwANISUBGESTURE;
 
-	EMITEM_QUESTION		m_emOldQuestionType;	//	È¿°ú »ý¼º/Á¾·á¿ëÀ¸·Î Á÷ÀüÀÇ Å¸ÀÔÀ» ÀúÀåÇÏ°í ÀÖÀ½.
+	EMITEM_QUESTION		m_emOldQuestionType;	//	È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
-	float				m_fQUEST_TIMER;				//	Äù½ºÆ® Á¤º¸ °»½Å.
+	float				m_fQUEST_TIMER;				//	ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 protected:
 	float				m_fLastMsgMoveSend;
@@ -200,7 +204,7 @@ protected:
 
 	GLReservationAction	m_ReservationAction;
 
-	bool				m_bMiniMapMove;			// ¹Ì´Ï¸ÊÀ» ÅëÇØ¼­ ÀÌµ¿ ÁßÀÌ´Ù
+	bool				m_bMiniMapMove;			// ï¿½Ì´Ï¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½Ì´ï¿½
 	float				m_fMiniMapMoveTime;
 
 protected:
@@ -211,25 +215,25 @@ protected:
 	DWORD				m_dwWAIT;
 
 protected:
-	DWORD				m_dwNumStorageItem[EMSTORAGE_CHANNEL];	//	Ã¢°í¿¡ µé¾îÀÖ´Â ¾ÆÀÌÅÛ °¹¼ö.
-	SCONFTING_CLT		m_sCONFTING;							//	ÁøÇà ´ë·Ã Á¤º¸.
+	DWORD				m_dwNumStorageItem[EMSTORAGE_CHANNEL];	//	Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	SCONFTING_CLT		m_sCONFTING;							//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
-	// Ã¢°í¿¡ ÀÖ´Â  Æ¯Á¤ ¾ÆÀÌÅÛ¸¦ ¹Þ¾Æ Ä³½¬ÇØµÎ´Â°Í
+	// Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½  Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½Þ¾ï¿½ Ä³ï¿½ï¿½ï¿½ØµÎ´Â°ï¿½
 	DWORD				m_StorageSpecificItemCacheCount;
 	std::vector<DWORD>  m_StorageSpecificItemCacheVec;
 public:
-	WORD				m_wPMPosX;								//	°³ÀÎ»óÁ¡ °³¼³ Çã°¡±Ç.
+	WORD				m_wPMPosX;								//	ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ã°¡ï¿½ï¿½.
 	WORD				m_wPMPosY;
-	GLPrivateMarket		m_sPMarket;								//	°³ÀÎ »óÁ¡.
+	GLPrivateMarket		m_sPMarket;								//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
-	MAPMARKETCLICK		m_mapMarketClick;						//	Å¬¸¯ÇÑ °³ÀÎ»óÁ¡ ¸®½ºÆ®
+	MAPMARKETCLICK		m_mapMarketClick;						//	Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
-	BOOL				m_bCLUB_CERTIFY;						//	¼±µµ Å¬·´ °áÁ¤Àü ÀÎÁõ À¯¹«.
-	float				m_fCLUB_CERTIFY_TIMER;					//	¼±µµ Å¬·´ °áÁ¤Àü ÀÎÁõ ½Ã°£.
-    bool				m_bForcedPKMode;						//  °­Á¦ PK¸ðµå
+	BOOL				m_bCLUB_CERTIFY;						//	ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	float				m_fCLUB_CERTIFY_TIMER;					//	ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
+    bool				m_bForcedPKMode;						//  ï¿½ï¿½ï¿½ï¿½ PKï¿½ï¿½ï¿½
 
 protected:
-	GLClubClient*		m_pMyClub;								//! ³ªÀÇ Å¬·´ Á¤º¸.
+	GLClubClient*		m_pMyClub;								//! ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 public:
 	WORD				m_wInvenPosX1;				// Temp
@@ -237,7 +241,7 @@ public:
 	WORD				m_wInvenPosX2;				// Temp
 	WORD				m_wInvenPosY2;
 
-	// ÀÓ½Ã °ªÀ» ¿ø·¡´Â ´Ù °¡Áö°í ÀÖ¾î¾ß ÇÏ´Âµ¥ Áö±ÝÀº 3°³¸¸ °¡Áö°í ÀÖµµ·Ï ÇÑ´Ù.
+	// ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ï´Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	WORDWORD			m_wwInvenPos_FaceStyle;		// Temp
 	WORDWORD			m_wwInvenPos_HairStyle;		// Temp
 	WORDWORD			m_wwInvenPos_HairColor;		// Temp
@@ -246,7 +250,7 @@ public:
 
 	MAPENTRYINFO		m_mapEntryLimitInfo;
 
-	// Note : Çì¾î˜Þ¿¡¼­ ¸Ó¸®¸¦ ¹Ù²Ü °æ¿ì ÀÓ½Ã·Î µ¥ÀÌÅÍ¸¦ °¡Áö°í ÀÖÀ½.
+	// Note : ï¿½ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½ï¿½ ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 private:
 	//BOOL			m_bEnableHairSytle;
 	//BOOL			m_bEnableHairColor;
@@ -255,15 +259,15 @@ private:
 	//WORD			m_wHairStyleTEMP;
 	//WORD			m_wFaceStyleTEMP;
 
-	BOOL			m_bAttackable;							// °ø°Ý°¡´ÉÀ¯¹«
+	BOOL			m_bAttackable;							// ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	BOOL			m_bMiniGameOpen;
 
 	float			m_fPartyRecruitTime;
 
-    float           m_fCheckActivityItem;       //  Æ¯º°È°µ¿ °ü·Ã ¾ÆÀÌÅÛ °¹¼ö ¾÷µ¥ÀÌÆ®
+    float           m_fCheckActivityItem;       //  Æ¯ï¿½ï¿½È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
 private:
-	EMSLOT			m_emCostumSelectSlot;		// Note : ÄÚ½ºÆ¬ ¿°»öÀ» ÇÒ °æ¿ì ¿°»öÇÒ ½½·Ô.
+	EMSLOT			m_emCostumSelectSlot;		// Note : ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
     float           m_fLimitTimeItemSort;
     float           m_fItemSortMsgDelayTime;
@@ -273,18 +277,18 @@ private:
 
     RebuyItem::REBUY_VEC m_vecRebuy;
 
-	EMANI_MAINTYPE		m_eMotionMID;			//! ¸ð¼Ç MID
-	EMANI_SUBTYPE		m_eMotionSID;			//! ¸ð¼Ç SID
-	FLOAT				m_fMotionSec;			//! ¸ð¼Ç ÇÃ·¹ÀÌ ½Ã°£ (ÃÊ)
+	EMANI_MAINTYPE		m_eMotionMID;			//! ï¿½ï¿½ï¿½ MID
+	EMANI_SUBTYPE		m_eMotionSID;			//! ï¿½ï¿½ï¿½ SID
+	FLOAT				m_fMotionSec;			//! ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ (ï¿½ï¿½)
 
     CharState           m_bMovement;
 	SNATIVEID			m_sGeneralEffItemID;
 
-	// ÇöÀç Ä³¸¯ÅÍ°¡ °¡Áö´Â Ä³¸¯ÅÍ ½½·Ô °³¼ö ( Lock, Unlock ½½·Ô ¸ðµÎ Æ÷ÇÔ );
+	// ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( Lock, Unlock ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ );
 	int					m_nOpenCharSlot;
 
 public:
-    unsignedState       m_sResurrectAbleState;      // ºÎÈ° °¡´É »óÅÂÁ¤º¸;
+    unsignedState       m_sResurrectAbleState;      // ï¿½ï¿½È° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
 
 public:
     TitleManager    m_TitleManager;
@@ -302,7 +306,7 @@ public:
 private:
 	std::tr1::shared_ptr<ActorWorldLight>		m_spWorldLight;
 
-	// RequestLandIn Call this function after receive view around message already. ¹ö±× Ã£±â À§ÇÑ Data
+	// RequestLandIn Call this function after receive view around message already. ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Data
 	DoActWait_TYPE								m_emDoActWaitTypePrev;
 	DoActWait_TYPE								m_emDoActWaitType;
 
@@ -328,7 +332,7 @@ public:
 	inline __int64 PointShopPoint() const { return m_PointShopPoint.Total(); }
 	inline __int64 PointShopBattlePoint() const { return m_PointShopPoint.BattlePoint(); }
 
-    //! Àç¸ÅÀÔ
+    //! ï¿½ï¿½ï¿½ï¿½ï¿½
     const RebuyItem::REBUY_VEC& RebuyList() const;
 
     unsigned int GetCountItemInInven( EMITEM_TYPE emType );
@@ -390,38 +394,38 @@ protected:
 	bool  m_bAwayGesture;
 
 public:
-	DWORD m_NpcLastClick; //! °¡Àå ¸¶Áö¸·¿¡ Å¬¸¯ÇÑ NPC ID
+	DWORD m_NpcLastClick; //! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ NPC ID
 	float m_fKeyDownCheckTime;
 	DWORD m_nAwayGestureLevel;
 
 public:
 	// PET
-	//LONGLONG  m_llPetCardGenNum;	//! È°¼ºÈ­µÈ ÆÖÄ«µåÀÇ GenNum
+	//LONGLONG  m_llPetCardGenNum;	//! È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½Ä«ï¿½ï¿½ï¿½ï¿½ GenNum
 	sc::MGUID m_llPetCardGenNum;
-	SNATIVEID m_sPetCardNativeID;   //! È°¼ºÈ­µÈ ÆÖÄ«µåÀÇ Nativeid
-	BYTE      m_cPetCardGenType;	//! È°¼ºÈ­µÈ ÆÖÄ«µåÀÇ GenType
+	SNATIVEID m_sPetCardNativeID;   //! È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½Ä«ï¿½ï¿½ï¿½ï¿½ Nativeid
+	BYTE      m_cPetCardGenType;	//! È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½Ä«ï¿½ï¿½ï¿½ï¿½ GenType
 
-	PETCARDINFO_MAP   m_mapPETCardInfo;     //! ÆÖÄ«µå Á¤º¸(ÆÖÀÇ »óÅÂ°¡ º¯°æµÉ¶§¸¶´Ù °°ÀÌ º¯°æÇØÁà¾ßÇÔ)
-	PETCARDINFO_MAP   m_mapPETCardInfoTemp; //! ÆÖÄ«µå Á¤º¸(°Å·¡½Ã »ç¿ë)
-	PETREVIVEINFO_MAP m_mapPETReviveInfo;   //! ºÎÈ°½ÃÅ°±â À§ÇÑ ÆÖÀÇ Á¤º¸
+	PETCARDINFO_MAP   m_mapPETCardInfo;     //! ï¿½ï¿½Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+	PETCARDINFO_MAP   m_mapPETCardInfoTemp; //! ï¿½ï¿½Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Å·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
+	PETREVIVEINFO_MAP m_mapPETReviveInfo;   //! ï¿½ï¿½È°ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	BOOL m_bReceivedPetCardInfo; // ÆÖÄ«µå Á¤º¸ ¼ö½Å¿©ºÎ
-	BOOL m_bIsPetActive;		 // ¸ÊÀ» ÀÌµ¿ÇÒ¶§ ÆÖÀÌ È°µ¿ÁßÀÌ¾ú´ÂÁö ¿©ºÎ
+	BOOL m_bReceivedPetCardInfo; // ï¿½ï¿½Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å¿ï¿½ï¿½ï¿½
+	BOOL m_bIsPetActive;		 // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 public:
-	VEHICLEITEMINFO_MAP			m_mapVEHICLEItemInfo;					// Å»°Í ¾ÆÀÌÅÛÀÇ Á¤º¸( Å»°Í »óÅÂ º¯°æ )
-	VEHICLEITEMINFO_MAP			m_mapVEHICLEItemInfoTemp;				// Å»°Í ¾ÆÀÌÅÛÀÇ Á¤º¸( °Å·¡½Ã »ç¿ë )
+	VEHICLEITEMINFO_MAP			m_mapVEHICLEItemInfo;					// Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½( Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ )
+	VEHICLEITEMINFO_MAP			m_mapVEHICLEItemInfoTemp;				// Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½( ï¿½Å·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ )
 
 protected:
-	GLVEHICLE		m_sVehicle;				//! Å»°Í ±¸Á¶Ã¼
-	DWORD			m_dwVehiclePassengerID;	// Vehicle ³»°¡ ¾î´ÀÀ§Ä¡¿¡ ¾É¾Æ ÀÖ´Â°¡~?
-											// ³­ ´Ù¸¥ Vehicle ¿¡ Å» ¼öµµ ÀÖÀ¸¹Ç·Î GLVEHICLE ¾È¿¡ µé¾î°¡¸é ¾ÈµÈ´Ù.
+	GLVEHICLE		m_sVehicle;				//! Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼
+	DWORD			m_dwVehiclePassengerID;	// Vehicle ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½É¾ï¿½ ï¿½Ö´Â°ï¿½~?
+											// ï¿½ï¿½ ï¿½Ù¸ï¿½ Vehicle ï¿½ï¿½ Å» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ GLVEHICLE ï¿½È¿ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ÈµÈ´ï¿½.
 
 public:
-	BOOL			m_bReqSwapArms;			// ±Ø°­ºÎ ¹«±â ±³Ã¼ ÁßÀÌ¶ó¸é
+	BOOL			m_bReqSwapArms;			// ï¿½Ø°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½
 
-	BOOL			m_bIsVehicleActive;		// ¸Ê ÀÌµ¿Áß Å»°Í Å¸°í ÀÖ¾ú´Ù¸é...
-	BOOL			m_bRecivedVehicleItemInfo;  // Å»°Í Á¤º¸ ¼ö½Å ¿©ºÎ
+	BOOL			m_bIsVehicleActive;		// ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ Å»ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ù¸ï¿½...
+	BOOL			m_bRecivedVehicleItemInfo;  // Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	bool			m_bOldVisibleTracingUI[8];
 	bool			m_bNewVisibleTracingUI[8];
@@ -429,15 +433,15 @@ public:
 	float			m_fPrintProcessInfoMsgGap;
 
 	bool			m_bGarbageOpen;
-	SINVEN_POS		m_sGarbageItem;			// ÈÞÁöÅë¿¡ µî·ÏµÈ ¾ÆÀÌÅÛ
+	SINVEN_POS		m_sGarbageItem;			// ï¿½ï¿½ï¿½ï¿½ï¿½ë¿¡ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	bool			m_bItemShopOpen;		// ItemShopOpen( Japan ) 
 	
-	bool			m_bReqAttendList;		// Ãâ¼® ¸®½ºÆ®
-	VECATTEND		m_vecAttend;			// Ãâ¼® ¸®½ºÆ®
-	DWORD			m_dwComboAttend;		// ¿¬¼Ó Ãâ¼® ÀÏ¼ö
-	__time64_t		m_tAttendLogin;			// ·Î±×ÀÎ½Ã°£( Ãâ¼®ºÎ¿¡¸¸ »ç¿ë ) 
-	DWORD			m_dwAttendTime;			// Ãâ¼® °¡´ÉÇÑ °ÔÀÓ Á¢¼Ó ½Ã°£
+	bool			m_bReqAttendList;		// ï¿½â¼® ï¿½ï¿½ï¿½ï¿½Æ®
+	VECATTEND		m_vecAttend;			// ï¿½â¼® ï¿½ï¿½ï¿½ï¿½Æ®
+	DWORD			m_dwComboAttend;		// ï¿½ï¿½ï¿½ï¿½ ï¿½â¼® ï¿½Ï¼ï¿½
+	__time64_t		m_tAttendLogin;			// ï¿½Î±ï¿½ï¿½Î½Ã°ï¿½( ï¿½â¼®ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ) 
+	DWORD			m_dwAttendTime;			// ï¿½â¼® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
 	CString			m_strRecordChat;
     bool			m_bRecordChat;
@@ -452,9 +456,9 @@ public:
 private:
 	EMTYPE_ITEM_REMODEL	m_emTypeItemRemodelState;
 
-	float			m_fMacro_RecordUINotifyTime;// UI¿¡ ¾Ë¸°½Ã°£ ±â·Ï, ºÐ¸¶´Ù °»½ÅÇÑ´Ù;
+	float			m_fMacro_RecordUINotifyTime;// UIï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½, ï¿½Ð¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½;
 
-// ´ë·Ã ½ÅÃ»¿¡ ¾²ÀÌ´Â º¯¼öµé
+// ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 private:
 	DWORD			m_PtoPTargetID;
 	DWORD			m_ConflictReqID; // = pNetMsg->dwID;
@@ -463,15 +467,15 @@ private:
 
 public:
     //! -----------------------------------------------------------------------
-    //! Å»°Í
+    //! Å»ï¿½ï¿½
 
-	// Vehicle. ³»°¡ ¾î´À À§Ä¡¿¡ ¾É¾Æ ÀÖ´Â°¡~?
+	// Vehicle. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½É¾ï¿½ ï¿½Ö´Â°ï¿½~?
 	void SetVehiclePassengerID( DWORD dwID );
 	DWORD GetVehiclePassengerID() const;
 
     VEHICLE_TYPE VehicleType() const { return m_sVehicle.Type(); }
 
-    //! ¼ÒÈ¯À» ¿äÃ»ÇÑ Å»°Í ¾ÆÀÌÅÛÀÇ Mid/Sid
+    //! ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Mid/Sid
     SNATIVEID VehicleId() const { return m_sVehicle.Id(); }
 
     void VehicleActiveValueSet(bool bSet) { m_sVehicle.SetActiveValue(bSet); }
@@ -558,7 +562,7 @@ public:
 
 	BOOL			SelectForcedTarget();
 
-/**********************´ë·Ã½ÅÃ» UI¿ë ÇÔ¼ö********************/
+/**********************ï¿½ï¿½Ã½ï¿½Ã» UIï¿½ï¿½ ï¿½Ô¼ï¿½********************/
 public:
 	void				SetAnsData(GLMSG::SNETPC_REQ_CONFRONT_TAR *_pNetMsg)
 	{
@@ -585,7 +589,7 @@ public:
 	//LuaTable	GetHPRevoverNum();
 	//LuaTable	GetHPRate_Mine();
 	//LuaTable	GetHPRate_Target();	
-//	void				RequestConflict(LuaTable _lua_table); //»ó´ë¹æÀÇ °¡ÀÌ¾ÆID¸¦ ÀÔ·Â
+//	void				RequestConflict(LuaTable _lua_table); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½IDï¿½ï¿½ ï¿½Ô·ï¿½
 	void				AnswerConflict(bool _Ans);
 
 	bool				HaveClubJoinAutority();
@@ -627,7 +631,7 @@ public:
 	float	GetDecR_SkillDelayT(WORD wGrade)	{ return GLCHARLOGIC::GetDecR_SkillDelayT(wGrade); }
 	float	GetIncR_CriticalDamage() { return GLCHARLOGIC::GetIncR_CriticalDamage(); }
 
-	// Ä³¸¯ÅÍ Á¤º¸ µðÅ×ÀÏ °¡»ê ¿É¼Ç Á¤º¸¸¦ ¹­¾îÁÜ;
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
 	//LuaTable GetCharInfoDetailAddonInfo();
 	//LuaTable GetCharInfoDetailAddonLimitInfo();
 	//LuaTable GetCharTempPuonInfoDetailAddonInfo(WORD wPosX, WORD wPosY, WORD wVirtualPow, WORD wVirtualDex,
@@ -637,7 +641,7 @@ public:
 	bool 			IsReqSwapArms() 			{ return m_bReqSwapArms ? true : false; }
 	bool 			IsMoveAble();
 	
-    // EMIMPACT_SIDE¿¡ µû¸¥ Çàµ¿À» ÇÒ¼ö ÀÖ´ÂÁö °Ë»ç;
+    // EMIMPACT_SIDEï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½àµ¿ï¿½ï¿½ ï¿½Ò¼ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½;
     const BOOL      IsReActionable( const STARGETID& _sTargetID, const EMIMPACT_SIDE emTargetSide);
     const BOOL      IsReActionable( const STARGETID& _sTargetID, const EMIMPACT_SIDE emTargetSide, const bool _bForceAction );
 	const BOOL		IsReActionableOver( const STARGETID& _sTargetID, const EMIMPACT_SIDE emTargetSide, const bool _bForceAction );
@@ -662,12 +666,12 @@ public:
 	const bool IsIdleCharacter();
 
     /**
-        ¿òÁ÷ÀÓ(½ºÅ³Æ÷ÇÔ) °¡´É À¯¹«¸¦ ¼³Á¤ ÇÑ´Ù.        
+        ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.        
 
-        ÀÌ°ÍÀº ¼­¹ö±â¹ÝÀ¸·Î ÀÛµ¿ µÇ¹Ç·Î Å¬¶ó¿¡¼­´Â °ªÀ» Á¶ÀÛÇÒ ¼ö ¾øµµ·Ï °í¾ÈµÇ¾ú´Ù.
-        ¸¸¾à ¿òÁ÷ÀÓÀ» ¸·°í ½Í´Ù¸é ¼­¹ö¿¡ ¿òÁ÷ÀÓÀ» ¸·µµ·Ï ¿äÃ»ÇÏ¿© ¼­¹ö¿¡ ÀÇÇØ Ã³¸® µÇ¾î¾ß ÇÑ´Ù.
-        Å¬¶ó ÀÚÃ¼ÀûÀ¸·Î ¸·°í ½Í´Ù¸é(µÉ ¼ö ÀÖÀ¸¸é ÇÏÁö ¾Ê¾Æ¾ß ÇÑ´Ù ¼­¹ö¿Í µ¿±âÈ­°¡ ¾È ¸ÂÀ¸¹Ç·Î)
-        SetLockMovement ¸¦ »ç¿ë ÇÏµµ·Ï ÇÑ´Ù.
+        ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ûµï¿½ ï¿½Ç¹Ç·ï¿½ Å¬ï¿½ó¿¡¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÈµÇ¾ï¿½ï¿½ï¿½.
+        ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Í´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
+        Å¬ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Í´Ù¸ï¿½(ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æ¾ï¿½ ï¿½Ñ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½)
+        SetLockMovement ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 
      */
     void SetMovement(const CharState state);
@@ -730,7 +734,7 @@ public:
 	void SetScopeSkillRun( const SKILLID& sSkillID ) { m_sScopeSkill = sSkillID; }
 	const SKILLID& GetScopeSkillRun()				 { return m_sScopeSkill; }
 	
-    //! ´ë·Ã
+    //! ï¿½ï¿½ï¿½
     void EndConfting();
     bool IsConfting() const { return m_sCONFTING.IsCONFRONTING(); }
     EMCONFT_TYPE GetConftingType() const { return m_sCONFTING.emTYPE; }
@@ -753,7 +757,7 @@ public:
 public:
 	BOOL IsPostBoxWindowOpen();
     
-    //! °³ÀÎ»óÁ¡°Ë»ö À©µµ¿ì°¡ ¿­·ÁÀÖ´Â°¡?
+    //! ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ì°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´Â°ï¿½?
     BOOL IsPrivateMarketSerchWindowOpen();
 
 	BOOL IsPrivateMarketWindowOpen();
@@ -800,7 +804,7 @@ public:
 	void SetHairColor( WORD wColor );
 	BOOL PutPassiveEffect ( DxSkinChar *pSkinChar, const char* szEffFile, const D3DXVECTOR3 *pDir, float fTarDir=0.0f );
 	void OutEffect ( DxSkinChar *pSkinChar, std::string strEffFile );
-	//void CalculateAmbientColor( LPDIRECT3DDEVICEQ pd3dDevice, DxLandMan* pLandMan, const D3DXVECTOR3& vPos );	// Ambient Color¸¦ °è»êÇÑ´Ù.
+	//void CalculateAmbientColor( LPDIRECT3DDEVICEQ pd3dDevice, DxLandMan* pLandMan, const D3DXVECTOR3& vPos );	// Ambient Colorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	void SELECTSKILLANI (  DxSkinChar *pSkinChar, EMANI_MAINTYPE MType, EMANI_SUBTYPE SType=AN_SUB_NONE );
 	// None const
 	BOOL IsANI_SELECTANI ( DxSkinChar *pSkinChar, const TCHAR* szAnim, DWORD dwFlags=NULL );
@@ -866,12 +870,12 @@ public:
 
 	virtual const BOOL IsNonTargetable(void) const override;// { return m_sHALLUCINATE.bNonTargetable; }
 
-	void RestoreActStateByInvisible(); // »óÅÂ ÀüÈ¯ ¹× ½ºÅ³ °ü·Ã Á¤¸®¿Í ÇÔ²² Á¤¸® ÇØ¾ß ÇÔ;
+	void RestoreActStateByInvisible(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô²ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ ï¿½ï¿½;
 
     /**
-        ¸Ê ÀÔÀå ÈÄ Ã³¸®¸¦ ¼öÇà ÇÑ´Ù.
-        ÀÔÀå ÈÄ ¼­¹ö¿¡ Á¤º¸¸¦ ¿äÃ» ÇÒ ÇÊ¿ä°¡ ÀÖÀ» ¶§ »ç¿ëÇÒ ¼ö ÀÖ´Ù.
-        ¿¹¸¦µé¾î ¸Ê ÀÌµ¿ ÈÄ 1¹ø PVE ÀÎ´ø Á¤º¸¸¦ ¿äÃ»ÇÏ°í ¹Þ¾Æ Á¤º¸¸¦ °»½ÅÇÏ°í ÀÖ´Ù.
+        ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+        ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+        ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ 1ï¿½ï¿½ PVE ï¿½Î´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï°ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½.
 
      */
      void PostEnterMap();
@@ -921,7 +925,7 @@ protected:
 public:	
     bool IsInsertToInven(std::tr1::shared_ptr<CItemClientDrop> spItemDrop);
 	bool IsInsertToInven(const SITEM* pItem);
-    //! ÀÎº¥Åä¸® ³²Àº°ø°£
+    //! ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     DWORD InvenAmountEmpty(bool bAllLine);
 	DWORD GetAmountActionQ(WORD wSLOT);
 
@@ -930,7 +934,7 @@ public:
 	bool IsInvenDecomposeItem( WORD wPosX, WORD wPosY );
 	bool IsStorageSplitItem( DWORD dwChannel, WORD wPosX, WORD wPosY );
 	bool IsNpcPileItem( SNATIVEID sNID_NPC, DWORD dwChannel, WORD wPosX, WORD wPosY );
-	bool IsRestartPossible(); // ÀÌ ¸Ê¿¡¼­ Àç½ÃÀÛÀÌ µÇ´ÂÁö
+	bool IsRestartPossible(); // ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½
 	BOOL IsVaildTradeInvenSpace();
 
 public:
@@ -985,125 +989,125 @@ public:
 	virtual BOOL CHECK_ACTIVITY_POINT( const SITEM& sItem );
 	virtual BOOL CHECK_CONTRIBUTION_POINT( const SITEM& sItem );
 	
-    // ÀÎ½ºÅÏ½º ´øÀü ½ºÅ©¸³¿ë NPC Å¬¸¯ ÀÌº¥Æ®½Ã ¸Þ½ÃÁö Àü¼Û;
+    // ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ NPC Å¬ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
     HRESULT ReqClickTrigger( const STARGETID& _target );
 
 public:
-	//! Ã¤ÆÃ³»¿ë Àü¼Û
+	//! Ã¤ï¿½Ã³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HRESULT ReqSendChatMsg( DWORD dwChatType, const char* szName, const char* szMsg, const VEC_LINK_DATA_BASIC& vecLinkDataBasic );	
 
-	//! ÆÄÆ¼¸ðÁý ¸µÅ© °¡ÀÔ Áö¿ø
+	//! ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HRESULT ReqPartyLinkJoin( DWORD dwMasterID, int nLinkIndex = -1);
 
-	//! ÆÄÆ¼¸ðÁý ¸µÅ© ¼ö¶ô ¹× °ÅÀý
+	//! ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HRESULT ReqPartyLinkLure( bool bLure, const DWORD dwHashKey, const DWORD dwTimeKey, const DWORD dwGaeaID );
 
-    //! ÀÎº¥ ¾ÆÀÌÅÛ Âø¿ë ¿äÃ»
+    //! ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
     HRESULT ReqInvenToSlot(WORD wPosX, WORD wPosY);
 
-    //! ÀÎº¥ ¾ÆÀÌÅÛ ÁöÁ¤ ½½·ÔÀ¸·Î Âø¿ë ¿äÃ»
+    //! ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
     HRESULT ReqInvenToSpecificSlot( EMSLOT emSlot, WORD wPosX, WORD wPosY );
 
-    //! ¹°¾à »ç¿ë ¿äÃ».( ÀÎº¥ ¾ÆÀÌÅÛÀ¸·Î. );
+    //! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».( ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. );
     HRESULT ReqInvenCure(WORD wPosX, WORD wPosY);
 
-	//! ½ºÅ³ ¹è¿ì±â ¿äÃ».( ÀÎº¥ ¾ÆÀÌÅÛÀ¸·Î. )
+	//! ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».( ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. )
 	HRESULT ReqInvenSkill(WORD wPosX, WORD wPosY);
 
-	//! ºÐÇØ ¿äÃ»;
+	//! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»;
 	HRESULT ReqInvenItemDecompose(WORD wPosX, WORD wPosY);
 
-	//! ½ºÅ³ ¹è¿ì±â ¿äÃ».( Ã¢°í ¾ÆÀÌÅÛÀ¸·Î. )
+	//! ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».( Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. )
 	HRESULT ReqStorageSkill( SNATIVEID sNPCID, DWORD dwNPCGlobalID, DWORD dwChannel, WORD wPosX, WORD wPosY );
 
-	//! ±ÍÈ¯ ¿äÃ».
+	//! ï¿½ï¿½È¯ ï¿½ï¿½Ã».
 	HRESULT ReqReCall(WORD wPosX, WORD wPosY);
 
-	//! ¼ÒÈ¯¼­ »ç¿ë ¿äÃ».
+	//! ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».
 	HRESULT ReqTeleport(WORD wPosX, WORD wPosY);
 
-	//! ¼±¹°»óÀÚ ¿­±â.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqBoxOpen(WORD wPosX, WORD wPosY);
 
-	//! ·£´ý¾ÆÀÌÅÆ ¹Ú½º ¿­±â.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqRandumBoxOpen(WORD wPosX, WORD wPosY);
 
-	//! ·£´ý¾ÆÀÌÅÆ ¹Ú½º ¿­±â.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqDisJunction(WORD wPosX, WORD wPosY);
 
-	//! Æê ·£´ý ½ºÅ² ¾ÆÀÌÅÛ ¿­±â.
+	//! ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqPetSkinPackOpen(WORD wPosX, WORD wPosY);
 
-	//! ±â°£ ¿¬ÀåÇÏ±â;
+	//! ï¿½â°£ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½;
 	HRESULT ReqPeriodExtend(WORD wPosX, WORD wPosY);
 
-	//! ¿¬¸¶ÇÏ±â.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½.
 	HRESULT ReqGrinding(WORD wPosX, WORD wPosY);
 
-	//! ÀÏ½Ã°­È­
+	//! ï¿½Ï½Ã°ï¿½È­
 	HRESULT ReqTLGrinding(WORD wPosX, WORD wPosY);
 	void    ReqTLGrinding();
 
-	//! ÄÚ½ºÅù º¹Àå°ú ÀÏ¹Ý º¹Àå°ú °áÇÕ.
+	//! ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqDisguise(WORD wPosX, WORD wPosY);
 
-	//! ÄÚ½ºÅù º¹Àå°ú ÀÏ¹Ý º¹Àå°ú ºÐ¸®.
+	//! ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½.
 	HRESULT ReqCleanser(WORD wPosX, WORD wPosY);
 
-    //! ¾ÆÀÌÅÛÀ» ¹Ú½ºÆ÷ÀåÁö·Î ¾º¿ò.
+    //! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     HRESULT ReqBoxWrapping(WORD wPosX, WORD wPosY);
 
-    //! Æ÷ÀåµÈ ¹Ú½º¸¦ Ç¯;
+    //! ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ Ç¯;
     HRESULT ReqBoxUnwrapping(WORD wPosX, WORD wPosY);
 
-	//! ÄÉ¸¯ÅÍ Ä«µå »ç¿ë.
+	//! ï¿½É¸ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½.
 	HRESULT ReqCharCard(WORD wPosX, WORD wPosY);
 
-	//! Ã¢°í Ä«µå »ç¿ë.
+	//! Ã¢ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½.
 	HRESULT ReqStorageCard( WORD wPosX, WORD wPosY, WORD wSTORAGE );
 
-	//! Ã¢°í Ä«µå »ç¿ë.
+	//! Ã¢ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½.
 	HRESULT ReqInvenLineCard(WORD wPosX, WORD wPosY);
 
-	//! Ã¢°í ¿¬°á Ä«µå »ç¿ë ¿äÃ»
+	//! Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 	HRESULT ReqStorageOpenCard(WORD wPosX, WORD wPosY);
 
-	//! ÀÎº¥Åä¸®¿¡¼­ Ã¢°í ¿ÀÇÂ ¿äÃ»
+	//! ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 	bool ReqStorageOpenFromInven();
 
-	//! Àá±Ý »óÀÚ ¿ÀÇÂ ¿äÃ»;
+	//! ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»;
 	HRESULT ReqLockBoxUnlock(WORD wPosX, WORD wPosY);
-	//! ·£´ý¾ÆÀÌÅÆ ¹Ú½º ¿­±â;
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	HRESULT ReqLockBoxOpen(WORD wPosX, WORD wPosY);
 
-	//! Ã¢°í ¿¬°á Ä«µå »ç¿ë ¿Ï·á
+	//! Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½
 	HRESULT ReqStorageCloseCard();
 
     HRESULT ReqPMarketSearchOpen(WORD wPosX, WORD wPosY);
     HRESULT ReqPMarketSearchClose();
 
-	//! ÇÁ¸®¹Ì¾ö¼Â »ç¿ë.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
 	HRESULT ReqPremiumSet(WORD wPosX, WORD wPosY);
 	
-	//! ½ºÅ³¹× ½ºÅÝ ¸®¼Â.
+	//! ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ResetSkillStats(WORD wPosX, WORD wPosY);
 	HRESULT ReqResetSkillStats( WORD* pStats, const WORD wMaxAmount, const EMITEM_TYPE emItemType );	
 	//HRESULT RequestResetSkillStats( LuaTable tbStats, const WORD wMaxAmount, const EMITEM_TYPE emItemType );
 	HRESULT RequestOpenResetSkillStats( const WORD wPosX, const WORD wPosY );
 	HRESULT RequestResetSkillStatsBySkillUI();
 
-	//! NPC ´ëÈ­Ã¢ ¿­±â;
+	//! NPC ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ï¿½;
 	HRESULT ReqDialogueWindowOpen(const SNATIVEID& sNPCID, const DWORD dwGaeaID, const EMCROW emCrow = CROW_NPC );
 
-	// Note : ¿ìÆíÇÔ ¿¬°á Ä«µå ¹× ¿ìÃ¼Åë ¿¬°á
+	// Note : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HRESULT ReqPostBoxOpenCard(WORD wPosX, WORD wPosY);
 	HRESULT ReqPostBoxOpen	  ( const SNATIVEID& sTargetID );
 	HRESULT	ReqPostBoxClose	  ();
 
-	// ¿ìÆíÇÔ º¸³»±â¿ìÆí ¾ÆÀÌÅÛ;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
 	HRESULT	ReqPostBoxSendPageAttachItem();
 
-	//! Çì¾î½ºÅ¸ÀÏ º¯°æ.
+	//! ï¿½ï¿½î½ºÅ¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqInvenHairChange(WORD wPosX, WORD wPosY);
 
 	HRESULT ReqInvenHairStyleChange( WORD wHairStyle );
@@ -1112,155 +1116,155 @@ public:
 	HRESULT ReqInvenHairColorChange( WORD wHairColor );
 	HRESULT InvenHairColorChange(WORD wPosX, WORD wPosY);
 
-	//! ÄÚ½ºÆ¬ »ö±ò º¯°æ. by luxes.
+	//! ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. by luxes.
 	HRESULT ReqInvenCostumColorChange( DWORD dwMainColor, DWORD dwSubColor );
-	HRESULT InvenCostumColorChange( EMSLOT emSlot, bool bRestrict = true ); // bRestrict ±â´É Á¦ÇÑ ¿©ºÎ. default´Â Á¦ÇÑµÊ.
+	HRESULT InvenCostumColorChange( EMSLOT emSlot, bool bRestrict = true ); // bRestrict ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. defaultï¿½ï¿½ ï¿½ï¿½ï¿½Ñµï¿½.
 
-	//Å»°Í »ö»ó º¯°æ
+	//Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HRESULT ReqInvenVehicleColorChange( DWORD dwMainColor[], DWORD dwSubColor[] );
 	HRESULT InvenVehicleColorChange(WORD wPosX, WORD wPosY);
 
-	//¹ÙÀÌÅ© ºÎ½ºÅÍ Ãß°¡
+	//ï¿½ï¿½ï¿½ï¿½Å© ï¿½Î½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	HRESULT ReqInvenBikeBoost(WORD wPosX, WORD wPosY);	
 
-	//! ¾ó±¼½ºÅ¸ÀÏ º¯°æ.
+	//! ï¿½ó±¼½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqInvenFaceChange(WORD wPosX, WORD wPosY);
 
 	HRESULT ReqInvenFaceStyleChange( WORD wHairStyle );
 	HRESULT InvenFaceStyleChange(WORD wPosX, WORD wPosY);
 
-	//! ÅÃ½ÃÄ«µå »ç¿ë
+	//! ï¿½Ã½ï¿½Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½
 	HRESULT InvenUseTaxiCard(WORD wPosX, WORD wPosY);
 
-	//! NPC ¼ÒÈ¯
+	//! NPC ï¿½ï¿½È¯
 	HRESULT InvenUseNpcRecall(WORD wPosX, WORD wPosY);
 
-	// Note : ¼ºº° º¯°æ
+	// Note : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HRESULT InvenGenderChange(WORD wPosX, WORD wPosY);
 	HRESULT	ReqInvenGenderChange( WORD wFace, WORD wHair );
 
 	HRESULT	ReqInvenSchoolChange( WORD wPosX, WORD wPosY );
 	HRESULT	ReqInvenSchoolChange( WORD wSchool );
 
-	// Note : ÀÌ¸§ º¯°æ.
+	// Note : ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqInvenRename( const char* szCharName );
 
 	HRESULT InvenRename(WORD wPosX, WORD wPosY);
 
-	//	Memo : °³Á¶ ±â´É
+	//	Memo : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	HRESULT ReqRemodelOpenCard(WORD wPosX, WORD wPosY);
 
-	//	Memo : ÈÞÁöÅë ±â´É
+	//	Memo : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	HRESULT ReqGabargeOpenCard(WORD wPosX, WORD wPosY);
 
-	//! º£Æ®³² ¾ÆÀÌÅÛ, °æÇèÄ¡ È¹µæ Ä«µå »ç¿ë
+	//! ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ä¡ È¹ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½
 	HRESULT ReqInvenVietnamGet( WORD wPosX, WORD wPosY, bool bGetExp );
 
-	// Note : µµ½Ã¶ô(À½½Ä¹öÇÁ) »ç¿ë
+	// Note : ï¿½ï¿½ï¿½Ã¶ï¿½(ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½
 	HRESULT ReqInvenLunchBox(WORD wPosX, WORD wPosY);
 
-	// Note : ÁÖ»çÀ§ °áÁ¤ ¹øÈ£ ¿äÃ»;
+	// Note : ï¿½Ö»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½Ã»;
 	HRESULT ReqDiceNumber(const DWORD _nDice);
 
-	//! ½ºÅ×ÀÌÁö ÆÐ½º±Ç
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½ï¿½ï¿½
 	HRESULT ReqStagePass(WORD wPosX, WORD wPosY);
 
-	//! ÀÎ´ø ÀÔÀåÈ½¼ö ÃæÀü±Ç
+	//! ï¿½Î´ï¿½ ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	HRESULT ReqEnterNumCharge(WORD wPosX, WORD wPosY);
 
-    //! ÆÇ¸Å µî·Ï È®Àå Ä«µå
+    //! ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ È®ï¿½ï¿½ Ä«ï¿½ï¿½
     HRESULT ReqConsignmentSlotExpiration(WORD wPosX, WORD wPosY);
 
-	//! ±¹°¡ º¯°æ ¾ÆÀÌÅÛ »ç¿ë;
+	//! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½;
 	HRESULT ReqInvenChangeCountry ( WORD wPosX, WORD wPosY );
 
 	HRESULT	ReqJumpingLevelUp( int nExp );
 	HRESULT	ReqJumpingLevelUp( WORD wPosX, WORD wPosY );
 
-	// °æÇèÄ¡ ¾ÐÃà / Ä¸½¶
+	// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ / Ä¸ï¿½ï¿½
 	HRESULT	ReqInvenExpCompressor( WORD wPosX, WORD wPosY );
 	HRESULT	ReqInvenExpCapsule( WORD wPosX, WORD wPosY );
 
-	// ¾ÆÀÌÅÛ ½ºÅ³ º¯°æ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
 	HRESULT ReqInvenChangeItemSkill ( WORD _wPosX, WORD _wPosY );
 
-	// ¾ÆÀÌÅÛ ±âº» ´É·ÂÄ¡ º¯°æ;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½;
 	HRESULT ReqInvenChangeBasicStats ( WORD _wPosX, WORD _wPosY );
 
-	// ¾ÆÀÌÅÛ °¡»ê ´É·ÂÄ¡ º¯°æ;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½;
 	HRESULT ReqInvenChangeAddStats ( WORD _wPosX, WORD _wPosY );
 
-	// Ä³¸¯ÅÍ ½½·Ô ¶ô ÇØÁ¦;
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	HRESULT ReqInvenUnlockCharacterSlot ( WORD _wPosX, WORD _wPosY );
 
 	// Custom Message ( Instance System );
 	void SendCustomMessage ( const DWORD _dwDestType, const DWORD _dwInstanceDungeonID, const DWORD _dwParam1, const DWORD _dwParam2, const DWORD _dwParam3, const DWORD _dwParam4 );
 
 public:
-	//! °Å·¡ÇÒ ±Ý¾× ³Ö±â.
+	//! ï¿½Å·ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½ ï¿½Ö±ï¿½.
 	//HRESULT ReqTradeMoney( LONGLONG lnMoney );
 
-	//! °Å·¡ÇÒ ¾ÆÀÌÅÛ ³Ö±â/Á¦°Å/±³È¯.
+	//! ï¿½Å·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½/ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½È¯.
 	HRESULT ReqTradeBoxTo(WORD wPosX, WORD wPosY);
 
-	// Note : °Å·¡ Àá±Ý.
+	// Note : ï¿½Å·ï¿½ ï¿½ï¿½ï¿½.
 	HRESULT ReqTradeLock(); // by luxes.
 
-	//! °Å·¡ ¼ö¶ô.
+	//! ï¿½Å·ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqTradeAgree();
 
-	//! °Å·¡ Ãë¼Ò.
+	//! ï¿½Å·ï¿½ ï¿½ï¿½ï¿½.
 	HRESULT ReqTradeCancel();
 
-	//! ´ë·Ã ¿äÃ».
+	//! ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».
 	HRESULT ReqConflict( DWORD dwID, const SCONFT_OPTION &sOption );
 
 public:
-	//! Ã¢°í Á¤º¸¸¦ ¼­¹ö¿¡ ¿äÃ».
+	//! Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».
 	HRESULT ReqGetStorage( DWORD dwChannel, DWORD dwNpcGlobID );
 	bool ReqGetStorageForWidget( DWORD dwChannel );
 
-	//! Æ¯Á¤ Ã¢°í ¾ÆÀÌÅÛ Á¤º¸¸¦ ¼­¹ö¿¡ ¿äÃ».
+	//! Æ¯ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».
 	HRESULT ReqGetStorageSpecificItem(DWORD itemType);
 	
-	//! Ã¢°í ¾ÆÀÌÅÛ µé¶§, ³õÀ»¶§, ±³È¯ÇÒ¶§, ÇÕÄ¥¶§.
+	//! Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½é¶§, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½È¯ï¿½Ò¶ï¿½, ï¿½ï¿½Ä¥ï¿½ï¿½.
 	HRESULT ReqStorageTo( SNATIVEID sNPCID, DWORD dwNPCGlobalID, DWORD dwChannel, WORD wPosX, WORD wPosY );
 
-	//! ÀÎº¥Åä¸® °ãÄ§ ¾ÆÀÌÅÛ ºÐ¸®.
+	//! ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½Ä§ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½.
 	HRESULT ReqStorageSplit( SNATIVEID sNPCID, DWORD dwNPCGlobalID, DWORD dwChannel, WORD wPosX, WORD wPosY, WORD wSplitNum );
 
-	//! Ã¢°í ¾ÆÀÌÅÛ »ç¿ëÇÒ¶§( ¸¶½Ã±â, ½ºÅ³¹è¿ì±â µî ).
+	//! Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½( ï¿½ï¿½ï¿½Ã±ï¿½, ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ).
 	HRESULT ReqStorageDrug( SNATIVEID sNPCID, DWORD dwNPCGlobalID, DWORD dwChannel, WORD wPosX, WORD wPosY );
 
-	//! Ã¢°í µ· ³Ö±â.
+	//! Ã¢ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö±ï¿½.
 	HRESULT ReqStorageSaveMoney( SNATIVEID sNPCID, DWORD dwNPCGlobalID, LONGLONG lnMoney );
 	void ReqStorageSaveMoneyForWidget( LONGLONG lnMoney );
 
-	//! Ã¢°í µ· »©³»±â.
+	//! Ã¢ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqStorageDrawMoney( SNATIVEID sNPCID, DWORD dwNPCGlobalID, LONGLONG lnMoney );
 	void ReqStorageDrawMoneyForWidget( LONGLONG lnMoney );
 
-	//! »óÀÎ Npc¿¡¼­ ¹°Ç°À» ±¸ÀÔÇÏ°Å³ª ÆÇ¸Å½Ã.
+	//! ï¿½ï¿½ï¿½ï¿½ Npcï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ ï¿½Ç¸Å½ï¿½.
 	HRESULT ReqNpcTo( SNATIVEID sNPCID, DWORD dwNPCGlobalID, DWORD dwChannel, WORD wPosX, WORD wPosY, WORD wBuyNum=1, EMCROW emCrow = CROW_NPC );
 
-    //! »óÀÎ Npc¿¡¼­ ¹°Ç°À» ÆÇ¸Å½Ã.
+    //! ï¿½ï¿½ï¿½ï¿½ Npcï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ç¸Å½ï¿½.
     HRESULT ReqNpcSaleTo( SNATIVEID sNPCID, DWORD dwNPCGlobalID, WORD wPosX, WORD wPosY, EMCROW emCrow = CROW_NPC );
 
-    //! »óÀÎ Npc¿¡¼­ ¹°Ç°À» ¿ìÅ¬¸¯À¸·Î ¹Ù·Î ÆÇ¸Å½Ã.
+    //! ï¿½ï¿½ï¿½ï¿½ Npcï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½Ç¸Å½ï¿½.
     HRESULT ReqNpcDirectSaleTo( SNATIVEID sNPCID, DWORD dwNPCGlobalID, WORD wPosX, WORD wPosY, EMCROW emCrow = CROW_NPC );
 
-	//! ±¸ÀÔÇÑ ¹°Ç° ²¨³»¿À±â.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqChargedItemTo(WORD wPosX, WORD wPosY);
 
-	//! ±¸ÀÔÇÑ ÀÌÀÌÅÛ Á¤º¸ °¡Á®¿À±â
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	HRESULT ReqItemBankInfo(bool bFirstJoin);
 
 	HRESULT ReqRankingsInfo ();
 
-    //! NPC Àç¸ÅÀÔ ui¿¡¼­ ¼Ò¸ðÇ° ¾ÆÀÌÅÛ Ã¼Å©.
+    //! NPC ï¿½ï¿½ï¿½ï¿½ï¿½ uiï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©.
     HRESULT ReqCheckRebuySupplies( bool bCheck );
 
-	//! »óÀÎ Npc¿¡¼­ ±³È¯ ¹°°Ç ±¸¸Å
+	//! ï¿½ï¿½ï¿½ï¿½ Npcï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HRESULT ReqExChangeNpcTo( const GLMSG::SNETPC_REQ_EXCHANGE_BUY_FROM_NPC* pData );
 
 public: 
@@ -1278,25 +1282,25 @@ public:
 
 
 
-	//! ÇÊµå ¾ÆÀÌÅÛ(µ·) ÁÖÀ»¶§.
+	//! ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqFieldTo( const STARGETID &sTargetID, bool bPet = false );
 
-	//! ÀÎº¥Åä¸® ¾ÆÀÌÅÛ µé¶§, ³õÀ»¶§, ±³È¯ÇÒ¶§, ÇÕÄ¥¶§.
+	//! ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½é¶§, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½È¯ï¿½Ò¶ï¿½, ï¿½ï¿½Ä¥ï¿½ï¿½.
 	HRESULT ReqInvenTo(WORD wPosX, WORD wPosY);
-	//! º£Æ®³² ÀÎº¥Åä¸® ¾ÆÀÌÅÛ µé¶§, ³õÀ»¶§, ±³È¯ÇÒ¶§, ÇÕÄ¥¶§.
+	//! ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½é¶§, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½È¯ï¿½Ò¶ï¿½, ï¿½ï¿½Ä¥ï¿½ï¿½.
 	HRESULT ReqVNInvenTo(WORD wPosX, WORD wPosY);
-	//! º£Æ®³² ÀÎº¥Åä¸®ÀÇ ¾ÆÀÌÅÛ ÀüÃ¼ »èÁ¦
+	//! ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 	HRESULT ReqVNInveReset();
-	//! º£Æ®³² ÀÎº¥Åä¸®¿¡¼­ ¿À¸¥ÂÊ ¹öÆ°À¸·Î ¾ÆÀÌÅÛÀ» ¿Å±æ °æ¿ì
+	//! ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å±ï¿½ ï¿½ï¿½ï¿½
 	HRESULT ReqVietemInvenTo(WORD wPosX, WORD wPosY);
 
-	//! ÀÎº¥Åä¸® °ãÄ§ ¾ÆÀÌÅÛ ºÐ¸®.
+	//! ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½Ä§ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½.
 	HRESULT ReqInvenSplit( WORD wPosX, WORD wPosY, WORD wSplitNum );
 
-	//! ÀÎº¥Åä¸® ¾ÆÀÌÅÛ »ç¿ëÇÒ¶§( ¸¶½Ã±â, ½ºÅ³¹è¿ì±â µî ).
+	//! ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½( ï¿½ï¿½ï¿½Ã±ï¿½, ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ).
 	ESlotHold ReqInvenDrug(WORD wPosX, WORD wPosY);
 
-    //! ÀÎº¥Åä¸® ¾ÆÀÌÅÛ Á¾·ù È®ÀÎ
+    //! ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     EMITEM_TYPE GetInvenItemType( WORD wPosX, WORD wPosY );
 
     bool ReqInvenDrugDrug( EMITEM_DRUG DrugType );
@@ -1306,94 +1310,94 @@ public:
     void ReqInvenDrugLunchBox( WORD wPosX, WORD wPosY );
     ESlotHold ReqInvenDrugHoldItem( const SITEM* pHold, const SITEM* pItem, WORD wPosX, WORD wPosY );
     void ReqInvenDrugHoldPetRevive( const SITEM* pItem, WORD wPosX, WORD wPosY );
-    //! ÀÎº¥Åä¸® ¾ÆÀÌÅÛ Á¤·Ä.
+    //! ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     HRESULT ReqInvenItemSort();
     HRESULT MsgReqInvenItemSort(NET_MSG_GENERIC* nmg);
 	HRESULT MsgReqInvenItemSortStart(NET_MSG_GENERIC* nmg);
 	HRESULT MsgReqInvenItemSortData(NET_MSG_GENERIC* nmg);
 	HRESULT MsgReqInvenItemSortEnd(NET_MSG_GENERIC* nmg);
 
-	// ¾ÆÀÌÅÛ ³»±¸µµ/ºÎ½ºÆ® , ¼ö¸®;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½Î½ï¿½Æ® , ï¿½ï¿½ï¿½ï¿½;
 	virtual void DurabilityDropHit( unsigned int nDamage, BOOL bPvp/* = FALSE  */);
 	virtual void DurabilityDropUseSkill();
 	virtual void DurabilityDropDeath( BOOL bPvp = FALSE );
 	virtual void ItemRepairing( EMSLOT _slot );
 	virtual void Durabilitiy_INIT_DATA( EMSLOT slot ); 
 	
-	// UI Àç·Îµå½Ã Á¦´ë·Î º¸ÀÌ°ÔÇÏ±âÀ§ÇÔ;
+	// UI ï¿½ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½;
 	//LuaTable GetWeaponBoostInitData(void);
 	void SfSetWeaponBoostInfo(void);
 private:
 	bool GetWeaponDurabilityValue(float& fDurability, float& fMaxDurability);
 
 public:
-	//! ¿¢¼Ç Äü½½·Ô¿¡ ÀÖ´Â °ÍÀ» ¾²±â.( ¾àÇ°ÀÏ °æ¿ì ¸¶½Ã±â ).
+	//! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.( ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã±ï¿½ ).
 	void ReqActionQ(WORD wSLOT);
 
     void ReqActionQ_SlotDrug( SNATIVEID NativeId );
-	//! ½ºÅ³ ·¾¾÷ ¿äÃ».
+	//! ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».
 	HRESULT ReqSkillUp(const SNATIVEID& skill_id);
     HRESULT ReqRnSkillUp( std::vector<SNATIVEID>& vecSkillID );
 
-	//! »ç¿ëÇÒ ½ºÅ³ ¼³Á¤.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqSkillRunSet( const WORD wSLOT );
 	HRESULT ReqSkillRunReSet();
 
-	//! ¾ÆÀÌÅÛ ½½·Ô¿¡ µî·Ï/Á¦°Å.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqItemQuickSet( const WORD wSLOT );
 	HRESULT ReqItemQuickReSet( const WORD wSLOT );
 
-	//! ½ºÅ³ ½½·Ô¿¡ µî·Ï/Á¦°Å.
+	//! ï¿½ï¿½Å³ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqSkillQuickSet( const SNATIVEID& skill_id, const WORD wSLOT );
 	HRESULT ReqSkillQuickReSet( const WORD wSLOT );
 
-	//! Âø¿ë ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛ »ç¿ëÇÒ¶§. by luxes.
+	//! ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½. by luxes.
 	HRESULT ReqSlotConsume( EMSLOT emSlot );
 
-	//! ¾ÆÀÌÅÛÀ» Âø¿ëÇÏ°Å³ª µé¾î¿Ã¸².
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ ï¿½ï¿½ï¿½Ã¸ï¿½.
 	HRESULT ReqSlotTo( EMSLOT emSlot );
 
-	//! ±Ø°­ºÎ ¹«±â¸¦ ¸ÞÀÎ°ú ¼­ºê ±³Ã¼.
+	//! ï¿½Ø°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¸¦ ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼.
 	HRESULT ReqSlotChange();
 
-	//! ¾ÆÀÌÅÛÀ» ±¸ÀÔÇÏ°Å³ª/ÆÈ¾Æ¹ö¸².
-	//! ¾ÆÀÌÅÛ ¹Ù´Ú¿¡ ¹ö¸².
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½/ï¿½È¾Æ¹ï¿½ï¿½ï¿½.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqHoldToField( const D3DXVECTOR3 &vPos );
 	void ReqHoldToFieldForWidget( const char* szSlotID, int nHoldItemPlace, 
 		WORD wSlotPosX, WORD wSlotPosY, float fPosX, float fPosY, float fPosZ );
 
-	//! ¾ÆÀÌÅÛ ¹Ù´Ú¿¡ ¹ö¸± ¼ö ÀÖ´ÂÁö Ã¼Å©. by luxes.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ Ã¼Å©. by luxes.
 	HRESULT CheckHoldToField( const D3DXVECTOR3 &vPos );
 
-	//! ÆøÁ×À» ¹Ù´Ú¿¡ »ç¿ë.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ú¿ï¿½ ï¿½ï¿½ï¿½.
 	HRESULT ReqHoldToFieldFireCracker( const D3DXVECTOR3 &vPos );
 
-	//! µ· ¹Ù´Ú¿¡ ¹ö¸².
+	//! ï¿½ï¿½ ï¿½Ù´Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqMoneyToField( LONGLONG lnMoney );
 
-	//! ºÎÈ° À§Ä¡ ÁöÁ¤ ¿äÃ».
+	//! ï¿½ï¿½È° ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».
 	HRESULT ReqReGenGate( DWORD dwNpcGlobID );
 
-	//! ¼­¹ö¿¡ °æÇèÄ¡ º¹±¸¸¦ ¿äÃ»ÇÑ´Ù.(NPC)
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ñ´ï¿½.(NPC)
 	HRESULT ReqRecoveryExpNpc( DWORD dwNpcGlobID );
 	
-	//! º¹±¸ÇÒ °æÇèÄ¡¸¦ ¹¯´Â´Ù.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 	HRESULT ReqGetReExpNpc( DWORD dwNpcGlobID );	
 
-	//! Ä¡·á ¿äÃ».
+	//! Ä¡ï¿½ï¿½ ï¿½ï¿½Ã».
 	HRESULT ReqCure( DWORD dwNpcGlobID, DWORD dwTalkID );
 	HRESULT MsgCureFB(NET_MSG_GENERIC* nmg);
 
-	//! ÄÉ¸¯ÅÍ Á¤º¸ ¸®¼Â.( stats, skill )
+	//! ï¿½É¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.( stats, skill )
 	HRESULT ReqCharReset( DWORD dwNpcGlobID );
 
-	//! NPC¿Í itemÀ» ±³È¯ A:npc¿¡°Ô ÁÖ´Â°Í, b:npc¿¡°Ô¼­ ¹Þ´Â°Í.
+	//! NPCï¿½ï¿½ itemï¿½ï¿½ ï¿½ï¿½È¯ A:npcï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½, b:npcï¿½ï¿½ï¿½Ô¼ï¿½ ï¿½Þ´Â°ï¿½.
 	HRESULT ReqItemTrade(DWORD dwNpcGlobID, DWORD dwTalkID, std::tr1::shared_ptr<SNpcTalk> spNpcTalk);
 
-	//! ¼ÒÈ¯¼ö °í¿ë ¿äÃ»;
+	//! ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»;
 	HRESULT ReqHireSummon ( DWORD dwNpcGlobID, DWORD dwTalkID, std::tr1::shared_ptr<SNpcTalk> spNpcTalk );
 
-	//! Ä£±¸¿¡°Ô °¡±â.
+	//! Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT	Req2Friend( const char *szNAME );
 
 	HRESULT ReqNpcTalkBasic( DWORD dwNpcGlobID, DWORD nAction, DWORD dwTalkID );
@@ -1401,66 +1405,66 @@ public:
 
 public:
 
-	//! »õ·Î¿î Äù½ºÆ® ½ÃÀÛ.
+	//! ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqQuestStart( DWORD dwNpcGlobID, DWORD dwTalkID, DWORD dwQUESTID );
 
-	//! Äù½ºÆ® ÁøÇà.( npc¿Í ´ëÈ­ )
+	//! ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½.( npcï¿½ï¿½ ï¿½ï¿½È­ )
 	HRESULT ReqQuestStepNpcTalk( DWORD dwNpcGlobID, DWORD dwTalkID, DWORD dwQUESTID, DWORD dwQUESTSTEP );
 
-	//! Äù½ºÆ® Æ÷±â.
+	//! ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqQuestGiveUp( DWORD dwQUESTID );
 
-	//! Äù½ºÆ® ÀÐ¾îº¸±â ¿äÃ»( ÀÐ¾úÀ½À» ÀÀ´ä. )
+	//! ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ð¾îº¸ï¿½ï¿½ ï¿½ï¿½Ã»( ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. )
 	HRESULT ReqQuestREADINGReset( DWORD dwQUESTID );
 
-	//! Äù½ºÆ® ¿Ï·á¿äÃ».
+	//! ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ï·ï¿½ï¿½Ã».
 	HRESULT ReqQuestComplete( DWORD dwQUESTID );
 
-	//! ¹ö½º ½ÂÂ÷ ¿äÃ».
+	//! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».
 	HRESULT ReqBusStation( DWORD dwNpcGlobID, DWORD dwSTATION, EMCROW eCrow = CROW_NPC );
 
-	//! ÅÃ½Ã ½ÂÂ÷ ¿äÃ».
+	//! ï¿½Ã½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».
 	HRESULT ReqTaxiStation( WORD wPosX, WORD wPosY, int nSelectMap, int nSelectStop );
 	
-	//! È®¼º±â »ç¿ë ¿äÃ».
+	//! È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».
 	HRESULT ReqLoudSpeaker( const char* szChat, const VEC_LINK_DATA_BASIC& vecLinkDataBasic );
 
 public:
-	//! °³ÀÎ»óÁ¡ÀÇ Å¸ÀÌÆ² ¼³Á¤.
+	//! ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqPMarketTitle( const char* szTitle );
 
-	//! °³ÀÎ»óÁ¡¿¡ ¾ÆÀÌÅÛÀ» µî·Ï.
+	//! ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
 	HRESULT ReqPMarketRegItem( WORD wPosX, WORD wPosY, LONGLONG llMoney, DWORD dwNum );
 
-	//! °³ÀÎ»óÁ¡¿¡ µî·ÏµÈ ¾ÆÀÌÅÛÀ» Á¦°Å.
+	//! ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqPMarketDisItem(WORD wPosX, WORD wPosY);
 
-	//! °³ÀÎ»óÁ¡ ¿­±â.
+	//! ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqPMarketOpen( BOOL bOnlyUI );
 
-	//! °³ÀÎ»óÁ¡ ´Ý±â.
+	//! ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½.
 	HRESULT ReqPMarketClose();
 
-	//! ´Ù¸¥ »ç¶÷ÀÇ °³ÀÎ»óÁ¡ÀÇ Á¤º¸ ¼ö½Å.
+	//! ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqPMarketInfo( DWORD dwGaeaID );
 	HRESULT ReqPMarketInfoRelease( DWORD dwGaeaID );
 
-	//! ´Ù¸¥ »ç¶÷ÀÇ °³ÀÎ »óÁ¡¿¡¼­ ¹°Ç°À» ±¸ÀÔ.
+	//! ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqPMarketBuy( DWORD dwGaeaID, WORD wPosX, WORD wPosY, DWORD dwNum );
 
 public:    
-	//! Å¬·´ »ý¼º.
+	//! Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqClubNew( DWORD dwNpcGlobID, const char* szClubName );
 	void ReqClubNewForWidget( const char* szClubName );
 	
-	//! ¼±µµÁö¿ª ¼ö¼ö·á ¼³Á¤.
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqGuidCommission( DWORD dwNpcGlobID, float fRATE );
 	void ReqGuidCommissionForWidgt( float fRate );
 
-	//! Ãâ¼® ¸®½ºÆ® ¿äÃ»
+	//! ï¿½â¼® ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ã»
 	HRESULT	ReqAttendList( bool bDay = false );
 
-	//! Ãâ¼® ¿äÃ»
+	//! ï¿½â¼® ï¿½ï¿½Ã»
 	HRESULT	ReqAttendance();
 
 	HRESULT ReqGathering( const STARGETID& sTargetID );
@@ -1469,240 +1473,247 @@ public:
 	HRESULT ReqCharacterLock ( EMCHARLOCK emReq, const TCHAR * szPassword, const TCHAR * szPIN );
 
 public:
-	//! Ä³¸¯ÅÍÀÇ ÀüÈ­¹øÈ£ ÀúÀå / ¾÷µ¥ÀÌÆ®
+	//! Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	HRESULT ReqSetPhoneNumber( const TCHAR * szPhoneNumber );
 	HRESULT ReqSendSMS( int nCharID, const TCHAR * szPhoneNumber, const TCHAR * szSmsMsg );
 
 public:
-	//! ÆÄÆ¼¿ø¿¡°Ô Qbox ¿É¼Ç »óÅÂ¸¦ º¸³½´Ù.
+	//! ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Qbox ï¿½É¼ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	bool    ReqQBoxEnableState( bool bQboxEnable );
 
 public :
-	//! ÄÚ½ºÆ¬ ´É·ÂÄ¡ ºÎ¿© °ü·Ã ÆÐÅ¶ 
+	//! ï¿½Ú½ï¿½Æ¬ ï¿½É·ï¿½Ä¡ ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ 
 	void	ReqCostumeStatCToS();
 	void    ReqCostumeStat( WORD wPosX, WORD wPosY );
 	void    ReqCostumeStatRelease( WORD wPosX, WORD wPosY );
 	void	ReqCostumeStatReleaseOK( WORD wPosX, WORD wPosY, WORD wHoldPosX, WORD wHoldPosY );
 
-	// Å¬·´ ÀÌ¸§ º¯°æ
+	// Å¬ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HRESULT InvenClubRename( WORD wPosX, WORD wPosY );
 	HRESULT ReqInvenClubRename( const char* szClubName );
 
 public:
-	// Ä³¸¯ÅÍ ½½·Ô °ü·Ã;
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	void	ReqLockCharSlot ( const WORD _wCharSlotNum );
 	void	ReqUnlockCharSlot ( const WORD _wCharSlotNum );
 	void	ReqChangeCharSlot ( const WORD _wCharSlotNum );
+
+public:
+	// PK Effect Cards
+	CClientPKCardManager* GetPKCardManager() const { return m_pPKCardManager; }
+	EMPK_EFFECT_CARD_TYPE GetActivePKCard() const;
+	BOOL UsePKEffectCard(EMPK_EFFECT_CARD_TYPE emType, DWORD dwDays = 0);
+	void UpdatePKCards();
 
 	const bool IsChangeCharSlot ( const WORD _wCharSlotNum );
 	// add stats cmd
 	void ReqStatsUpCmd( EMSTATS emStats, DWORD value );
 private :
-	int m_nTitleSelectIndex;					// ¼±ÅÃÇÑ Å¸ÀÌÆ² ÀÎµ¦½º
+	int m_nTitleSelectIndex;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Æ² ï¿½Îµï¿½ï¿½ï¿½
 
 	enum { SKILL_TAB_COUNT = 4 };
-	VEC_GLSKILL m_vecSkill[ SKILL_TAB_COUNT ];	// ½ºÅ³ ¸®½ºÆ®
+	VEC_GLSKILL m_vecSkill[ SKILL_TAB_COUNT ];	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Æ®
 
 public :
-	// ½ºÅ³ ¸®½ºÆ® »ý¼º
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	void GenerateSkillList();
 
 public :
-	// Å¸ÀÌÆ² Á¤º¸
+	// Å¸ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½
 	//LuaTable GetTitle();
-	// ¼±ÅÃÇÑ Å¸ÀÌÆ² ÀÎµ¦½º
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Æ² ï¿½Îµï¿½ï¿½ï¿½
 	int GetTitleSelectIndex() { return m_nTitleSelectIndex; }
-	// ¹°¸® °¡»êÄ¡
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 	int GetSumPowerAttribute( int nType );
-	// ÀúÇ×·Â
+	// ï¿½ï¿½ï¿½×·ï¿½
 	short GetResistFire() { return m_sSUMRESIST_SKILL.nFire; }
 	short GetResistIce() { return m_sSUMRESIST_SKILL.nIce; }
 	short GetResistElectric() { return m_sSUMRESIST_SKILL.nElectric; }
 	short GetResistPoison() { return m_sSUMRESIST_SKILL.nPoison; }
 	short GetResistSpirit() { return m_sSUMRESIST_SKILL.nSpirit; }
-	// ´É·ÂÄ¡ »ó½Â °ª
+	// ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ ï¿½ï¿½
 	//LuaTable GetChangeUpAbillity( WORD wPow, WORD wDex, WORD wSpi, WORD wStr, WORD wSta );
-	// ½ºÅÈ Æ÷ÀÎÆ® »ç¿ë
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
 	void ApplyStatPoint( WORD wPow, WORD wDex, WORD wSpi, WORD wStr, WORD wSta );
-	// Âø¿ëÁßÀÎ ¾ÆÀÌÅÛ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//LuaTable GetPutOnItem( EMSLOT emSlot );
 	//LuaTable GetPutOnItems();
-	// Âø¿ëÁßÀÎ ¾ÆÀÌÅÛ °³¼ö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	WORD GetPutOnItemCount( EMSLOT emSlot );
 
 	//const SITEMCUSTOM* GetPutOnItemCustom( SNATIVEID nativId );
-	// Âø¿ëÁßÀÎ ¾ÆÀÌÅÛ Å¸ÀÔ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
 	int GetPutOnItemType( EMSLOT emSlot );
-	// Âø¿ëÁßÀÎ ¹«±â ¼Ó¼º;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½;
 	int GetWeaponType(void);
 
-	// »èÁ¦ °¡´ÉÇÑ ¾ÆÀÌÅÛÀÎÁö Ã¼Å©
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	int CheckTrashItem();
-	// ÀÎº¥Åä¸® ¾ÆÀÌÅÛ »ç¿ë
+	// ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	ESlotHold UseInvenItem( WORD wPosX, WORD wPosY );
-	// ÀºÇà ¾ÆÀÌÅÛ Á¤º¸ ¿äÃ» ½Ãµµ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½Ãµï¿½
 	bool TryRequestBankItemInfo();
-	// ÃÖ±Ù »ç¿ë ½ºÅ³ ID
+	// ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ID
 	DWORD GetSkillRunSlotID() { return m_sRunSkill.dwID; }
-	// Äü½½·Ô µî·ÏµÈ ½ºÅ³
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½Å³
 	DWORD GetSkillQuick( WORD wIndex );
-	// Äü½½·Ô µî·ÏµÈ ¾ÆÀÌÅÛ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	DWORD GetItemQuick( WORD wIndex );
 
-	// Ã¤ÆÃ ¸Þ½ÃÁö
+	// Ã¤ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
 	//void SendChatMsg( DWORD dwType, const char* szName, const char* szMsg, LuaTable tbLinkData );
 
-	// ½ºÅ³ ÀÎµ¦½º ¹üÀ§
+	// ï¿½ï¿½Å³ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	void GetSkillIndexRange( int& nBegin, int& nEnd );
-	// ½ºÅ³ ¸®½ºÆ®
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Æ®
 	//LuaTable GetSkillList( int nPage );
-	// ¼Ò¸ðÇÑ ½ºÅ³ Æ÷ÀÎÆ®
+	// ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Æ®
 	//DWORD GetUsingSkillPoint( LuaTable tbSkillList );
-	// ½ºÅ³ ÅõÀÚ
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
 	//LuaTable GetSkillInvest( DWORD dwID, WORD wLevel );
-	//  ¹è¿ï ¼ö ÀÖ´Â ÃÖ´ë ½ºÅ³ ·¹º§
+	//  ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
 	//LuaTable GetLearnSkillMaxLevel(DWORD dwID, DWORD dwLevel);
 
 	//LuaTable GetLearnSkillMinLevel(DWORD dwID, DWORD dwLevel);
 
-	// ÇÊ¿ä ½ºÅ³ Æ÷ÀÎÆ®
+	// ï¿½Ê¿ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Æ®
 	DWORD GetNeedSkillPoint( DWORD dwID, WORD wLevel );
-	// ½ºÅ³ ·¹º§ ¿Ã¸®±â
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½
 	//void SkillLevelUp( LuaTable tbSkillUpData );
-	// ½ºÅ³ ¹è¿ò ¹ÝÈ¯ ±Ý¾×
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½Ý¾ï¿½
 	std::string GetLearnedSkillCost();
-	// ºó ½ºÅ³ Äü½½·Ô ÀÎµ¦½º °Ë»ö
+	// ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	WORD GetEmptySkillQuick();
-	// º¸À¯ÁßÀÎ Å»°Í ID µé
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½ ID ï¿½ï¿½
 	//LuaTable GetHaveVehicleAll();
-	// ¸Ê ID
+	// ï¿½ï¿½ ID
 	DWORD GetCurrentMapID();
-	// Ä³¸¯ÅÍ À§Ä¡
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 	//LuaTable GetPositionForLua();
-	// Ä³¸¯ÅÍ ¸Ê À§Ä¡
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡
 //	LuaTable GetMapPosition();
-	// ¹Ì´Ï¸Ê À§Ä¡ ¿ÀÇÁ¼Â
+	// ï¿½Ì´Ï¸ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//LuaTable GetMapPositionOffset();
-	// ÇØ´ç ¹Ì´Ï¸Ê À§Ä¡·Î ÀÌµ¿
+	// ï¿½Ø´ï¿½ ï¿½Ì´Ï¸ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½
 	bool MoveToMap( DWORD dwMapID, int nPosX, int nPosY, bool bVehicle, bool bGMMove );
 
 	void ReqBikePutOnWith();
-	// Å»°Í ÄÃ·¯ ¼³Á¤
+	// Å»ï¿½ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	void SetVehicleColor( LuaTable tbColorList );
-	// Å»°Í ÄÃ·¯
+	// Å»ï¿½ï¿½ ï¿½Ã·ï¿½
 //	LuaTable GetVehicleColor();
-	// Å»°Í ÄÃ·¯ ¼³Á¤ È®ÀÎ
+	// Å»ï¿½ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 //	void CommitVehicleColor( LuaTable tbColorList );
 
-	// ÄÚ½ºÆ¬ ÄÃ·¯ ¼³Á¤
+	// ï¿½Ú½ï¿½Æ¬ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	void SetCostumeColor( LuaTable tbColor );
-	// ÄÚ½ºÆ¬ ÄÃ·¯
+	// ï¿½Ú½ï¿½Æ¬ ï¿½Ã·ï¿½
 	//LuaTable GetCostumeColor();
-	// ÄÚ½ºÆ¬ ÄÃ·¯ ¼³Á¤ È®ÀÎ
+	// ï¿½Ú½ï¿½Æ¬ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 //	void CommitCostumeColor( LuaTable tbColor );
 
-	// Ä³¸¯ÅÍ ½ÃÀÛ À§Ä¡ ¸ÊID
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ID
 	DWORD GetStartMapID();
-	// ºÎÈ° Å¸ÀÔ °áÁ¤À» À§ÇØ Á¶°Ç È®ÀÎ
+	// ï¿½ï¿½È° Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 //	LuaTable GetResurrectionCondition();
-	// °æÇèÄ¡ È¸º¹ ºÎÈ°½Ã ¼Ò¸ðµÇ´Â °æÇèÄ¡, µ·
+	// ï¿½ï¿½ï¿½ï¿½Ä¡ È¸ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½ ï¿½Ò¸ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡, ï¿½ï¿½
 //	LuaTable GetRsurrectionExpRecovery();
-	// Ã¼Å© Æ÷ÀÎÆ® ºÎÈ° ¿äÃ»
+	// Ã¼Å© ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È° ï¿½ï¿½Ã»
 	void ResurrectCheckPoint();
-	// °æÇèÄ¡ È¸º¹ ºÎÈ° ¿äÃ»
+	// ï¿½ï¿½ï¿½ï¿½Ä¡ È¸ï¿½ï¿½ ï¿½ï¿½È° ï¿½ï¿½Ã»
 	void ResurrectExp();
-	// ±ÍÈ¥ÁÖ ºÎÈ° ¿äÃ»
+	// ï¿½ï¿½È¥ï¿½ï¿½ ï¿½ï¿½È° ï¿½ï¿½Ã»
 	void ResurrectCurPos();
-	// ½ºÅ³ ºÎÈ° ¿äÃ»
+	// ï¿½ï¿½Å³ ï¿½ï¿½È° ï¿½ï¿½Ã»
 	void ResurrectSkill();
-//Äù½ºÆ® Å×ÀÌºí °ªÀ» ¹ÝÈ¯ÇÒ ÇÔ¼ö ±¸Á¶¿¡ ÇÊ¿äÇÑ °ÍµéÀÌ »óÀ§´Ü´Â ¸ðµÎ ¾ø¾î¼­ ¿©±â¿¡ À§Ä¡ÇØµÒ(»ó¼ÓÀÌ³ª Äù½ºÆ® º¯°æ½Ã º¯°æÇÊ¿ä, Quest)
-//	LuaTable GetQuestListProc(); //¿µ¿ª ¹× ¿µ¿ª¾ÈÀÇ Äù½ºÆ® Á¦¸ñ Å×ÀÌºí ¹ÝÈ¯(ÁøÇàÁß)
-//	LuaTable GetQuestDetailListProc(std::string _AreaName); // ÀÎÀÚ·Î ¹ÞÀ½ ÀÌ¸§¿¡ ÇØ´çÇÏ´Â ¿µ¿ª¾ÈÀÇ Á¦¸ñµé ¹ÝÈ¯(ÁøÇàÁß)
-//	LuaTable GetQuestListEnd(); //¿µ¿ª ¹× ¿µ¿ª¾ÈÀÇ Äù½ºÆ® Á¦¸ñ Å×ÀÌºí ¹ÝÈ¯(¿Ï·áÇÑ)
-//	LuaTable GetQuestDetailListEnd(std::string _AreaName); // ÀÎÀÚ·Î ¹ÞÀ½ ÀÌ¸§¿¡ ÇØ´çÇÏ´Â ¿µ¿ª¾ÈÀÇ Á¦¸ñµé ¹ÝÈ¯(¿Ï·áÇÑ)
-//	LuaTable GettbQuestProc( DWORD dwQuestID); // Äù½ºÆ® ³»¿ë¿¡ ÇØ´çÇÏ´Â µ¥ÀÌÅÍµéÀ» ¹ÝÈ¯(ÁøÇàÁß)
-//	LuaTable GettbQuestEnd( DWORD dwQuestID);	// Äù½ºÆ® ³»¿ë¿¡ ÇØ´çÇÏ´Â µ¥ÀÌÅÍµéÀ» ¹ÝÈ¯(¿Ï·áÇÑ)
-//	LuaTable GettbQuestProcInfo( DWORD dwQuestID);	// Äù½ºÆ® ÁøÇà»çÇ×¿¡ ÇØ´çÇÏ´Â µ¥ÀÌÅÍµéÀ» ¹ÝÈ¯(ÁøÇàÁß)
+//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ü´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½Ä¡ï¿½Øµï¿½(ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½, Quest)
+//	LuaTable GetQuestListProc(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½È¯(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+//	LuaTable GetQuestDetailListProc(std::string _AreaName); // ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+//	LuaTable GetQuestListEnd(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½È¯(ï¿½Ï·ï¿½ï¿½ï¿½)
+//	LuaTable GetQuestDetailListEnd(std::string _AreaName); // ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯(ï¿½Ï·ï¿½ï¿½ï¿½)
+//	LuaTable GettbQuestProc( DWORD dwQuestID); // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ë¿¡ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½È¯(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+//	LuaTable GettbQuestEnd( DWORD dwQuestID);	// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ë¿¡ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½È¯(ï¿½Ï·ï¿½ï¿½ï¿½)
+//	LuaTable GettbQuestProcInfo( DWORD dwQuestID);	// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¿ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½È¯(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 
-	bool GetQuestComplete(DWORD _dwID, bool ProcOrEnd); //Äù½ºÆ® ¿Ï·á ¿©ºÎ ¹ÝÈ¯
-	DWORD GetQuestStep(DWORD _dwID); //ÁøÇà ´Ü°è ¹ÝÈ¯
-	bool GetQuestCompleteCheck(DWORD _dwID); // ÀÎº¥Åä¸®°¡ ²ËÂù°æ¿ì ¿Ï·á¹öÆ°À¸·Î È¹µæÇÏ´Âµ¥ ±×¶§ ¿Ï·áÇÞ³ª ¾ÈÇÞ³ª ¿©ºÎ
-	bool GetQuestGiveUp(DWORD _dwID); //Äù½ºÆ® Æ÷±â°¡´É ¿©ºÎ
+	bool GetQuestComplete(DWORD _dwID, bool ProcOrEnd); //ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
+	DWORD GetQuestStep(DWORD _dwID); //ï¿½ï¿½ï¿½ï¿½ ï¿½Ü°ï¿½ ï¿½ï¿½È¯
+	bool GetQuestCompleteCheck(DWORD _dwID); // ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ï¿½Ï´Âµï¿½ ï¿½×¶ï¿½ ï¿½Ï·ï¿½ï¿½Þ³ï¿½ ï¿½ï¿½ï¿½Þ³ï¿½ ï¿½ï¿½ï¿½ï¿½
+	bool GetQuestGiveUp(DWORD _dwID); //ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½â°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	void SetQuestHelpCheck(DWORD _dwID, bool _bCheck);
 
-	// ¶ôÄ¿ ³²Àº ½Ã°£
+	// ï¿½ï¿½Ä¿ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 //	LuaTable GetStorageTimeForWidget( DWORD dwChannel );
-	// ÇÁ¸®¹Ì¾ö ³²Àº ½Ã°£
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 //	LuaTable GetPremium();
 
-	// ÀÎº¥Åä¸® ¾ÆÀÌÅÛ ÀÓ½Ã Âø¿ë ´É·ÂÄ¡
+	// ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡
 //	LuaTable TempPutOnStatInvenItem( WORD wPosX, WORD wPosY, WORD wVirtualPow, WORD wVirtualDex, 
 //		WORD wVirtualSpi, WORD wVirtualStr, WORD wVirtualSta );
 
-	// ±¹°¡ ¼±ÅÃ ÃÊ±âÈ­ ¿äÃ»
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½Ã»
 	void ReqResetCountry( WORD wPosX, WORD wPosY );
 
-	// °æÇèÄ¡ Ä¸½¶ »ç¿ë ¿äÃ»;
+	// ï¿½ï¿½ï¿½ï¿½Ä¡ Ä¸ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»;
 	void ReqUseExpCapsuleItem ( WORD wInvenPositionX, WORD wInvenPositionY );
 
-	// °æÇèÄ¡ ¾ÐÃà »ç¿ë ¿äÃ»;
+	// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»;
 	void ReqUseExpCompressorItem ( WORD wInvenPositionX, WORD wInvenPositionY );
 
-	// Ä³¸¯ÅÍ ½½·Ô È®Àå ¾ÆÀÌÅÛ »ç¿ë ¿äÃ»;
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»;
 	void ReqUseUnlockCharacterSlotItem ( WORD wInvenPositionX, WORD wInvenPositionY );
 
-	// ÀÎº¥Åä¸® ¾ÆÀÌÅÛ ºÐÇØ °¡´ÉÇÑÁö È®ÀÎ
+	// ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	bool CheckInvenItemDecompose( WORD wPosX, WORD wPosY );
 
-	// ÀåÂøÁßÀÎ ¼Ò¸ðÇ°
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½Ç°
 //	LuaTable GetEquipConsume();
 
-	// ¼ö¸® °¡´ÉÇÑ ¾ÆÀÌÅÛ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //	LuaTable GetRepairableItem();
-	// ¾ÆÀÌÅÛ ¼ö¸® ¿äÃ»
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 //	void ReqItemRepair( LuaTable tbSlot );
-	// ¾ÆÀÌÅÛ ¼ö¸® ¿¬°áÄ«µå »ç¿ë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½
 	void ReqItemRepairCardUse( WORD wPosX, WORD wPosY );
 
-	// ÀÎº¥ ¾ÆÀÌÅÛ °³¼ö
+	// ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	DWORD GetInvenItemCount( WORD wMID, WORD wSID );
-	// ÀÎº¥ ¾ÆÀÌÅÛ Âø¿ë Å¸ÀÔ
+	// ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
 	WORD GetInvenItemSuitType( WORD wPosX, WORD wPosY );
-	// Âø¿ë °¡´É Ã¼Å©;
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©;
 	bool WearableCheck( WORD wPosX, WORD wPosY );
 
-	// ÀÎº¥ ¾ÆÀÌÅÛ TurnNum (¼ö·®.. ?) À» °¡Á®¿À±â
+	// ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ TurnNum (ï¿½ï¿½ï¿½ï¿½.. ?) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	DWORD GetSlotTurnNumCountItem(WORD wMID, WORD wSID);
 
-	// µµ½Ã¶ô ¹öÇÁ °¡´ÉÇÑ ¸ÊÀÎ°¡?
+	// ï¿½ï¿½ï¿½Ã¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½?
 	bool IsEnableLunchBox();
 
-	// ÄÚ½ºÆ¬ ¾ÆÀÌÅÛ »ç¿ë
+	// ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	void UseDisguiseInvenItem( WORD wPosX, WORD wPosY, WORD wHoldPosX, WORD wHoldPosY );
 	bool IsDisguiseInvenItem( WORD wPosX, WORD wPosY );
 
-	// °³Á¶°¡ °¡´ÉÇÑÁö È®ÀÎÇÑ´Ù;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½;
 	const bool IsRebuildItem ( const DWORD _dwNPCGlobalID = MAXDWORD ) const;
 
 public:
-	HRESULT 				ReqRebuildOpen( SNATIVEID sNPCID, DWORD dwNPCGlobalID ); // °³Á¶Ã¢ ¿­±â	// ITEMREBUILD_MARK
-	HRESULT 				ReqRebuildMoveItem(const bool bMsg = true);	// °³Á¶Ã¢°ú ¼Õ »çÀÌÀÇ °³Á¶ ´ë»ó ¾ÆÀÌÅÛ ÀÌµ¿ ¿äÃ»;
-	HRESULT 				ReqRebuildMoveStamp(void);			// ÀÎÀåÃ¢°ú ¼Õ »çÀÌÀÇ ÀÎÀå ¾ÆÀÌÅÛ ÀÌµ¿ ¿äÃ»;
-	HRESULT 				ReqRebuildInputMoney( LONGLONG i64InputMoney );	// °³Á¶Ã¢¿¡ ÀÔ·ÂÇÑ ±Ý¾× ¼­¹ö¿¡ Àü¼Û
+	HRESULT 				ReqRebuildOpen( SNATIVEID sNPCID, DWORD dwNPCGlobalID ); // ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½	// ITEMREBUILD_MARK
+	HRESULT 				ReqRebuildMoveItem(const bool bMsg = true);	// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½Ã»;
+	HRESULT 				ReqRebuildMoveStamp(void);			// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½Ã»;
+	HRESULT 				ReqRebuildInputMoney( LONGLONG i64InputMoney );	// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	HRESULT					ReqRebuild_SelectCache(void);
 	HRESULT 				ReqChangeRebuildType( DWORD dwNPCGlobalID, bool bKeepOrigin );
-	HRESULT					ReqRebuildTry( SNATIVEID sNPCID, DWORD dwNPCGlobalID );				// °³Á¶ ½Ãµµ;
-	HRESULT 				ReqRebuildResult( SNATIVEID sNPCID, DWORD dwNPCGlobalID );			// °³Á¶ ¿äÃ»;
-	HRESULT 				ReqRebuildCancel( SNATIVEID sNPCID, DWORD dwNPCGlobalID );			// °³Á¶ Ãë¼Ò;
-	HRESULT					ReqRebuildDirectResult( SNATIVEID sNPCID, DWORD dwNPCGlobalID );	// °³Á¶ ¹Ù·Î ¿äÃ»;
-	HRESULT 				ReqRebuildClose();								// °³Á¶Ã¢ ´Ý±â
+	HRESULT					ReqRebuildTry( SNATIVEID sNPCID, DWORD dwNPCGlobalID );				// ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½;
+	HRESULT 				ReqRebuildResult( SNATIVEID sNPCID, DWORD dwNPCGlobalID );			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»;
+	HRESULT 				ReqRebuildCancel( SNATIVEID sNPCID, DWORD dwNPCGlobalID );			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½;
+	HRESULT					ReqRebuildDirectResult( SNATIVEID sNPCID, DWORD dwNPCGlobalID );	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½Ã»;
+	HRESULT 				ReqRebuildClose();								// ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½Ý±ï¿½
 
 public:
-	HRESULT 				ReqGarbageOpen();								// ÈÞÁöÅë ¿­±â
-	HRESULT 				ReqGarbageMoveItem();							// ÈÞÁöÅë¿¡ ¾ÆÀÌÅÛ ÀÌµ¿ ¿äÃ»
-	HRESULT 				ReqGarbageResult();								// ¾ÆÀÌÅÛ ÆÄ¼â ¿äÃ»
-	HRESULT 				ReqGarbageClose();								// ÈÞÁöÅë ´Ý±â
+	HRESULT 				ReqGarbageOpen();								// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	HRESULT 				ReqGarbageMoveItem();							// ï¿½ï¿½ï¿½ï¿½ï¿½ë¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½Ã»
+	HRESULT 				ReqGarbageResult();								// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¼ï¿½ ï¿½ï¿½Ã»
+	HRESULT 				ReqGarbageClose();								// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½
 
     HRESULT 				ReqChangeTitle( DWORD dwIndex, bool bSync = false );
 
@@ -1736,37 +1747,37 @@ public:
 	HRESULT 				ReqPetRevive( DWORD dwPetID );
 
 public:
-    HRESULT                 ReqResurrect(const EMRESURRECTION_TYPE _resurrectType);  // ºÎÈ° ¿äÃ»;
-	void 					ReqReBirth();						//! ºÎÈ° ¿äÃ».
-	void 					ReqLevelUp();						//! ·¾¾÷ ¿äÃ».
-	void 					ReqStatsUp( EMSTATS emStats );	//! ½ºÅÝ ºÐ¹è ¿äÃ».
+    HRESULT                 ReqResurrect(const EMRESURRECTION_TYPE _resurrectType);  // ï¿½ï¿½È° ï¿½ï¿½Ã»;
+	void 					ReqReBirth();						//! ï¿½ï¿½È° ï¿½ï¿½Ã».
+	void 					ReqLevelUp();						//! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã».
+	void 					ReqStatsUp( EMSTATS emStats );	//! ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¹ï¿½ ï¿½ï¿½Ã».
 	void					ReqStatsUp(WORD* emStatsArray); 
 public:
 	HRESULT 				SetVehicle( bool bActive );
-	HRESULT 				ReqSetVehicle( bool bActive );	// Å»°Í È°¼ºÈ­/ºñÈ°¼ºÈ­
-	HRESULT 				ReqVehicleUpdate(); // Å»°Í ÀåÂø½Ã Á¤º¸ ¿äÃ»
-	void					ReqVehicleChangeAccessory( EMSUIT emSUIT ); // Å»°Í ÀåÂø ¾ÆÀÌÅÛ ±³Ã¼
-	void					ReqVehicleRemoveSlotItem( EMSUIT emSUIT );	 // Å»°Í ÀåÂø ¾ÆÀÌÅÛ ÇØÁ¦
-	void					ReqVehicleGiveBattery(WORD wPosX, WORD wPosY);	// Å»°Í ¿¬·á Ã¤¿ì±â
-	void					ReqVehicleInvenUpdate();	// Å»°Í Á¤º¸ ¿äÃ»
+	HRESULT 				ReqSetVehicle( bool bActive );	// Å»ï¿½ï¿½ È°ï¿½ï¿½È­/ï¿½ï¿½È°ï¿½ï¿½È­
+	HRESULT 				ReqVehicleUpdate(); // Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
+	void					ReqVehicleChangeAccessory( EMSUIT emSUIT ); // Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	void					ReqVehicleRemoveSlotItem( EMSUIT emSUIT );	 // Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	void					ReqVehicleGiveBattery(WORD wPosX, WORD wPosY);	// Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½
+	void					ReqVehicleInvenUpdate();	// Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 
 	void					UseBikeBoost();
 
 public:
-	void					ReqItemShopOpen( bool bOpen );		// ItemShop Open/Close Åëº¸
+	void					ReqItemShopOpen( bool bOpen );		// ItemShop Open/Close ï¿½ëº¸
 
 public:
-	HRESULT 				ReqSkillHoldReset( SNATIVEID& sSkillID, WORD wSlot ); // ¹öÇÁ/µµ½Ã¶ô Á¦°Å ¿äÃ»
+	HRESULT 				ReqSkillHoldReset( SNATIVEID& sSkillID, WORD wSlot ); // ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½Ã¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 	void					ReqSkillHoldResetForWidget( DWORD dwID, WORD wSlot );
 
-	// ¼±ÅÃ»óÀÚ °ü·Ã ;
+	// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ;
 private:
 	INT		m_nSelFormBoxPosX;
 	INT		m_nSelFormBoxPosY;
 public:
-	//! ¼±ÅÃ»óÀÚ ¿­±â;
+	//! ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	HRESULT SelectiveformBoxOpen(WORD wPosX, WORD wPosY);
-	//! ¼±ÅÃ»óÀÚ ¾ÆÀÌÅÛ ¼±ÅÃ;
+	//! ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	HRESULT ReqSelformBoxSelect(WORD wSelItemPos);
 	void	MsgSelformBoxSelectOpenFb(NET_MSG_GENERIC* pMsg);
 
@@ -1840,9 +1851,9 @@ protected:
 	BOOL					IsExceedSkillHitFrameOfLast();
 	BOOL					SkillProc( float fElapsedTime );
 
-	// ½ºÅ³ ½ÃÀü ½Ã ½ºÅ³¿¡ ¼û°ÜÁø ¹«±â°¡ ÀÖÀ» °æ¿ì ¹«±â¸¦ ¼¼ÆÃÇÏ°í;
-	// ½ºÅ³ ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³­ ÈÄ Áö¿î´Ù;
-	// ±Ø°­ºÎ¿ëÀ¸·Î ¾²ÀÓ;
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½;
+	// ï¿½ï¿½Å³ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½;
+	// ï¿½Ø°ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	void					SetHiddenWeaponPiece();
 	void					ResetHiddenWeaponPiece();
 
@@ -1859,7 +1870,7 @@ private:
 	virtual void			SetAction(const EMACTIONTYPE emAction);
 
 protected:
-	//! ¹üÀ§ ½ºÅ³°ü·Ã Á¤º¸
+	//! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	const bool SkillActivationInfoFanwise( IN const SKILLID& sSkillID, 
 		IN const D3DXVECTOR3& vFromPt,
 		IN const D3DXVECTOR3& vTargetPt,
@@ -1890,9 +1901,9 @@ public:
 	void ReservedActionUpdate( float fTime );
 	void DoReaction( float fTime, IN OUT GLREACTION& sReaction );
 	void PreservedReaction( IN const GLREACTION& InReaction );
-	GLREACTION_ITER BeginReservedSkillReaction(); // ¿¹¾à½ºÅ³ÀÇ Ã¹ ¹Ýº¹ÀÚ
-	GLREACTION_ITER NextReservedSkillReaction( GLREACTION_ITER iterWhere ); // ´ÙÀ½ ¿¹¾à½ºÅ³ÀÇ ¹Ýº¹ÀÚ
-	GLREACTION_ITER EndReactionIter(); // ¸®¾×¼ÇÀÇ end
+	GLREACTION_ITER BeginReservedSkillReaction(); // ï¿½ï¿½ï¿½à½ºÅ³ï¿½ï¿½ Ã¹ ï¿½Ýºï¿½ï¿½ï¿½
+	GLREACTION_ITER NextReservedSkillReaction( GLREACTION_ITER iterWhere ); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½à½ºÅ³ï¿½ï¿½ ï¿½Ýºï¿½ï¿½ï¿½
+	GLREACTION_ITER EndReactionIter(); // ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ end
 
 public:
 	void ReqPickupNearItem();
@@ -1929,7 +1940,7 @@ public:
 	void AutoArmSwap();
 
 public:
-	// °Ë»çÇÒ ¼¼Æ® ¾ÆÀÌµð, ¼¼Æ® È¿°ú¸¦ ¹Þ±âÀ§ÇÑ ÃÖ¼Ò °³¼ö, ÇØ´ç ¾ÆÀÌÅÛ ÀåÂø °³¼ö;
+	// ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½, ï¿½ï¿½Æ® È¿ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	BOOL GetSetitemEquipInfo(const DWORD dwSetID, OUT DWORD& dwEffectMinTermCount, OUT DWORD& dwEquipCount);
 
 public:
@@ -1938,7 +1949,7 @@ public:
 	HRESULT SkinLoadForTool( LPDIRECT3DDEVICEQ pd3dDevice, const char* szFile );
 	void	DeleteSkin();
 
-	// ¸ÊÀ» ÀÌµ¿ÇÏ´Â °ÍÀÌ´Ï ¸Ê ÂüÁ¶°ªÀ» ÁÙÀÌ´Â ¹æÇâÀ¸·Î °£´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	void LandShredPtrRefSub();
 
 public:
@@ -1956,9 +1967,9 @@ public:
 	void	EventCalculate();
 	void	VietnamCalculate();
 
-	// Å¬¶óÀÌ¾ðÆ®¿¡¼­ ÀÚÃ¼ÀûÀ¸·Î »èÁ¦ÇÒ ÀÏÀº ¾ø´Ù;
+	// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
     //void	DisableDebuffSkillFact();
-	// ÁöÇü È¿°ú ¾÷µ¥ÀÌÆ®
+	// ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	void	UpdateLandEffect();
 	void	UpdateMapEffect();
 
@@ -1970,8 +1981,8 @@ public:
 	void UpdateGeneralEffect();
 
 public:
-	// ¼¼¼ÇÀÌ À¯È¿ÇÏÁö ¾ÊÀº °æ¿ì ¿©±â¼­ Ã³¸®ÇØ ÁØ´Ù;
-	// °èÁ¤ µ¿½Ã Á¢¼ÓÇÏ¿© ¼­¹ö¿Í ¿¬°á ²÷À» °æ¿ì;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½;
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½;
 	void OffLine();
 
 public:
@@ -2005,13 +2016,13 @@ public:
     void CallbackVehicleColorUpdate  ( const UI::SPANNELGROUPINFOARRAY&           InPannelGroupInfoArray  );
     void CallbackVehicleColorCommit  ( const UI::SPANNELGROUPINFOARRAY&           InPannelGroupInfoArray  );
 
-	// »ö»óº¯°æ Ä«µå »ç¿ë½Ã Å¸ÀÔ¿¡ µû¶ó ÅØ½ºÆ® º¯°æ;
+	// ï¿½ï¿½ï¿½óº¯°ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½;
 	bool VehicleColorChangeTextInit( std::vector<UI::SCOLORPANNELGROUP_INFO>& OutPannelGroupInfoArray );
 
 protected:
-	// ±âÁ¸ ¼ÒÈ¯¼ö ½½·Ô °»½Å½Ã ¸Å¹ø ¾÷µ¥ÀÌÆ®¿¡¼­ Ã¼Å©ÇÑ´Ù;
-	// ¾÷µ¥ÀÌÆ®¿¡¼­ Ã¼Å©ÇÏÁö¾Ê°í ½½·Ô º¯È­->ÆÐ½ÃºêÃ¼Å© ÈÄ;
-	// ½½·ÔÀÌ °»½ÅµÇµµ·ÏÇÏ±âÀ§ÇÔ;
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å½ï¿½ ï¿½Å¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ï¿½ï¿½ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­->ï¿½Ð½Ãºï¿½Ã¼Å© ï¿½ï¿½;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÅµÇµï¿½ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½;
 	void SummonStateVisibleUpdate(void) override;
 
 public:
@@ -2263,24 +2274,24 @@ public:
     void MsgPMarketDisItemFb(NET_MSG_GENERIC* pMsg);
     void MsgRecoveryNpcFb(NET_MSG_GENERIC* pMsg);
 
-	// ¹«ÇÑÀÇ Àç´Ü ºô¸µ ¾ÆÀÌÅÛ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void MsgReqEnterNumChargeFb(NET_MSG_GENERIC* pMsg);
 
-    // Àç¸ÅÀÔ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½
     void MsgAddRebuyItem(NET_MSG_GENERIC* pMsg);
     void MsgBuyRebuyItem(NET_MSG_GENERIC* pMsg);
     void MsgCheckRebuySupplies(NET_MSG_GENERIC* pMsg);
 	
-	//°³ÀÎ»óÁ¡°Ë»ö
+	//ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ë»ï¿½
 	void MsgPrivateMarketSearch(NET_MSG_GENERIC* pMsg);
 
-	//Rnattendance RnÃâ¼®ºÎ
+	//Rnattendance Rnï¿½â¼®ï¿½ï¿½
 	void MsgProcessRnattendance(NET_MSG_GENERIC* nmg);
 	
-	//! Ãâ¼®ºÎ Äù½ºÆ® ½ÃÀÛ.
+	//! ï¿½â¼®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½.
 	HRESULT ReqAttendanceQuestStart( DWORD dwQUESTID );
 
-	//!  ½ºÅ³ ÄðÅ¸ÀÓ ( µ¿±âÈ­ )
+	//!  ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ ( ï¿½ï¿½ï¿½ï¿½È­ )
 	void MsgSkillDelay(NET_MSG_GENERIC* pMsg);
 	void MsgExchangeItemNpc(NET_MSG_GENERIC* pMsg);
 
@@ -2291,19 +2302,19 @@ public:
 
 	void MsgJumpingLevelUpFb(NET_MSG_GENERIC* pMsg);
 
-	// °æÇèÄ¡ ¾ÐÃà / Ä¸½¶
+	// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ / Ä¸ï¿½ï¿½
 	void MsgExpCompressorAns(NET_MSG_GENERIC* pMsg);
 	void MsgExpCapsuleAns(NET_MSG_GENERIC* pMsg);
 
 	void MsgForceresetSkillStatFC ( NET_MSG_GENERIC* pMsg );
 
-	// ¾ÆÀÌÅÛ ½ºÅ³ º¯°æ;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½;
 	void MsgInvenChangeItemSkillFB ( NET_MSG_GENERIC* _pNetMsg );
 
-	// ¾ÆÀÌÅÛ ±âº»´É·ÂÄ¡ º¯°æ;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½;
 	void MsgInvenChangeBasicStatsFB ( NET_MSG_GENERIC* _pNetMsg );
 
-	// ¾ÆÀÌÅÛ °¡»ê´É·ÂÄ¡ º¯°æ;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½;
 	void MsgInvenChangeAddStatsFB ( NET_MSG_GENERIC* _pNetMsg );
 	void MsgTutorialAck ( NET_MSG_GENERIC* _pNetMsg );
 	void MsgCharLockFB ( NET_MSG_GENERIC* _pNetMsg );

@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// ÇÑ±¹¾î resources
+// ï¿½Ñ±ï¿½ï¿½ï¿½ resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 #ifdef _WIN32
@@ -48,8 +48,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
     "LANGUAGE 18, 1\r\n"
     "#pragma code_page(949)\r\n"
-    "#include ""res\\RanOnlienInstaller.rc2""  // Microsoft Visual C++¿¡¼­ ÆíÁýµÇÁö ¾ÊÀº ¸®¼Ò½º\r\n"
-    "#include ""afxres.rc""         // Ç¥ÁØ ±¸¼º ¿ä¼Ò\r\n"
+    "#include ""res\\RanOnlienInstaller.rc2""  // Microsoft Visual C++ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½\r\n"
+    "#include ""afxres.rc""         // Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -75,30 +75,30 @@ IDD_DOWNLOADDLG DIALOGEX 0, 0, 294, 219
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "RanOnline Downloader"
-FONT 10, "µ¸¿ò", 700, 0, 0x81
+FONT 10, "ï¿½ï¿½ï¿½ï¿½", 700, 0, 0x81
 BEGIN
-    PUSHBUTTON      "½Ç  Çà",IDC_EXECUTE_BUTTON,15,190,62,15,BS_CENTER | 
+    PUSHBUTTON      "ï¿½ï¿½  ï¿½ï¿½",IDC_EXECUTE_BUTTON,15,190,62,15,BS_CENTER | 
                     BS_VCENTER | BS_FLAT,WS_EX_TRANSPARENT
-    PUSHBUTTON      "½Ã  ÀÛ",IDC_START_BUTTON,114,190,62,15,BS_CENTER | 
+    PUSHBUTTON      "ï¿½ï¿½  ï¿½ï¿½",IDC_START_BUTTON,114,190,62,15,BS_CENTER | 
                     BS_VCENTER | BS_FLAT,WS_EX_TRANSPARENT
-    PUSHBUTTON      "´Ý  ±â",IDC_CLOSE_BUTTON,213,190,61,15,BS_CENTER | 
+    PUSHBUTTON      "ï¿½ï¿½  ï¿½ï¿½",IDC_CLOSE_BUTTON,213,190,61,15,BS_CENTER | 
                     BS_VCENTER | BS_FLAT,WS_EX_TRANSPARENT
-    CONTROL         "´Ù¿î ¿Ï·áÈÄ ¹Ù·Î ½ÇÇà",IDC_READYTOSTART,"Button",
+    CONTROL         "ï¿½Ù¿ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½",IDC_READYTOSTART,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,15,171,99,9,
                     WS_EX_TRANSPARENT
     CONTROL         "",IDC_PROGRESS_ALL,"msctls_progress32",0x1,15,155,262,9,
                     WS_EX_TRANSPARENT
-    LTEXT           "Àü¼Û¼Óµµ ",IDC_STATIC,15,139,50,9,0,WS_EX_TRANSPARENT
-    LTEXT           "´Ù¿î·Îµå À§Ä¡",IDC_STATIC,15,123,50,9,0,
+    LTEXT           "ï¿½ï¿½ï¿½Û¼Óµï¿½ ",IDC_STATIC,15,139,50,9,0,WS_EX_TRANSPARENT
+    LTEXT           "ï¿½Ù¿ï¿½Îµï¿½ ï¿½ï¿½Ä¡",IDC_STATIC,15,123,50,9,0,
                     WS_EX_TRANSPARENT
-    LTEXT           "ÁøÇà»óÅÂ",IDC_STATIC,15,107,37,9
+    LTEXT           "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",IDC_STATIC,15,107,37,9
     CONTROL         "0 MB / 0 MB",IDC_STATE_STATIC,"Static",
                     SS_LEFTNOWORDWRAP | WS_GROUP,81,107,199,9,
                     WS_EX_TRANSPARENT
-    CONTROL         "³»¹®¼­//",IDC_DOWNPLACE_STATIC,"Static",
+    CONTROL         "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½//",IDC_DOWNPLACE_STATIC,"Static",
                     SS_LEFTNOWORDWRAP | SS_ENDELLIPSIS | WS_GROUP,81,123,197,
                     9,WS_EX_TRANSPARENT
-    CONTROL         "0 KB / ÃÊ",IDC_SPEED_STATIC,"Static",SS_LEFTNOWORDWRAP | 
+    CONTROL         "0 KB / ï¿½ï¿½",IDC_SPEED_STATIC,"Static",SS_LEFTNOWORDWRAP | 
                     WS_GROUP,81,139,198,9,WS_EX_TRANSPARENT
     CONTROL         129,IDC_IMAGE_STATIC,"Static",SS_BITMAP | SS_CENTERIMAGE | 
                     WS_BORDER,7,7,280,91
@@ -127,19 +127,19 @@ BEGIN
     BEGIN
         BLOCK "041203b5"
         BEGIN
-            VALUE "CompanyName", "TODO: <È¸»ç ÀÌ¸§>"
-            VALUE "FileDescription", "TODO: <ÆÄÀÏ ¼³¸í>"
+            VALUE "CompanyName", "Jyê¸°ìˆ íŒ€"
+            VALUE "FileDescription", "RanOnline Installer"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "RanOnlienInstaller.exe"
-            VALUE "LegalCopyright", "TODO: (c) <È¸»ç ÀÌ¸§>.  All rights reserved."
+            VALUE "LegalCopyright", "(c) Jyê¸°ìˆ íŒ€.  All rights reserved."
             VALUE "OriginalFilename", "RanOnlienInstaller.exe"
-            VALUE "ProductName", "TODO: <Á¦Ç° ÀÌ¸§>"
+            VALUE "ProductName", "RanOnlineInstaller"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
     BLOCK "VarFileInfo"
     BEGIN
-        VALUE "º¯È¯", 0x412, 949
+        VALUE "ï¿½ï¿½È¯", 0x412, 949
     END
 END
 
@@ -169,7 +169,7 @@ END
 //
 
 IDB_BACK_BITMAP         BITMAP                  "RanDownImage.bmp"
-#endif    // ÇÑ±¹¾î resources
+#endif    // ï¿½Ñ±ï¿½ï¿½ï¿½ resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -187,8 +187,8 @@ IDB_BACK_BITMAP         BITMAP                  "RanDownImage.bmp"
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 LANGUAGE 18, 1
 #pragma code_page(949)
-#include "res\RanOnlienInstaller.rc2"  // Microsoft Visual C++¿¡¼­ ÆíÁýµÇÁö ¾ÊÀº ¸®¼Ò½º
-#include "afxres.rc"         // Ç¥ÁØ ±¸¼º ¿ä¼Ò
+#include "res\RanOnlienInstaller.rc2"  // Microsoft Visual C++ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½
+#include "afxres.rc"         // Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

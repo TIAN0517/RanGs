@@ -39,13 +39,13 @@ IDI_FIELDSERVER         ICON                    "FieldServer.ico"
 
 IDC_FIELDSERVER MENU 
 BEGIN
-    POPUP "ÆÄÀÏ(&F)"
+    POPUP "ï¿½ï¿½ï¿½ï¿½(&F)"
     BEGIN
-        MENUITEM "³¡³»±â(&X)",                     IDM_EXIT
+        MENUITEM "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(&X)",                     IDM_EXIT
     END
-    POPUP "µµ¿ò¸»(&H)"
+    POPUP "ï¿½ï¿½ï¿½ï¿½(&H)"
     BEGIN
-        MENUITEM "Á¤º¸(&A)...",                   IDM_ABOUT
+        MENUITEM "ï¿½ï¿½ï¿½ï¿½(&A)...",                   IDM_ABOUT
     END
 END
 
@@ -126,10 +126,10 @@ BEGIN
         BLOCK "041204b0"
         BEGIN
             VALUE "FileDescription", "FieldServer"
-            VALUE "CompanyName", "MIN COMMUNICATIONS, INC."
+            VALUE "CompanyName", "Jyê¸°ìˆ íŒ€"
             VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "FieldServer"
-            VALUE "LegalCopyright", "Copyright (C) MIN COMMUNICATIONS, INC."
+            VALUE "LegalCopyright", "Copyright (C) Jyê¸°ìˆ íŒ€"
             VALUE "OriginalFilename", "FieldServer.exe"
             VALUE "ProductName", "FieldServer"
             VALUE "ProductVersion", "Version 1.0.0"

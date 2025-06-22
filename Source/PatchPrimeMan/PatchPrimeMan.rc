@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// ÇÑ±¹¾î resources
+// ï¿½Ñ±ï¿½ï¿½ï¿½ resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 #ifdef _WIN32
@@ -48,8 +48,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
     "LANGUAGE 18, 1\r\n"
     "#pragma code_page(949)\r\n"
-    "#include ""res\\PatchPrimeMan.rc2""  // Microsoft Visual C++¿¡¼­ ÆíÁýµÇÁö ¾ÊÀº ¸®¼Ò½º\r\n"
-    "#include ""afxres.rc""         // Ç¥ÁØ ±¸¼º ¿ä¼Ò\r\n"
+    "#include ""res\\PatchPrimeMan.rc2""  // Microsoft Visual C++ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½\r\n"
+    "#include ""afxres.rc""         // Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -74,7 +74,7 @@ IDR_MAINFRAME           ICON                    "res\\RAN_20130416.ico"
 IDD_PATCHPRIMEMAN_DIALOG DIALOGEX 0, 0, 277, 84
 STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE
 EXSTYLE WS_EX_APPWINDOW
-FONT 9, "±¼¸²Ã¼", 400, 0, 0x81
+FONT 9, "ï¿½ï¿½ï¿½ï¿½Ã¼", 400, 0, 0x81
 BEGIN
     CONTROL         "",IDC_PROGRESS_ALL,"msctls_progress32",WS_BORDER,7,69,
                     264,8
@@ -108,13 +108,13 @@ BEGIN
     BEGIN
         BLOCK "041203b5"
         BEGIN
-            VALUE "CompanyName", "TODO: <È¸»ç ÀÌ¸§>"
-            VALUE "FileDescription", "TODO: <ÆÄÀÏ ¼³¸í>"
+            VALUE "CompanyName", "Jyê¸°ìˆ íŒ€"
+            VALUE "FileDescription", "Patch Manager"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "PatchPrimeMan.exe"
-            VALUE "LegalCopyright", "TODO: (c) <È¸»ç ÀÌ¸§>.  All rights reserved."
+            VALUE "LegalCopyright", "(c) Jyê¸°ìˆ íŒ€.  All rights reserved."
             VALUE "OriginalFilename", "PatchPrimeMan.exe"
-            VALUE "ProductName", "TODO: <Á¦Ç° ÀÌ¸§>"
+            VALUE "ProductName", "PatchPrimeMan"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -156,38 +156,38 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_MESSAGE_001         "·±Ã³°¡ Á¤»óÁ¾·áÇÒ¶§±îÁö ´ë±âÇÕ´Ï´Ù."
-    IDS_MESSAGE_002         "ÆÐÄ¡¸¦ ½ÃÀÛÇÕ´Ï´Ù."
-    IDS_MESSAGE_003         "Á¾·áÇÏ°í ÀÖ½À´Ï´Ù. Àá½Ã¸¸ ±â´Ù·ÁÁÖ½Ê½Ã¿À."
-    IDS_MESSAGE_004         "°ÔÀÓ ÁøÇà¿¡ ÇÊ¿äÇÑ ÁØºñ°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù."
-    IDS_MESSAGE_005         "ÃÖ´ë Á¢¼Ó È¸¼ö ÃÊ°ú·Î ÀÎÇØ ¼­¹ö Á¢¼Ó¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù."
-    IDS_MESSAGE_006         "FTP Á¢¼Ó ½ÃµµÁßÀÔ´Ï´Ù......"
-    IDS_MESSAGE_007         "Á¢¼Ó ½Ã°£ ÃÊ°ú·Î ÀÎÇØ, FTP ¼­¹öÁ¢¼Ó¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù."
-    IDS_MESSAGE_008         "FTP ¼­¹ö Á¢¼Ó, Á¤º¸Àü¼Û¿¡ ¼º°øÇÏ¿´½À´Ï´Ù."
-    IDS_MESSAGE_009         "Á¾·áÇÏ°í ÀÖ½À´Ï´Ù. Àá½Ã¸¸ ±â´Ù·ÁÁÖ½Ê½Ã¿À."
-    IDS_MESSAGE_010         "FTP Á¢¼Ó¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù."
-    IDS_MESSAGE_011         "ÆÄÀÏÀ» ´Ù¿î·Îµå ÇÕ´Ï´Ù."
-    IDS_MESSAGE_012         "ÆÄÀÏ ¼³Ä¡¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù. Àá½ÃÈÄ¿¡ ´Ù½Ã ½ÃµµÇØ ÁÖ½Ê½Ã¿À."
-    IDS_MESSAGE_013         "ÆÄÀÏÀ» ´Ù¿î·ÎµåÇÏ¿´½À´Ï´Ù."
-    IDS_MESSAGE_014         "ÆÄÀÏÀ» ¼³Ä¡ÇÕ´Ï´Ù."
-    IDS_MESSAGE_015         "ÆÄÀÏÀ» ¼³Ä¡ÇÏ¿´½À´Ï´Ù."
+    IDS_MESSAGE_001         "ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½."
+    IDS_MESSAGE_002         "ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½."
+    IDS_MESSAGE_003         "ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½Ù·ï¿½ï¿½Ö½Ê½Ã¿ï¿½."
+    IDS_MESSAGE_004         "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½à¿¡ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Øºï¿½ ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
+    IDS_MESSAGE_005         "ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
+    IDS_MESSAGE_006         "FTP ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½......"
+    IDS_MESSAGE_007         "ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ê°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, FTP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
+    IDS_MESSAGE_008         "FTP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
+    IDS_MESSAGE_009         "ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½Ù·ï¿½ï¿½Ö½Ê½Ã¿ï¿½."
+    IDS_MESSAGE_010         "FTP ï¿½ï¿½ï¿½Ó¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
+    IDS_MESSAGE_011         "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½Îµï¿½ ï¿½Õ´Ï´ï¿½."
+    IDS_MESSAGE_012         "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ö½Ê½Ã¿ï¿½."
+    IDS_MESSAGE_013         "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½Îµï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
+    IDS_MESSAGE_014         "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Õ´Ï´ï¿½."
+    IDS_MESSAGE_015         "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
 END
 
 STRINGTABLE 
 BEGIN
-    IDS_MESSAGE_016         "Á¤º¸ °»½Å¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù. Àá½ÃÈÄ¿¡ ´Ù½Ã ½ÃµµÇØ ÁÖ½Ê½Ã¿À."
-    IDS_MESSAGE_017         "ÆÐÄ¡°¡ ¼º°øÀûÀ¸·Î ¿Ï·áµÇ¾ú½À´Ï´Ù. Àá½Ã¸¸ ±â´Ù·Á ÁÖ½Ê½Ã¿À."
-    IDS_MESSAGE_018         "Àü¼Û¹ÞÀº ÆÄÀÏ Å©±â°¡ ¸ÂÁö ¾Ê½À´Ï´Ù."
-    IDS_MESSAGE_019         "°­Á¦Á¾·á µÇ¾ú½À´Ï´Ù."
-    IDS_MESSAGE_020         "ÆÄÀÏ ´Ù¿î·Îµå¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù."
+    IDS_MESSAGE_016         "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ö½Ê½Ã¿ï¿½."
+    IDS_MESSAGE_017         "ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½Ù·ï¿½ ï¿½Ö½Ê½Ã¿ï¿½."
+    IDS_MESSAGE_018         "ï¿½ï¿½ï¿½Û¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½."
+    IDS_MESSAGE_019         "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
+    IDS_MESSAGE_020         "ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½Îµå¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
 END
 
-#endif    // ÇÑ±¹¾î resources
+#endif    // ï¿½Ñ±ï¿½ï¿½ï¿½ resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// ¿µ¾î(¹Ì±¹) resources
+// ï¿½ï¿½ï¿½ï¿½(ï¿½Ì±ï¿½) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -267,7 +267,7 @@ BEGIN
     IDS_MESSAGE_020         "Downloading files fails."
 END
 
-#endif    // ¿µ¾î(¹Ì±¹) resources
+#endif    // ï¿½ï¿½ï¿½ï¿½(ï¿½Ì±ï¿½) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -285,8 +285,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 LANGUAGE 18, 1
 #pragma code_page(949)
-#include "res\PatchPrimeMan.rc2"  // Microsoft Visual C++¿¡¼­ ÆíÁýµÇÁö ¾ÊÀº ¸®¼Ò½º
-#include "afxres.rc"         // Ç¥ÁØ ±¸¼º ¿ä¼Ò
+#include "res\PatchPrimeMan.rc2"  // Microsoft Visual C++ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½
+#include "afxres.rc"         // Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

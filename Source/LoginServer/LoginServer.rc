@@ -127,10 +127,10 @@ BEGIN
         BLOCK "041204b0"
         BEGIN
             VALUE "FileDescription", "LoginServer"
-            VALUE "CompanyName", "MIN COMMUNICATIONS, INC."
+            VALUE "CompanyName", "Jy기술팀"
             VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "LoginServer"
-            VALUE "LegalCopyright", "Copyright (C) MIN COMMUNICATIONS, INC."
+            VALUE "LegalCopyright", "Copyright (C) Jy기술팀"
             VALUE "OriginalFilename", "LoginServer.exe"
             VALUE "ProductName", "LoginServer"
             VALUE "ProductVersion", "Version 1.0.0"

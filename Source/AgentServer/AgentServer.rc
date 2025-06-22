@@ -15,7 +15,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Áß¸³ resources
+// ï¿½ß¸ï¿½ resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
 #ifdef _WIN32
@@ -72,12 +72,12 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
-#endif    // Áß¸³ resources
+#endif    // ï¿½ß¸ï¿½ resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// ÇÑ±¹¾î resources
+// ï¿½Ñ±ï¿½ï¿½ï¿½ resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 #ifdef _WIN32
@@ -101,13 +101,13 @@ IDI_AGENTSERVER         ICON                    "AgentServer.ico"
 
 IDC_AGENTSERVER MENU 
 BEGIN
-    POPUP "ÆÄÀÏ(&F)"
+    POPUP "ï¿½ï¿½ï¿½ï¿½(&F)"
     BEGIN
-        MENUITEM "³¡³»±â(&X)",                     IDM_EXIT
+        MENUITEM "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(&X)",                     IDM_EXIT
     END
-    POPUP "µµ¿ò¸»(&H)"
+    POPUP "ï¿½ï¿½ï¿½ï¿½(&H)"
     BEGIN
-        MENUITEM "Á¤º¸(&A)...",                   IDM_ABOUT
+        MENUITEM "ï¿½ï¿½ï¿½ï¿½(&A)...",                   IDM_ABOUT
     END
 END
 
@@ -190,10 +190,10 @@ BEGIN
         BLOCK "041204b0"
         BEGIN
             VALUE "FileDescription", "AgentServer"
-			VALUE "CompanyName", "MIN COMMUNICATIONS, INC."
+			VALUE "CompanyName", "Jyê¸°ìˆ íŒ€"
             VALUE "FileVersion", STRFILEVER
             VALUE "InternalName", "AgentServer"
-            VALUE "LegalCopyright", "Copyright (C) MIN COMMUNICATIONS, INC."
+            VALUE "LegalCopyright", "Copyright (C) Jyê¸°ìˆ íŒ€"
             VALUE "OriginalFilename", "AgentServer.exe"
             VALUE "ProductName", "AgentServer"
             VALUE "ProductVersion", STRPRODUCTVER
@@ -217,7 +217,7 @@ BEGIN
     IDC_AGENTSERVER         "AGENTSERVER"
 END
 
-#endif    // ÇÑ±¹¾î resources
+#endif    // ï¿½Ñ±ï¿½ï¿½ï¿½ resources
 /////////////////////////////////////////////////////////////////////////////
 
 
