@@ -421,6 +421,51 @@ public:
 	virtual void CreateUIWindowAndRegisterOwnership() = 0;
 };
 
+// 追殺令系統界面接口
+class IBountyUI
+{
+public:
+	virtual ~IBountyUI() {};
+
+public:
+	virtual void CreateUIWindowAndRegisterOwnership() = 0;
+	virtual void Open() = 0;
+	virtual void Close() = 0;
+	virtual void RefreshBountyList() = 0;
+	virtual void ShowCreateBountyDialog() = 0;
+	virtual void ShowBountyDetails(DWORD dwBountyID) = 0;
+	virtual void SwitchToTab(int nTabIndex) = 0;
+	virtual const UIRECT& GetGlobalPos() = 0;
+};
+
+class IBountyRankingUI
+{
+public:
+	virtual ~IBountyRankingUI() {};
+
+public:
+	virtual void CreateUIWindowAndRegisterOwnership() = 0;
+	virtual void Open() = 0;
+	virtual void Close() = 0;
+	virtual void UpdateRanking() = 0;
+	virtual void SetRankingType(int nType) = 0;
+};
+
+class IBountyGMInterface
+{
+public:
+	virtual ~IBountyGMInterface() {};
+
+public:
+	virtual void CreateUIWindowAndRegisterOwnership() = 0;
+	virtual void Open() = 0;
+	virtual void Close() = 0;
+	virtual void RefreshData() = 0;
+	virtual void ShowStatistics() = 0;
+	virtual BOOL GMCreateBounty() = 0;
+	virtual BOOL GMCancelBounty() = 0;
+};
+
 class IBasicChatWindow
 {
 public:
@@ -1799,6 +1844,9 @@ private:
 	IPartyDistributionWindow*	m_pPartyDistributionWindow;
 	IPartyDistributionListWindow*	m_pPartyDistributionListWindow;
 	IMiniExpeditionWindow*		m_pMiniExpeditionWindow;
+	IBountyUI*					m_pBountyUI;
+	IBountyRankingUI*			m_pBountyRankingUI;
+	IBountyGMInterface*			m_pBountyGMInterface;
     IBasicChatWindow*           m_pBasicChat;
     IChatOptionWindow*          m_pChatOptionWindow;
     IChatTypeList*              m_pChatTypeList;
@@ -2124,6 +2172,9 @@ public:
 		IPartyDistributionWindow*	GetPartyDistributionWindow()	{ return m_pPartyDistributionWindow; }
 		IPartyDistributionListWindow*	GetPartyDistributionListWindow()	{ return m_pPartyDistributionListWindow; }
 		IMiniExpeditionWindow*		GetMiniExpeditionWindow()		{ return m_pMiniExpeditionWindow; }
+		IBountyUI*					GetBountyUI()					{ return m_pBountyUI; }
+		IBountyRankingUI*			GetBountyRankingUI()			{ return m_pBountyRankingUI; }
+		IBountyGMInterface*			GetBountyGMInterface()			{ return m_pBountyGMInterface; }
         IBasicChatWindow*   	    GetBasicChatWindow()			{ return m_pBasicChat; }		
         IChatOptionWindow*		    GetChatOptionWindow()		{ return m_pChatOptionWindow; }
         IChatTypeList*	    	    GetChatTypeList()   				{ return m_pChatTypeList; }
